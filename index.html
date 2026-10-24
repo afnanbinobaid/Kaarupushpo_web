@@ -60,9 +60,9 @@
 </head>
 <body class="min-h-screen flex flex-col selection:bg-brand-pink selection:text-white">
 
-  <!-- Top Announcement Banner -->
+  <!-- Top Announcement Banner (Updated to 8mm) -->
   <div class="bg-brand-pink text-white text-xs sm:text-sm py-2 px-4 text-center font-medium tracking-wide">
-    ✨ 100% Handmade 6mm Fuzzy Wire Bouquets That Never Fade • Nationwide Delivery Across Bangladesh ✨
+    ✨ 100% Handmade 8mm Fuzzy Wire Bouquets That Never Fade • Nationwide Delivery Across Bangladesh ✨
   </div>
 
   <!-- Navigation Bar -->
@@ -98,20 +98,20 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (Updated to 8mm + Editable Right Showcase Photo) -->
   <section class="relative overflow-hidden bg-gradient-to-br from-brand-pinkLight via-brand-cream to-brand-sageLight border-b border-brand-pink/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 grid lg:grid-cols-12 gap-10 items-center">
       <div class="lg:col-span-7 space-y-6">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-pink/30 text-brand-terra text-xs font-semibold shadow-sm">
           <span>🌸 Handcrafted in Dhaka</span>
           <span>•</span>
-          <span>Everlasting Chenille Stem Art</span>
+          <span>Everlasting 8mm Chenille Stem Art</span>
         </div>
         <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-ink leading-tight">
           Flowers That Stay in <span class="text-brand-pink italic">Bloom Forever.</span>
         </h1>
         <p class="text-base sm:text-lg text-brand-ink/75 max-w-2xl leading-relaxed">
-          Every petal at <strong>Kaarupushpo</strong> is twisted by hand from plush 6mm fuzzy chenille stems. Pick a ready-made signature arrangement or build your own custom bouquet recipe and order seamlessly via WhatsApp.
+          Every petal at <strong>Kaarupushpo</strong> is twisted by hand from plush 8mm fuzzy chenille stems. Pick a ready-made signature arrangement or build your own custom bouquet recipe and order seamlessly via WhatsApp.
         </p>
         <div class="flex flex-wrap gap-3.5 pt-2">
           <a href="#catalog" class="px-6 py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-semibold text-sm shadow-md transition">
@@ -123,17 +123,15 @@
         </div>
       </div>
 
+      <!-- Editable Hero Showcase Card -->
       <div class="lg:col-span-5">
-        <div class="relative mx-auto max-w-md rounded-3xl bg-white p-4 shadow-xl border border-brand-pink/20">
-          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-brand-pink/20 via-brand-pinkLight to-brand-sage/25 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
-            <div class="text-6xl mb-3">💐</div>
-            <p class="font-heading text-xl font-bold text-brand-ink">Everlasting Handcrafted Keepsakes</p>
-            <p class="text-xs text-brand-ink/70 mt-1">Customizable stems, pastel wraps, fairy lights & handwritten notes</p>
-            <div class="mt-4 flex flex-wrap justify-center gap-2">
-              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-pinkDark">#D470A2 Signature Rose</span>
-              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-sageDark">#81B29A Sage Foliage</span>
-            </div>
-          </div>
+        <div class="relative mx-auto max-w-md rounded-3xl bg-white p-4 shadow-xl border border-brand-pink/20 group">
+          <!-- Quick Admin Edit Button Overlaid on Hero Card (Hidden from Public) -->
+          <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-6 right-6 z-20 items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-md hover:bg-brand-pinkDark transition">
+            📷 Change Hero Photo
+          </button>
+
+          <div id="heroShowcaseCardInner"></div>
         </div>
       </div>
     </div>
@@ -146,7 +144,7 @@
         <span class="text-xs uppercase tracking-widest text-brand-terra font-bold">Ready-to-Order Collection</span>
         <h2 class="font-heading text-3xl sm:text-4xl font-bold text-brand-ink mt-1">Signature Fuzzy Wire Creations</h2>
       </div>
-      <!-- Dynamic Category Filters (Rendered from storeData.categories) -->
+      <!-- Dynamic Category Filters -->
       <div id="categoryFilterBar" class="flex flex-wrap gap-2"></div>
     </div>
 
@@ -161,7 +159,7 @@
         <span class="px-3 py-1 rounded-full bg-brand-sage/20 text-brand-sageDark text-xs font-bold uppercase tracking-wider">Bespoke Studio</span>
         <h2 class="font-heading text-3xl sm:text-4xl font-bold text-brand-ink mt-2">Build Your Own Custom Bouquet</h2>
         <p class="text-sm sm:text-base text-brand-ink/75 mt-2">
-          Mix and match your favorite handmade fuzzy wire flowers, choose your color palette and wrapping style, and add it directly to your WhatsApp order.
+          Mix and match your favorite handmade 8mm fuzzy wire flowers, choose your color palette and wrapping style, and add it directly to your WhatsApp order.
         </p>
         <!-- Quick Owner Shortcut Button (Visible when Admin is unlocked) -->
         <button id="adminBuilderShortcutBtn" onclick="openAdminModal('builder')" class="hidden mt-4 mx-auto items-center gap-2 px-4 py-2 rounded-full bg-brand-terra text-white text-xs font-bold shadow-sm hover:opacity-95 transition">
@@ -254,7 +252,7 @@
       <div class="bg-white p-6 rounded-2xl border border-brand-pink/15 shadow-sm">
         <div class="w-10 h-10 rounded-full bg-brand-pinkLight text-brand-pinkDark font-bold flex items-center justify-center mb-4">1</div>
         <h3 class="font-heading text-lg font-bold">Pick or Customize</h3>
-        <p class="text-sm text-brand-ink/75 mt-1.5">Add ready-made bouquets from our catalog or craft your own stem combination in the Custom Builder.</p>
+        <p class="text-sm text-brand-ink/75 mt-1.5">Add ready-made bouquets from our catalog or craft your own 8mm stem combination in the Custom Builder.</p>
       </div>
       <div class="bg-white p-6 rounded-2xl border border-brand-pink/15 shadow-sm">
         <div class="w-10 h-10 rounded-full bg-brand-sageLight text-brand-sageDark font-bold flex items-center justify-center mb-4">2</div>
@@ -351,16 +349,16 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (v2.3 — Dynamic Categories + Full Custom Builder CRUD) -->
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.4 — Hero Photo + Dynamic Categories + Full Custom Builder) -->
   <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
     <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
       <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.3 — Categories & Builder Editor</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.4 — Hero Photo & Full Editor</span>
           </div>
-          <p class="text-xs text-white/70 mt-0.5">Add, Rename, or Delete Product Categories, Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
+          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
         </div>
         <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
@@ -368,7 +366,7 @@
       <!-- Admin Tabs -->
       <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
         <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
-          1. Categories & Ready-Made Products
+          1. Hero Photo, Categories & Products
         </button>
         <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           2. Custom Builder Items (Flowers, Wraps & Extras)
@@ -381,11 +379,52 @@
       <!-- Admin Tab Content -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
-        <!-- TAB 1: CATEGORIES & PRODUCTS -->
+        <!-- TAB 1: HERO SHOWCASE PHOTO + CATEGORIES + PRODUCTS -->
         <div id="adminTab-products" class="space-y-7">
 
-          <!-- 1A: Dynamic Product Categories Manager -->
-          <div class="space-y-3 bg-brand-pinkLight/50 p-4 rounded-2xl border border-brand-pink/25">
+          <!-- 1A: Hero Showcase Photo & Caption Editor -->
+          <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Top Banner Card</span>
+                <h4 class="font-heading font-bold text-sm sm:text-base text-brand-ink mt-1">🖼️ Hero Showcase Photo & Caption</h4>
+                <p class="text-xs text-brand-ink/70">Upload a featured bouquet photo from your phone/computer or paste an image link for the top right showcase card.</p>
+              </div>
+              <button type="button" onclick="clearHeroPhoto()" class="px-3 py-1.5 rounded-full bg-white border border-brand-pink/30 text-xs font-semibold text-brand-terra hover:bg-brand-pinkLight transition">
+                🔄 Reset to Default Card
+              </button>
+            </div>
+
+            <div class="grid sm:grid-cols-12 gap-4 items-center bg-white p-3.5 rounded-2xl border border-brand-pink/20">
+              <div class="sm:col-span-3 flex flex-col items-center">
+                <div id="adminHeroThumbBox" class="w-full aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden flex items-center justify-center text-3xl">
+                  💐
+                </div>
+                <label class="mt-2 px-3 py-1.5 rounded-full bg-brand-pink text-white text-xs font-bold cursor-pointer hover:bg-brand-pinkDark transition text-center w-full">
+                  📷 Upload Hero Photo
+                  <input type="file" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)" />
+                </label>
+              </div>
+
+              <div class="sm:col-span-9 grid sm:grid-cols-2 gap-3">
+                <div class="sm:col-span-2">
+                  <label class="block text-[11px] font-bold text-brand-ink/70 mb-1">Hero Photo URL (or use Upload button on the left)</label>
+                  <input type="text" id="adminHeroImageInput" onchange="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload a photo..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-cream" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70 mb-1">Card Heading</label>
+                  <input type="text" id="adminHeroTitleInput" oninput="updateHeroFieldsFromInputs()" placeholder="Everlasting Handcrafted Keepsakes" class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs font-bold bg-brand-cream" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70 mb-1">Card Subtitle</label>
+                  <input type="text" id="adminHeroSubtitleInput" oninput="updateHeroFieldsFromInputs()" placeholder="Customizable stems, pastel wraps, fairy lights & handwritten notes" class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-cream" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1B: Dynamic Product Categories Manager -->
+          <div class="space-y-3 bg-brand-pinkLight/40 p-4 rounded-2xl border border-brand-pink/25">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h4 class="font-heading font-bold text-sm text-brand-ink">🏷️ Manage Product Categories</h4>
@@ -398,7 +437,7 @@
             <div id="adminCategoriesList" class="grid sm:grid-cols-3 gap-2.5 pt-1"></div>
           </div>
 
-          <!-- 1B: Store Products Manager -->
+          <!-- 1C: Store Products Manager -->
           <div class="space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight p-4 rounded-2xl border border-brand-sage/30">
               <div>
@@ -499,10 +538,10 @@
           <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
-              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.3 Live Sync</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.4 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated categories, products, custom builder flowers, wraps, palettes, and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
@@ -552,7 +591,7 @@
 
   <script>
     // ==========================================
-    // 1. DEFAULT STORE DATA (With Dynamic Categories)
+    // 1. DEFAULT STORE DATA (With Hero Photo & 8mm Text)
     // ==========================================
     const DEFAULT_STORE_DATA = {
       lastUpdated: 0,
@@ -560,6 +599,9 @@
       deliveryInsideDhaka: 70,
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
+      heroImage: "",
+      heroTitle: "Everlasting Handcrafted Keepsakes",
+      heroSubtitle: "Customizable stems, pastel wraps, fairy lights & handwritten notes",
       categories: [
         "Bouquets",
         "Potted",
@@ -572,7 +614,7 @@
           category: "Bouquets",
           price: 650,
           badge: "Bestseller",
-          description: "7 handcrafted 6mm fuzzy wire tulips with sage eucalyptus leaves wrapped in frosted Korean paper.",
+          description: "7 handcrafted 8mm fuzzy wire tulips with sage eucalyptus leaves wrapped in frosted Korean paper.",
           image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
         },
         {
@@ -678,16 +720,24 @@
 
     function normalizeStoreData(raw) {
       const merged = { ...DEFAULT_STORE_DATA, ...raw };
+      if (typeof merged.heroImage !== "string") merged.heroImage = "";
+      if (!merged.heroTitle) merged.heroTitle = DEFAULT_STORE_DATA.heroTitle;
+      if (!merged.heroSubtitle) merged.heroSubtitle = DEFAULT_STORE_DATA.heroSubtitle;
+
       if (!Array.isArray(merged.products)) merged.products = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.products));
       if (!Array.isArray(merged.stems)) merged.stems = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.stems));
       if (!Array.isArray(merged.wraps) || !merged.wraps.length) merged.wraps = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.wraps));
       if (!Array.isArray(merged.palettes) || !merged.palettes.length) merged.palettes = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.palettes));
 
-      // Normalize dynamic categories & ensure any category used by existing products is included
       if (!Array.isArray(merged.categories) || !merged.categories.length) {
         merged.categories = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.categories));
       }
+
+      // Automatically upgrade any old "6mm" or "6 mm" text in product descriptions to "8mm"
       merged.products.forEach(p => {
+        if (p.description) {
+          p.description = p.description.replace(/6\s*mm/gi, "8mm");
+        }
         if (p.category && !merged.categories.includes(p.category)) {
           merged.categories.push(p.category);
         }
@@ -750,6 +800,7 @@
         promptAdminUnlock();
       }
 
+      renderHeroShowcase();
       renderCatalog();
       initCustomBuilderUI();
       renderCustomBuilder();
@@ -757,8 +808,40 @@
     }
 
     // ==========================================
-    // 3. PRODUCT CATALOG & DYNAMIC CATEGORY BAR
+    // 3. HERO SHOWCASE & PRODUCT CATALOG RENDERING
     // ==========================================
+    function renderHeroShowcase() {
+      const container = document.getElementById("heroShowcaseCardInner");
+      const title = storeData.heroTitle || DEFAULT_STORE_DATA.heroTitle;
+      const subtitle = storeData.heroSubtitle || DEFAULT_STORE_DATA.heroSubtitle;
+
+      if (storeData.heroImage && storeData.heroImage.trim() !== "") {
+        container.innerHTML = `
+          <div class="rounded-2xl overflow-hidden bg-brand-pinkLight">
+            <div class="aspect-[4/3] w-full overflow-hidden relative">
+              <img src="${escapeAttr(storeData.heroImage)}" alt="${escapeAttr(title)}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+            </div>
+            <div class="p-4 text-center bg-gradient-to-tr from-brand-pinkLight/70 via-white to-brand-sageLight/70 border-t border-brand-pink/15">
+              <p class="font-heading text-lg font-bold text-brand-ink">${escapeAttr(title)}</p>
+              <p class="text-xs text-brand-ink/70 mt-0.5">${escapeAttr(subtitle)}</p>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-brand-pink/20 via-brand-pinkLight to-brand-sage/25 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+            <div class="text-6xl mb-3">💐</div>
+            <p class="font-heading text-xl font-bold text-brand-ink">${escapeAttr(title)}</p>
+            <p class="text-xs text-brand-ink/70 mt-1">${escapeAttr(subtitle)}</p>
+            <div class="mt-4 flex flex-wrap justify-center gap-2">
+              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-pinkDark">#D470A2 Signature Rose</span>
+              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-sageDark">#81B29A Sage Foliage</span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
     function setCategoryFilterByIdx(idx) {
       if (idx === -1) {
         currentCategory = "All";
@@ -1051,7 +1134,7 @@
 
       cart.push({
         cartItemId: "custom-" + Date.now(),
-        name: "Custom Fuzzy Wire Bouquet",
+        name: "Custom 8mm Fuzzy Wire Bouquet",
         price: unitPrice,
         qty: 1,
         details: `${stemParts.join(", ")} | ${extrasArr.join(" • ")}`
@@ -1204,7 +1287,7 @@
     }
 
     // ==========================================
-    // 6. SECRET OWNER STUDIO & FULL CRUD (CATEGORIES + PRODUCTS + BUILDER)
+    // 6. SECRET OWNER STUDIO & FULL CRUD (HERO + CATEGORIES + PRODUCTS + BUILDER)
     // ==========================================
     function handleSecretFooterClick() {
       footerClickCount++;
@@ -1223,6 +1306,8 @@
         document.getElementById("adminNavBtn").classList.add("inline-flex");
         document.getElementById("adminBuilderShortcutBtn").classList.remove("hidden");
         document.getElementById("adminBuilderShortcutBtn").classList.add("inline-flex");
+        document.getElementById("adminHeroShortcutBtn").classList.remove("hidden");
+        document.getElementById("adminHeroShortcutBtn").classList.add("inline-flex");
         openAdminModal('products');
       } else if (entered !== null) {
         alert("Incorrect PIN.");
@@ -1257,6 +1342,7 @@
     function persistAndRefreshLiveUI() {
       storeData.lastUpdated = Date.now();
       localStorage.setItem("kp_store_data", JSON.stringify(storeData));
+      renderHeroShowcase();
       renderCatalog();
       initCustomBuilderUI();
       renderCustomBuilder();
@@ -1271,6 +1357,43 @@
       persistAndRefreshLiveUI();
     }
 
+    // --- Hero Showcase CRUD Helpers ---
+    function handleHeroImageUpload(event) {
+      compressAndAssignImage(event, dataUrl => {
+        storeData.heroImage = dataUrl;
+        persistAndRefreshLiveUI();
+        renderAdminInputs();
+        showToast("Hero showcase photo updated!");
+      }, 900);
+    }
+
+    function updateHeroFieldsFromInputs() {
+      storeData.heroImage = document.getElementById("adminHeroImageInput").value.trim();
+      storeData.heroTitle = document.getElementById("adminHeroTitleInput").value;
+      storeData.heroSubtitle = document.getElementById("adminHeroSubtitleInput").value;
+      persistAndRefreshLiveUI();
+      renderAdminHeroThumb();
+    }
+
+    function clearHeroPhoto() {
+      storeData.heroImage = "";
+      storeData.heroTitle = DEFAULT_STORE_DATA.heroTitle;
+      storeData.heroSubtitle = DEFAULT_STORE_DATA.heroSubtitle;
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Reset to default hero card!");
+    }
+
+    function renderAdminHeroThumb() {
+      const thumbBox = document.getElementById("adminHeroThumbBox");
+      if (!thumbBox) return;
+      if (storeData.heroImage && storeData.heroImage.trim() !== "") {
+        thumbBox.innerHTML = `<img src="${escapeAttr(storeData.heroImage)}" class="w-full h-full object-cover" />`;
+      } else {
+        thumbBox.innerHTML = `<span class="text-3xl">💐</span>`;
+      }
+    }
+
     // --- Dynamic Category CRUD Helpers ---
     function renameCategoryInline(idx, rawNewName) {
       const newName = rawNewName.trim();
@@ -1279,7 +1402,6 @@
       if (oldName === newName) return;
 
       storeData.categories[idx] = newName;
-      // Automatically update all products that belonged to oldName
       storeData.products.forEach(p => {
         if (p.category === oldName) p.category = newName;
       });
@@ -1312,7 +1434,6 @@
       storeData.categories.splice(idx, 1);
       const fallbackCat = storeData.categories[0];
 
-      // Reassign any products in the deleted category to the first available category
       storeData.products.forEach(p => {
         if (p.category === removedCat) p.category = fallbackCat;
       });
@@ -1336,7 +1457,13 @@
     }
 
     function renderAdminInputs() {
-      // 1A. Categories Manager List
+      // 1A. Hero Showcase Inputs
+      document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
+      document.getElementById("adminHeroTitleInput").value = storeData.heroTitle || DEFAULT_STORE_DATA.heroTitle;
+      document.getElementById("adminHeroSubtitleInput").value = storeData.heroSubtitle || DEFAULT_STORE_DATA.heroSubtitle;
+      renderAdminHeroThumb();
+
+      // 1B. Categories Manager List
       const catListEl = document.getElementById("adminCategoriesList");
       catListEl.innerHTML = storeData.categories.map((cat, idx) => `
         <div class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-brand-pink/30 shadow-2xs">
@@ -1357,7 +1484,7 @@
         </div>
       `).join("");
 
-      // 1B. Products List
+      // 1C. Products List
       const list = document.getElementById("adminProductsList");
       list.innerHTML = storeData.products.map((p, idx) => {
         const categoryOptionsHtml = storeData.categories.map(cat => `
@@ -1520,7 +1647,7 @@
         category: storeData.categories[0] || "Bouquets",
         price: 550,
         badge: "New",
-        description: "Handcrafted 6mm fuzzy wire arrangement.",
+        description: "Handcrafted 8mm fuzzy wire arrangement.",
         image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
       });
       persistAndRefreshLiveUI();
@@ -1660,7 +1787,7 @@
           canvas.width = w;
           canvas.height = h;
           canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          callback(canvas.toDataURL("image/jpeg", 0.82));
+          callback(canvas.toDataURL("image/jpeg", 0.84));
         };
         img.src = e.target.result;
       };
@@ -1711,7 +1838,7 @@
         const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
 
         const bodyPayload = {
-          message: "Update Kaarupushpo categories, catalog, and custom builder via Owner Studio v2.3",
+          message: "Update Kaarupushpo hero photo, categories, catalog, and custom builder via Owner Studio v2.4",
           content: base64Content,
           branch: branch
         };
@@ -1724,7 +1851,7 @@
         });
 
         if (putRes.ok) {
-          statusEl.textContent = "✅ Published live! store-data.json (including all Categories, Products & Custom Builder items) is now updated in your GitHub repository.";
+          statusEl.textContent = "✅ Published live! store-data.json (including Hero Photo, Categories, Products & Custom Builder) is now updated on GitHub.";
           showToast("Published live to GitHub!");
         } else {
           const errData = await putRes.json();
