@@ -1,5 +1,5 @@
 {
-  "lastUpdated": 1792868106575,
+  "lastUpdated": 1792869158357,
   "whatsappNumber": "8801784840845",
   "deliveryInsideDhaka": 80,
   "deliveryOutsideDhaka": 150,
@@ -69,72 +69,72 @@
   "stems": [
     {
       "id": "tulip",
-      "name": "Plush Tulip Stem",
+      "name": " Tulip Stem",
       "price": 95,
       "emoji": "🌷",
       "color": "#D470A2"
     },
     {
       "id": "rose",
-      "name": "Velvet Chenille Rose",
+      "name": " Rose",
       "price": 120,
-      "emoji": "🌹",
+      "emoji": "",
       "color": "#C84B76"
     },
     {
       "id": "sunflower",
-      "name": "Golden Sunflower",
+      "name": " Sunflower",
       "price": 160,
       "emoji": "🌻",
       "color": "#F4A261"
     },
     {
       "id": "lily",
-      "name": "Stargazer Lily",
+      "name": " Lily",
       "price": 170,
       "emoji": "🌺",
       "color": "#E07A9B"
     },
     {
       "id": "daisy",
-      "name": "Chamomile Daisy",
+      "name": " Daisy",
       "price": 75,
       "emoji": "🌼",
-      "color": "#F6BD60"
+      "color": "#b79e8a"
     },
     {
       "id": "lavender",
-      "name": "Lavender Sprig",
+      "name": "Hibiscus",
       "price": 65,
       "emoji": "🪻",
-      "color": "#9D8DF1"
+      "color": "#a2150b"
     },
     {
       "id": "eucalyptus",
-      "name": "Sage Eucalyptus Leaf",
+      "name": " Leaves and fillers",
       "price": 55,
       "emoji": "🌿",
-      "color": "#81B29A"
+      "color": "#266e0c"
     }
   ],
   "wraps": [
     {
       "id": "korean-pink",
-      "name": "Frosted Blush Korean Paper",
-      "price": 60,
-      "color": "#F9DCE8"
+      "name": "Newspaper wrapping",
+      "price": 80,
+      "color": "#f0c375"
     },
     {
       "id": "sage-matte",
-      "name": "Sage Green Matte Film",
+      "name": "",
       "price": 60,
       "color": "#D8ECE3"
     },
     {
       "id": "kraft-vintage",
-      "name": "Vintage Kraft & Lace",
-      "price": 50,
-      "color": "#EADBC8"
+      "name": "Baby Pink Wrapping",
+      "price": 60,
+      "color": "#f4cde0"
     },
     {
       "id": "luxury-black",
@@ -169,12 +169,12 @@
     {
       "id": "fairy-lights",
       "name": "✨ Warm LED Fairy Lights",
-      "price": 80,
+      "price": 100,
       "isLights": true
     },
     {
       "id": "mini-card",
-      "name": "💌 Handmade Mini Floral Card",
+      "name": "Special Note/Letter",
       "price": 50,
       "isLights": false
     }
