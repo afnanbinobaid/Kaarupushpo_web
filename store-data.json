@@ -1,10 +1,9 @@
 {
+  "lastUpdated": 1792861401789,
   "whatsappNumber": "8801784840845",
   "deliveryInsideDhaka": 70,
   "deliveryOutsideDhaka": 130,
-  "adminPin": "2026",
-  "addonFairyLightsPrice": 80,
-  "addonMiniCardPrice": 50,
+  "adminPin": "2829",
   "products": [
     {
       "id": "kp-1",
@@ -159,5 +158,21 @@
       "name": "Artist's Custom Mix",
       "hex": "#81B29A"
     }
-  ]
+  ],
+  "addons": [
+    {
+      "id": "fairy-lights",
+      "name": "✨ Warm LED Fairy Lights",
+      "price": 80,
+      "isLights": true
+    },
+    {
+      "id": "mini-card",
+      "name": "💌 Handmade Mini Floral Card",
+      "price": 50,
+      "isLights": false
+    }
+  ],
+  "addonFairyLightsPrice": 80,
+  "addonMiniCardPrice": 50
 }
