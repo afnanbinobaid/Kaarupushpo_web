@@ -65,7 +65,7 @@
     ✨ 100% Handmade 6mm Fuzzy Wire Bouquets That Never Fade • Nationwide Delivery Across Bangladesh ✨
   </div>
 
-  <!-- Navigation Bar (Clean Public View - No Admin Buttons Visible) -->
+  <!-- Navigation Bar -->
   <header class="sticky top-0 z-40 glass-nav border-b border-brand-pink/15">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5">
@@ -82,9 +82,9 @@
         <a href="#how-it-works" class="hover:text-brand-pink transition">How to Order</a>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <!-- Secret Admin Badge (Hidden unless unlocked by Owner) -->
-        <button id="adminNavBtn" onclick="openAdminModal()" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-terra text-white shadow-sm hover:opacity-95 transition">
+      <div class="flex items-center gap-2.5">
+        <!-- Secret Admin Buttons (Hidden unless unlocked by Owner) -->
+        <button id="adminNavBtn" onclick="openAdminModal('products')" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-terra text-white shadow-sm hover:opacity-95 transition">
           ⚙️ Owner Studio
         </button>
 
@@ -125,7 +125,7 @@
 
       <div class="lg:col-span-5">
         <div class="relative mx-auto max-w-md rounded-3xl bg-white p-4 shadow-xl border border-brand-pink/20">
-          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-brand-pink/20 via-brand-PinkLight to-brand-sage/25 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-brand-pink/20 via-brand-pinkLight to-brand-sage/25 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
             <div class="text-6xl mb-3">💐</div>
             <p class="font-heading text-xl font-bold text-brand-ink">Everlasting Handcrafted Keepsakes</p>
             <p class="text-xs text-brand-ink/70 mt-1">Customizable stems, pastel wraps, fairy lights & handwritten notes</p>
@@ -168,6 +168,10 @@
         <p class="text-sm sm:text-base text-brand-ink/75 mt-2">
           Mix and match your favorite handmade fuzzy wire flowers, choose your color palette and wrapping style, and add it directly to your WhatsApp order.
         </p>
+        <!-- Quick Owner Shortcut Button (Visible when Admin is unlocked) -->
+        <button id="adminBuilderShortcutBtn" onclick="openAdminModal('builder')" class="hidden mt-4 mx-auto items-center gap-2 px-4 py-2 rounded-full bg-brand-terra text-white text-xs font-bold shadow-sm hover:opacity-95 transition">
+          ✏️ Add / Edit / Delete Custom Builder Flowers, Wraps & Extras
+        </button>
       </div>
 
       <div class="grid lg:grid-cols-12 gap-8 items-start">
@@ -190,7 +194,7 @@
               <span id="customStemsSubtotal" class="font-semibold">৳0</span>
             </div>
             <div class="flex justify-between text-brand-ink/75">
-              <span>Wrapping & Extras</span>
+              <span>Wrapping & Add-ons</span>
               <span id="customExtrasSubtotal" class="font-semibold">৳0</span>
             </div>
             <div class="flex justify-between text-lg font-heading font-bold text-brand-ink pt-2 border-t border-brand-pink/15">
@@ -215,9 +219,9 @@
             <div id="stemPickerList" class="grid sm:grid-cols-2 gap-3.5"></div>
           </div>
 
-          <!-- Step 2: Color Palette & Wrapping -->
+          <!-- Step 2: Color Palette, Wrapping & Add-ons -->
           <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15 space-y-5">
-            <h3 class="font-heading text-xl font-bold text-brand-ink">2. Color Theme & Wrapping Paper</h3>
+            <h3 class="font-heading text-xl font-bold text-brand-ink">2. Color Theme, Wrapping & Extras</h3>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Petal Color Palette</label>
@@ -231,16 +235,7 @@
               </div>
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Ribbon & Add-ons</label>
-                <div class="space-y-2 text-sm">
-                  <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" id="addonFairyLights" onchange="renderCustomBuilder()" class="rounded text-brand-pink focus:ring-brand-pink" />
-                    <span>✨ Warm LED Fairy Lights (<span id="fairyLightsPriceLabel">+৳80</span>)</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" id="addonMiniCard" onchange="renderCustomBuilder()" class="rounded text-brand-pink focus:ring-brand-pink" />
-                    <span>💌 Handmade Mini Floral Card (<span id="miniCardPriceLabel">+৳50</span>)</span>
-                  </label>
-                </div>
+                <div id="addonsChecklist" class="space-y-2 text-sm"></div>
               </div>
             </div>
 
@@ -286,7 +281,7 @@
         <span class="text-xl">🌷</span>
         <span class="font-heading font-bold text-white text-lg">Kaarupushpo • কারুপুষ্প</span>
       </div>
-      <p id="secretFooterTrigger" onclick="handleSecretFooterClick()" class="text-xs text-white/60 select-none cursor-pointer hover:text-white/80 transition" title="Kaarupushpo Handcrafted Floral Studio">
+      <p id="secretFooterTrigger" onclick="handleSecretFooterClick()" class="text-xs text-white/60 select-none cursor-pointer hover:text-white/80 transition" title="Click 5 times to open Owner Studio">
         © 2026 Kaarupushpo. Handcrafted with love in Dhaka, Bangladesh.
       </p>
     </div>
@@ -304,10 +299,8 @@
     </div>
 
     <div class="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar">
-      <!-- Cart Items -->
       <div id="cartItemsList" class="space-y-3"></div>
 
-      <!-- Customer Delivery Form -->
       <div id="checkoutFormSection" class="pt-4 border-t border-brand-pink/15 space-y-3.5">
         <h4 class="font-heading font-bold text-base text-brand-ink">Delivery Details</h4>
         <div>
@@ -336,7 +329,6 @@
       </div>
     </div>
 
-    <!-- Totals & WhatsApp Order Button -->
     <div class="p-5 border-t border-brand-pink/15 bg-brand-cream space-y-3">
       <div class="space-y-1 text-sm">
         <div class="flex justify-between text-brand-ink/75">
@@ -364,93 +356,147 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (Only Accessible via Secret Trigger + PIN) -->
-  <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 backdrop-blur-xs">
-    <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
-      <div class="p-5 bg-brand-ink text-white flex items-center justify-between">
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.2 — Full Custom Builder CRUD) -->
+  <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
+    <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
+      <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
-          <h3 class="font-heading text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-          <p class="text-xs text-white/70">Manage Product Photos, Prices, Stem Rates & Live GitHub Sync</p>
+          <div class="flex items-center gap-2">
+            <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.2 — Full Builder Editor</span>
+          </div>
+          <p class="text-xs text-white/70 mt-0.5">Add, Edit, or Delete Store Products, Custom Flowers, Wraps, Palettes, Add-ons & Live GitHub Sync</p>
         </div>
-        <button onclick="closeAdminModal()" class="px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold">Close ✕</button>
+        <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
 
       <!-- Admin Tabs -->
-      <div class="flex border-b border-brand-pink/20 bg-brand-pinkLight/40 px-5 pt-3 gap-2 text-xs font-bold">
-        <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">1. Products & Photos</button>
-        <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">2. Custom Builder Prices</button>
-        <button onclick="switchAdminTab('github')" id="tabBtn-github" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">3. WhatsApp & GitHub Live Sync</button>
+      <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
+        <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
+          1. Ready-Made Products
+        </button>
+        <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
+          2. Custom Builder Items (Add / Edit / Delete Flowers & Wraps)
+        </button>
+        <button onclick="switchAdminTab('github')" id="tabBtn-github" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
+          3. WhatsApp & GitHub Live Sync
+        </button>
       </div>
 
       <!-- Admin Tab Content -->
-      <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+      <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
         <!-- TAB 1: PRODUCTS -->
         <div id="adminTab-products" class="space-y-5">
           <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight p-4 rounded-2xl border border-brand-sage/30">
             <div>
-              <h4 class="font-heading font-bold text-sm text-brand-ink">Add or Edit Store Products</h4>
-              <p class="text-xs text-brand-ink/70">Upload photos from your device (auto-compressed) or paste an image URL, and set prices in ৳.</p>
+              <h4 class="font-heading font-bold text-sm text-brand-ink">Add or Edit Ready-Made Store Products</h4>
+              <p class="text-xs text-brand-ink/70">Upload photos from your device or paste an image URL, and set prices in ৳.</p>
             </div>
-            <button onclick="addNewProductRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
+            <button type="button" onclick="addNewProductRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
               + Add New Product
             </button>
           </div>
           <div id="adminProductsList" class="space-y-4"></div>
         </div>
 
-        <!-- TAB 2: CUSTOM BUILDER RATES -->
-        <div id="adminTab-builder" class="hidden space-y-5">
-          <div class="bg-brand-pinkLight/50 p-4 rounded-2xl border border-brand-pink/20">
-            <h4 class="font-heading font-bold text-sm text-brand-ink">Fuzzy Wire Stem Prices (Per Stem in ৳)</h4>
-            <p class="text-xs text-brand-ink/70">Adjust individual stem prices for the Custom Bouquet Builder.</p>
-          </div>
-          <div id="adminStemsList" class="grid sm:grid-cols-2 gap-3"></div>
+        <!-- TAB 2: FULL CUSTOM BUILDER MANAGER (STEMS, WRAPS, PALETTES, ADDONS) -->
+        <div id="adminTab-builder" class="hidden space-y-8">
 
-          <div class="grid sm:grid-cols-2 gap-4 pt-4 border-t border-brand-pink/20">
-            <div>
-              <label class="block text-xs font-bold text-brand-ink/75 mb-1">Fairy Lights Add-on Price (৳)</label>
-              <input type="number" id="adminFairyPrice" onchange="updateAddonPrices()" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+          <!-- 2A: Flowers / Stems Manager -->
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-pinkLight/70 p-4 rounded-2xl border border-brand-pink/30">
+              <div>
+                <h4 class="font-heading font-bold text-sm text-brand-ink">🌸 1. Fuzzy Wire Flowers & Stems</h4>
+                <p class="text-xs text-brand-ink/70">Edit flower names, per-stem prices (৳), emojis, upload stem photos, or add/delete flowers.</p>
+              </div>
+              <button type="button" onclick="addNewStemRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
+                + Add New Flower / Stem
+              </button>
             </div>
-            <div>
-              <label class="block text-xs font-bold text-brand-ink/75 mb-1">Mini Floral Card Add-on Price (৳)</label>
-              <input type="number" id="adminCardPrice" onchange="updateAddonPrices()" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
-            </div>
+            <div id="adminStemsList" class="space-y-3"></div>
           </div>
+
+          <!-- 2B: Wrapping Papers Manager -->
+          <div class="space-y-3 pt-4 border-t border-brand-pink/20">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight/70 p-4 rounded-2xl border border-brand-sage/30">
+              <div>
+                <h4 class="font-heading font-bold text-sm text-brand-ink">🎀 2. Wrapping Paper Styles</h4>
+                <p class="text-xs text-brand-ink/70">Add, edit, or delete wrapping paper options and their preview colors.</p>
+              </div>
+              <button type="button" onclick="addNewWrapRow()" class="px-4 py-2 rounded-full bg-brand-sageDark text-white text-xs font-bold shadow-xs hover:opacity-90 transition">
+                + Add Wrapping Style
+              </button>
+            </div>
+            <div id="adminWrapsList" class="grid sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <!-- 2C: Petal Color Palettes Manager -->
+          <div class="space-y-3 pt-4 border-t border-brand-pink/20">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-cream p-4 rounded-2xl border border-brand-pink/25">
+              <div>
+                <h4 class="font-heading font-bold text-sm text-brand-ink">🎨 3. Petal Color Palettes</h4>
+                <p class="text-xs text-brand-ink/70">Add, rename, recolor, or remove bouquet color palettes.</p>
+              </div>
+              <button type="button" onclick="addNewPaletteRow()" class="px-4 py-2 rounded-full bg-brand-terra text-white text-xs font-bold shadow-xs hover:opacity-90 transition">
+                + Add Color Palette
+              </button>
+            </div>
+            <div id="adminPalettesList" class="grid sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <!-- 2D: Bouquet Add-ons / Extras Manager -->
+          <div class="space-y-3 pt-4 border-t border-brand-pink/20">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-pinkLight/40 p-4 rounded-2xl border border-brand-pink/20">
+              <div>
+                <h4 class="font-heading font-bold text-sm text-brand-ink">✨ 4. Bouquet Add-ons & Extras</h4>
+                <p class="text-xs text-brand-ink/70">Add, edit, or delete optional extras (Fairy Lights, Greeting Cards, Butterfly Clips, Ribbons).</p>
+              </div>
+              <button type="button" onclick="addNewAddonRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
+                + Add Extra / Add-on
+              </button>
+            </div>
+            <div id="adminAddonsList" class="grid sm:grid-cols-2 gap-3"></div>
+          </div>
+
         </div>
 
         <!-- TAB 3: WHATSAPP & GITHUB DIRECT SYNC -->
         <div id="adminTab-github" class="hidden space-y-6">
-          <div class="grid sm:grid-cols-3 gap-4 bg-brand-cream p-4 rounded-2xl border border-brand-pink/20">
+          <div class="grid sm:grid-cols-4 gap-4 bg-brand-cream p-4 rounded-2xl border border-brand-pink/20">
             <div>
               <label class="block text-xs font-bold text-brand-ink/80 mb-1">Official WhatsApp Number</label>
-              <input type="text" id="adminWhatsapp" placeholder="8801XXXXXXXXX" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
-              <span class="text-[11px] text-brand-ink/60">Include country code (880), no + sign</span>
+              <input type="text" id="adminWhatsapp" oninput="syncStoreSettingsFromInputs()" placeholder="8801XXXXXXXXX" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+              <span class="text-[11px] text-brand-ink/60">With 880, no + sign</span>
             </div>
             <div>
               <label class="block text-xs font-bold text-brand-ink/80 mb-1">Inside Dhaka Delivery (৳)</label>
-              <input type="number" id="adminDeliveryInside" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+              <input type="number" id="adminDeliveryInside" oninput="syncStoreSettingsFromInputs()" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
             </div>
             <div>
               <label class="block text-xs font-bold text-brand-ink/80 mb-1">Outside Dhaka Delivery (৳)</label>
-              <input type="number" id="adminDeliveryOutside" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+              <input type="number" id="adminDeliveryOutside" oninput="syncStoreSettingsFromInputs()" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-brand-ink/80 mb-1">Owner Studio PIN</label>
+              <input type="text" id="adminPinInput" oninput="syncStoreSettingsFromInputs()" placeholder="2026" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm font-bold text-brand-pinkDark" />
             </div>
           </div>
 
           <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
-              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">No Database Needed</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.2 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Enter your GitHub repository name and a Personal Access Token (with <code>repo</code> or <code>Contents: Read & Write</code> permission). Clicking <strong>"Publish Live to GitHub"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated photos and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-bold text-brand-ink/80 mb-1">GitHub Repository (username/repo)</label>
-                <input type="text" id="ghRepo" placeholder="e.g. afnan/kaarupushpo" class="w-full rounded-xl border border-brand-sage/50 px-3 py-2 text-sm bg-white" />
+                <input type="text" id="ghRepo" value="afnanbinobaid/Kaarupushpo_web" placeholder="afnanbinobaid/Kaarupushpo_web" class="w-full rounded-xl border border-brand-sage/50 px-3 py-2 text-sm bg-white" />
               </div>
               <div>
                 <label class="block text-xs font-bold text-brand-ink/80 mb-1">Branch Name</label>
@@ -464,10 +510,10 @@
             </div>
 
             <div class="flex flex-wrap gap-3 pt-1">
-              <button onclick="publishToGitHub()" id="publishGhBtn" class="px-5 py-2.5 rounded-full bg-brand-ink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-sm transition">
+              <button type="button" onclick="publishToGitHub()" id="publishGhBtn" class="px-5 py-2.5 rounded-full bg-brand-ink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-sm transition">
                 🚀 Publish Live to GitHub Now
               </button>
-              <button onclick="downloadStoreJson()" class="px-4 py-2.5 rounded-full bg-white border border-brand-ink/20 text-brand-ink text-xs font-semibold hover:bg-brand-pinkLight transition">
+              <button type="button" onclick="downloadStoreJson()" class="px-4 py-2.5 rounded-full bg-white border border-brand-ink/20 text-brand-ink text-xs font-semibold hover:bg-brand-pinkLight transition">
                 ⬇️ Download store-data.json
               </button>
             </div>
@@ -477,11 +523,13 @@
 
       </div>
 
-      <div class="p-4 bg-brand-cream border-t border-brand-pink/20 flex items-center justify-between">
-        <span class="text-xs text-brand-ink/65">Changes preview immediately on this device. Click "Publish Live to GitHub" to update for all customers.</span>
-        <button onclick="saveAdminChangesLocally()" class="px-5 py-2 rounded-full bg-brand-pink text-white text-xs font-bold hover:bg-brand-pinkDark transition">
-          💾 Save Changes
-        </button>
+      <div class="p-4 bg-brand-cream border-t border-brand-pink/20 flex flex-wrap items-center justify-between gap-3">
+        <span class="text-xs text-brand-ink/65">All edits auto-save on this device immediately. Click "Publish Live to GitHub Now" in Tab 3 to update for all customers.</span>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="saveAdminChangesLocally(true)" class="px-5 py-2 rounded-full bg-brand-pink text-white text-xs font-bold hover:bg-brand-pinkDark transition">
+            💾 Save & Refresh Preview
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -491,15 +539,14 @@
 
   <script>
     // ==========================================
-    // 1. DEFAULT STORE DATA (Fallback if store-data.json isn't in repo yet)
+    // 1. DEFAULT STORE DATA
     // ==========================================
     const DEFAULT_STORE_DATA = {
+      lastUpdated: 0,
       whatsappNumber: "8801700000000",
       deliveryInsideDhaka: 70,
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
-      addonFairyLightsPrice: 80,
-      addonMiniCardPrice: 50,
       products: [
         {
           id: "kp-1",
@@ -557,13 +604,13 @@
         }
       ],
       stems: [
-        { id: "tulip", name: "Plush Tulip Stem", price: 95, emoji: "🌷", color: "#D470A2" },
-        { id: "rose", name: "Velvet Chenille Rose", price: 120, emoji: "🌹", color: "#C84B76" },
-        { id: "sunflower", name: "Golden Sunflower", price: 160, emoji: "🌻", color: "#F4A261" },
-        { id: "lily", name: "Stargazer Lily", price: 170, emoji: "🌺", color: "#E07A9B" },
-        { id: "daisy", name: "Chamomile Daisy", price: 75, emoji: "🌼", color: "#F6BD60" },
-        { id: "lavender", name: "Lavender Sprig", price: 65, emoji: "🪻", color: "#9D8DF1" },
-        { id: "eucalyptus", name: "Sage Eucalyptus Leaf", price: 55, emoji: "🌿", color: "#81B29A" }
+        { id: "tulip", name: "Plush Tulip Stem", price: 95, emoji: "🌷", color: "#D470A2", image: "" },
+        { id: "rose", name: "Velvet Chenille Rose", price: 120, emoji: "🌹", color: "#C84B76", image: "" },
+        { id: "sunflower", name: "Golden Sunflower", price: 160, emoji: "🌻", color: "#F4A261", image: "" },
+        { id: "lily", name: "Stargazer Lily", price: 170, emoji: "🌺", color: "#E07A9B", image: "" },
+        { id: "daisy", name: "Chamomile Daisy", price: 75, emoji: "🌼", color: "#F6BD60", image: "" },
+        { id: "lavender", name: "Lavender Sprig", price: 65, emoji: "🪻", color: "#9D8DF1", image: "" },
+        { id: "eucalyptus", name: "Sage Eucalyptus Leaf", price: 55, emoji: "🌿", color: "#81B29A", image: "" }
       ],
       wraps: [
         { id: "korean-pink", name: "Frosted Blush Korean Paper", price: 60, color: "#F9DCE8" },
@@ -576,6 +623,10 @@
         { id: "pastel-lilac", name: "Pastel Lilac & Butter", hex: "#B8A1E3" },
         { id: "warm-sunset", name: "Sunflower Terracotta", hex: "#E07A5F" },
         { id: "custom-mix", name: "Artist's Custom Mix", hex: "#81B29A" }
+      ],
+      addons: [
+        { id: "fairy-lights", name: "✨ Warm LED Fairy Lights", price: 80, isLights: true },
+        { id: "mini-card", name: "💌 Handmade Mini Floral Card", price: 50, isLights: false }
       ]
     };
 
@@ -583,45 +634,89 @@
     let currentCategory = "All";
     let cart = [];
     let customSelection = {
-      stems: { tulip: 3, daisy: 2, eucalyptus: 2 },
-      palette: "Kaarupushpo Rose & Cream",
-      wrapId: "korean-pink"
+      stems: {},
+      palette: "",
+      wrapId: "",
+      addons: {}
     };
     let footerClickCount = 0;
     let footerClickTimer = null;
 
+    function escapeAttr(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function cleanGitHubRepoSlug(input) {
+      return String(input || "")
+        .trim()
+        .replace(/^https?:\/\/(www\.)?github\.com\//i, "")
+        .replace(/\.git$/i, "")
+        .replace(/^\/+|\/+$/g, "");
+    }
+
+    function normalizeStoreData(raw) {
+      const merged = { ...DEFAULT_STORE_DATA, ...raw };
+      if (!Array.isArray(merged.products)) merged.products = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.products));
+      if (!Array.isArray(merged.stems)) merged.stems = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.stems));
+      if (!Array.isArray(merged.wraps) || !merged.wraps.length) merged.wraps = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.wraps));
+      if (!Array.isArray(merged.palettes) || !merged.palettes.length) merged.palettes = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.palettes));
+
+      if (!Array.isArray(merged.addons)) {
+        merged.addons = [
+          { id: "fairy-lights", name: "✨ Warm LED Fairy Lights", price: Number(merged.addonFairyLightsPrice ?? 80), isLights: true },
+          { id: "mini-card", name: "💌 Handmade Mini Floral Card", price: Number(merged.addonMiniCardPrice ?? 50), isLights: false }
+        ];
+      }
+      return merged;
+    }
+
     // ==========================================
-    // 2. INITIALIZE & LOAD DYNAMIC store-data.json FROM GITHUB PAGES
+    // 2. INITIALIZE & LOAD DYNAMIC store-data.json
     // ==========================================
     async function initStore() {
-      // Load saved cart
       const savedCart = localStorage.getItem("kp_cart");
       if (savedCart) {
         try { cart = JSON.parse(savedCart); } catch (e) {}
       }
 
-      // Check local cached admin overrides first or fetch live store-data.json
+      let localData = null;
+      const localOverride = localStorage.getItem("kp_store_data");
+      if (localOverride) {
+        try { localData = JSON.parse(localOverride); } catch (e) {}
+      }
+
       try {
         const res = await fetch("./store-data.json?t=" + Date.now(), { cache: "no-store" });
         if (res.ok) {
           const remoteData = await res.json();
-          storeData = { ...DEFAULT_STORE_DATA, ...remoteData };
-        } else {
-          const localOverride = localStorage.getItem("kp_store_data");
-          if (localOverride) storeData = { ...DEFAULT_STORE_DATA, ...JSON.parse(localOverride) };
+          if (localData && Number(localData.lastUpdated || 0) > Number(remoteData.lastUpdated || 0)) {
+            storeData = normalizeStoreData(localData);
+          } else {
+            storeData = normalizeStoreData(remoteData);
+          }
+        } else if (localData) {
+          storeData = normalizeStoreData(localData);
         }
       } catch (err) {
-        const localOverride = localStorage.getItem("kp_store_data");
-        if (localOverride) storeData = { ...DEFAULT_STORE_DATA, ...JSON.parse(localOverride) };
+        if (localData) storeData = normalizeStoreData(localData);
       }
 
-      // Restore GitHub repo config if saved in owner browser
+      if (storeData.stems.length > 0 && Object.keys(customSelection.stems).length === 0) {
+        customSelection.stems[storeData.stems[0].id] = 3;
+        if (storeData.stems[1]) customSelection.stems[storeData.stems[1].id] = 2;
+      }
+      customSelection.palette = storeData.palettes[0]?.name || "Standard Palette";
+      customSelection.wrapId = storeData.wraps[0]?.id || "";
+
       const ghConfig = JSON.parse(localStorage.getItem("kp_gh_config") || "{}");
-      if (ghConfig.repo) document.getElementById("ghRepo").value = ghConfig.repo;
-      if (ghConfig.branch) document.getElementById("ghBranch").value = ghConfig.branch;
+      document.getElementById("ghRepo").value = cleanGitHubRepoSlug(ghConfig.repo || "afnanbinobaid/Kaarupushpo_web");
+      document.getElementById("ghBranch").value = ghConfig.branch || "main";
       if (ghConfig.token) document.getElementById("ghToken").value = ghConfig.token;
 
-      // Check if URL has ?admin=true
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get("admin") === "true") {
         promptAdminUnlock();
@@ -662,21 +757,21 @@
       grid.innerHTML = filtered.map(p => `
         <div class="bg-white rounded-3xl border border-brand-pink/15 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col group">
           <div class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
-            ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${p.badge}</span>` : ""}
-            <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${p.category}</span>
+            <img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.name)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
+            ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${escapeAttr(p.badge)}</span>` : ""}
+            <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${escapeAttr(p.category)}</span>
           </div>
           <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
             <div>
-              <h3 class="font-heading text-lg font-bold text-brand-ink">${p.name}</h3>
-              <p class="text-xs text-brand-ink/70 mt-1 line-clamp-2">${p.description || ""}</p>
+              <h3 class="font-heading text-lg font-bold text-brand-ink">${escapeAttr(p.name)}</h3>
+              <p class="text-xs text-brand-ink/70 mt-1 line-clamp-2">${escapeAttr(p.description || "")}</p>
             </div>
             <div class="flex items-center justify-between pt-3 border-t border-brand-pink/10">
               <div>
                 <span class="text-xs text-brand-ink/60 block">Price</span>
                 <span class="font-heading text-xl font-bold text-brand-pinkDark">৳${Number(p.price).toLocaleString()}</span>
               </div>
-              <button onclick="addProductToCart('${p.id}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
+              <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
                 + Add to Bag
               </button>
             </div>
@@ -689,67 +784,95 @@
     // 4. INTERACTIVE CUSTOM BOUQUET BUILDER
     // ==========================================
     function initCustomBuilderUI() {
-      // Populate Palette Options
+      if (!storeData.palettes.some(p => p.name === customSelection.palette)) {
+        customSelection.palette = storeData.palettes[0]?.name || "Custom Palette";
+      }
+      if (!storeData.wraps.some(w => w.id === customSelection.wrapId)) {
+        customSelection.wrapId = storeData.wraps[0]?.id || "";
+      }
+
       const palContainer = document.getElementById("paletteOptions");
-      palContainer.innerHTML = storeData.palettes.map(pal => `
-        <button type="button" onclick="selectPalette('${pal.name}')" class="palette-btn p-2.5 rounded-xl border text-left transition flex items-center gap-2 ${customSelection.palette === pal.name ? 'border-brand-pink bg-brand-pinkLight font-bold' : 'border-brand-pink/20 bg-white'}">
-          <span class="w-4 h-4 rounded-full shrink-0 border border-black/10" style="background:${pal.hex}"></span>
-          <span class="text-xs leading-tight">${pal.name}</span>
+      palContainer.innerHTML = storeData.palettes.map((pal, idx) => `
+        <button type="button" onclick="selectPaletteIndex(${idx})" class="palette-btn p-2.5 rounded-xl border text-left transition flex items-center gap-2 ${customSelection.palette === pal.name ? 'border-brand-pink bg-brand-pinkLight font-bold' : 'border-brand-pink/20 bg-white'}">
+          <span class="w-4 h-4 rounded-full shrink-0 border border-black/10" style="background:${escapeAttr(pal.hex)}"></span>
+          <span class="text-xs leading-tight">${escapeAttr(pal.name)}</span>
         </button>
       `).join("");
 
-      // Populate Wrap Select
       const wrapSelect = document.getElementById("wrapStyleSelect");
       wrapSelect.innerHTML = storeData.wraps.map(w => `
-        <option value="${w.id}" ${customSelection.wrapId === w.id ? 'selected' : ''}>${w.name} (+৳${w.price})</option>
+        <option value="${escapeAttr(w.id)}" ${customSelection.wrapId === w.id ? 'selected' : ''}>${escapeAttr(w.name)} (+৳${Number(w.price)})</option>
       `).join("");
 
-      document.getElementById("fairyLightsPriceLabel").textContent = `+৳${storeData.addonFairyLightsPrice}`;
-      document.getElementById("miniCardPriceLabel").textContent = `+৳${storeData.addonMiniCardPrice}`;
+      const addonsEl = document.getElementById("addonsChecklist");
+      if (!storeData.addons.length) {
+        addonsEl.innerHTML = `<p class="text-xs text-brand-ink/50">No extra add-ons configured.</p>`;
+      } else {
+        addonsEl.innerHTML = storeData.addons.map(a => `
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" ${customSelection.addons[a.id] ? 'checked' : ''} onchange="toggleCustomAddon('${escapeAttr(a.id)}', this.checked)" class="rounded text-brand-pink focus:ring-brand-pink" />
+            <span>${escapeAttr(a.name)} (<span class="font-semibold text-brand-pinkDark">+৳${Number(a.price)}</span>)</span>
+          </label>
+        `).join("");
+      }
     }
 
-    function selectPalette(name) {
-      customSelection.palette = name;
-      initCustomBuilderUI();
+    function selectPaletteIndex(idx) {
+      if (storeData.palettes[idx]) {
+        customSelection.palette = storeData.palettes[idx].name;
+        initCustomBuilderUI();
+        renderCustomBuilder();
+      }
+    }
+
+    function toggleCustomAddon(addonId, checked) {
+      customSelection.addons[addonId] = checked;
       renderCustomBuilder();
     }
 
     function adjustStemQty(stemId, delta) {
       const current = customSelection.stems[stemId] || 0;
-      const next = Math.max(0, Math.min(25, current + delta));
+      const next = Math.max(0, Math.min(30, current + delta));
       customSelection.stems[stemId] = next;
       renderCustomBuilder();
     }
 
     function resetCustomBuilder() {
       customSelection.stems = {};
+      customSelection.addons = {};
+      initCustomBuilderUI();
       renderCustomBuilder();
     }
 
     function renderCustomBuilder() {
-      // Render stem controls
       const stemList = document.getElementById("stemPickerList");
-      stemList.innerHTML = storeData.stems.map(s => {
-        const qty = customSelection.stems[s.id] || 0;
-        return `
-          <div class="flex items-center justify-between p-3 rounded-2xl border ${qty > 0 ? 'border-brand-pink bg-brand-pinkLight/40' : 'border-brand-pink/15 bg-brand-cream'}">
-            <div class="flex items-center gap-2.5">
-              <span class="text-2xl">${s.emoji}</span>
-              <div>
-                <p class="text-xs font-bold text-brand-ink">${s.name}</p>
-                <p class="text-xs text-brand-pinkDark font-semibold">৳${s.price} / stem</p>
+      if (!storeData.stems.length) {
+        stemList.innerHTML = `<div class="col-span-full text-xs text-brand-ink/60 py-4">No stems configured yet. Add flowers in the Owner Studio!</div>`;
+      } else {
+        stemList.innerHTML = storeData.stems.map(s => {
+          const qty = customSelection.stems[s.id] || 0;
+          const visualThumb = s.image
+            ? `<img src="${escapeAttr(s.image)}" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/20 shrink-0" />`
+            : `<span class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:${escapeAttr(s.color || '#D470A2')}22">${escapeAttr(s.emoji || '🌸')}</span>`;
+          return `
+            <div class="flex items-center justify-between p-3 rounded-2xl border ${qty > 0 ? 'border-brand-pink bg-brand-pinkLight/40' : 'border-brand-pink/15 bg-brand-cream'}">
+              <div class="flex items-center gap-2.5">
+                ${visualThumb}
+                <div>
+                  <p class="text-xs font-bold text-brand-ink">${escapeAttr(s.name)}</p>
+                  <p class="text-xs text-brand-pinkDark font-semibold">৳${Number(s.price)} / stem</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="adjustStemQty('${escapeAttr(s.id)}', -1)" class="w-7 h-7 rounded-full bg-white border border-brand-pink/30 font-bold text-sm flex items-center justify-center hover:bg-brand-pink hover:text-white transition">−</button>
+                <span class="w-5 text-center text-xs font-bold">${qty}</span>
+                <button type="button" onclick="adjustStemQty('${escapeAttr(s.id)}', 1)" class="w-7 h-7 rounded-full bg-brand-pink text-white font-bold text-sm flex items-center justify-center hover:bg-brand-pinkDark transition">+</button>
               </div>
             </div>
-            <div class="flex items-center gap-2">
-              <button onclick="adjustStemQty('${s.id}', -1)" class="w-7 h-7 rounded-full bg-white border border-brand-pink/30 font-bold text-sm flex items-center justify-center hover:bg-brand-pink hover:text-white transition">−</button>
-              <span class="w-5 text-center text-xs font-bold">${qty}</span>
-              <button onclick="adjustStemQty('${s.id}', 1)" class="w-7 h-7 rounded-full bg-brand-pink text-white font-bold text-sm flex items-center justify-center hover:bg-brand-pinkDark transition">+</button>
-            </div>
-          </div>
-        `;
-      }).join("");
+          `;
+        }).join("");
+      }
 
-      // Calculate totals
       let totalStemsCount = 0;
       let stemsCost = 0;
       const activeFlowers = [];
@@ -762,16 +885,21 @@
       });
 
       const wrapSelect = document.getElementById("wrapStyleSelect");
-      customSelection.wrapId = wrapSelect.value || storeData.wraps[0].id;
-      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0];
+      if (wrapSelect && wrapSelect.value) {
+        customSelection.wrapId = wrapSelect.value;
+      }
+      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0] || { price: 0, color: "#F9DCE8", name: "Standard Wrap" };
 
-      const hasLights = document.getElementById("addonFairyLights").checked;
-      const hasCard = document.getElementById("addonMiniCard").checked;
+      let addonsCost = 0;
+      let hasLights = false;
+      storeData.addons.forEach(a => {
+        if (customSelection.addons[a.id]) {
+          addonsCost += Number(a.price);
+          if (a.isLights || a.name.toLowerCase().includes("light")) hasLights = true;
+        }
+      });
 
-      const extrasCost = Number(selectedWrap.price)
-        + (hasLights ? Number(storeData.addonFairyLightsPrice) : 0)
-        + (hasCard ? Number(storeData.addonMiniCardPrice) : 0);
-
+      const extrasCost = Number(selectedWrap.price || 0) + addonsCost;
       const totalCost = totalStemsCount > 0 ? (stemsCost + extrasCost) : 0;
 
       document.getElementById("customStemCounter").textContent = `${totalStemsCount} Stem${totalStemsCount === 1 ? '' : 's'} Selected`;
@@ -779,7 +907,6 @@
       document.getElementById("customExtrasSubtotal").textContent = totalStemsCount > 0 ? `৳${extrasCost}` : `৳0`;
       document.getElementById("customTotalDisplay").textContent = `৳${totalCost}`;
 
-      // Draw Live SVG Bouquet
       drawBouquetSvg(activeFlowers, selectedWrap, hasLights);
     }
 
@@ -807,8 +934,8 @@
         stemsLines += `<line x1="150" y1="250" x2="${x}" y2="${y}" stroke="#81B29A" stroke-width="4" stroke-linecap="round" />`;
         flowerHeads += `
           <g transform="translate(${x}, ${y})">
-            <circle r="18" fill="${f.color}" opacity="0.25" />
-            <text x="0" y="7" text-anchor="middle" font-size="24">${f.emoji}</text>
+            <circle r="18" fill="${escapeAttr(f.color || '#D470A2')}" opacity="0.28" />
+            <text x="0" y="7" text-anchor="middle" font-size="24">${escapeAttr(f.emoji || '🌸')}</text>
           </g>
         `;
       }
@@ -823,13 +950,10 @@
       }
 
       svg.innerHTML = `
-        <!-- Back Wrapping Paper -->
-        <polygon points="55,115 245,115 180,285 120,285" fill="${wrapColor}" stroke="#D470A2" stroke-width="1.5" opacity="0.85" />
+        <polygon points="55,115 245,115 180,285 120,285" fill="${escapeAttr(wrapColor)}" stroke="#D470A2" stroke-width="1.5" opacity="0.85" />
         ${stemsLines}
         ${flowerHeads}
-        <!-- Front Wrap Fold -->
-        <polygon points="85,185 215,185 175,295 125,295" fill="${wrapColor}" stroke="#D470A2" stroke-width="1.5" />
-        <!-- Satin Ribbon Bow -->
+        <polygon points="85,185 215,185 175,295 125,295" fill="${escapeAttr(wrapColor)}" stroke="#D470A2" stroke-width="1.5" />
         <rect x="122" y="232" width="56" height="12" rx="6" fill="#D470A2" />
         <circle cx="150" cy="238" r="8" fill="#9E5B54" />
         ${lightsDots}
@@ -855,22 +979,25 @@
         return;
       }
 
-      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0];
-      const hasLights = document.getElementById("addonFairyLights").checked;
-      const hasCard = document.getElementById("addonMiniCard").checked;
+      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0] || { name: "Standard Wrap", price: 0 };
       const note = document.getElementById("customBouquetNote").value.trim();
 
-      const unitPrice = stemsCost
-        + Number(selectedWrap.price)
-        + (hasLights ? Number(storeData.addonFairyLightsPrice) : 0)
-        + (hasCard ? Number(storeData.addonMiniCardPrice) : 0);
+      let addonsCost = 0;
+      const chosenAddonNames = [];
+      storeData.addons.forEach(a => {
+        if (customSelection.addons[a.id]) {
+          addonsCost += Number(a.price);
+          chosenAddonNames.push(a.name);
+        }
+      });
+
+      const unitPrice = stemsCost + Number(selectedWrap.price || 0) + addonsCost;
 
       const extrasArr = [
         `Palette: ${customSelection.palette}`,
         `Wrap: ${selectedWrap.name}`
       ];
-      if (hasLights) extrasArr.push("LED Fairy Lights");
-      if (hasCard) extrasArr.push("Mini Floral Card");
+      if (chosenAddonNames.length) extrasArr.push(chosenAddonNames.join(", "));
       if (note) extrasArr.push(`Note: "${note}"`);
 
       cart.push({
@@ -946,14 +1073,14 @@
         listEl.innerHTML = cart.map(item => `
           <div class="p-3.5 rounded-2xl bg-brand-cream border border-brand-pink/20 flex items-start justify-between gap-3">
             <div class="space-y-1">
-              <p class="font-heading font-bold text-sm text-brand-ink">${item.name}</p>
-              <p class="text-xs text-brand-ink/70 leading-relaxed">${item.details || ""}</p>
+              <p class="font-heading font-bold text-sm text-brand-ink">${escapeAttr(item.name)}</p>
+              <p class="text-xs text-brand-ink/70 leading-relaxed">${escapeAttr(item.details || "")}</p>
               <p class="text-xs font-bold text-brand-pinkDark">৳${(item.price * item.qty).toLocaleString()} (৳${item.price} each)</p>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
-              <button onclick="updateCartQty('${item.cartItemId}', -1)" class="w-6 h-6 rounded-full bg-white border border-brand-pink/30 text-xs font-bold">−</button>
+              <button onclick="updateCartQty('${escapeAttr(item.cartItemId)}', -1)" class="w-6 h-6 rounded-full bg-white border border-brand-pink/30 text-xs font-bold">−</button>
               <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
-              <button onclick="updateCartQty('${item.cartItemId}', 1)" class="w-6 h-6 rounded-full bg-brand-pink text-white text-xs font-bold">+</button>
+              <button onclick="updateCartQty('${escapeAttr(item.cartItemId)}', 1)" class="w-6 h-6 rounded-full bg-brand-pink text-white text-xs font-bold">+</button>
             </div>
           </div>
         `).join("");
@@ -1028,7 +1155,7 @@
     }
 
     // ==========================================
-    // 6. SECRET OWNER STUDIO & LIVE GITHUB API PUSH
+    // 6. SECRET OWNER STUDIO & AUTO-SAVING FULL CRUD
     // ==========================================
     function handleSecretFooterClick() {
       footerClickCount++;
@@ -1042,22 +1169,26 @@
 
     function promptAdminUnlock() {
       const entered = prompt("Enter Kaarupushpo Owner PIN (Default: 2026):");
-      if (entered === storeData.adminPin) {
+      if (entered === String(storeData.adminPin || "2026")) {
         document.getElementById("adminNavBtn").classList.remove("hidden");
-        document.getElementById("adminNavBtn").classList.add(" inline-flex");
-        openAdminModal();
+        document.getElementById("adminNavBtn").classList.add("inline-flex");
+        document.getElementById("adminBuilderShortcutBtn").classList.remove("hidden");
+        document.getElementById("adminBuilderShortcutBtn").classList.add("inline-flex");
+        openAdminModal('builder');
       } else if (entered !== null) {
         alert("Incorrect PIN.");
       }
     }
 
-    function openAdminModal() {
+    function openAdminModal(defaultTab) {
       renderAdminInputs();
+      if (defaultTab) switchAdminTab(defaultTab);
       document.getElementById("adminModal").classList.remove("hidden");
       document.getElementById("adminModal").classList.add("flex");
     }
 
     function closeAdminModal() {
+      saveAdminChangesLocally(false);
       document.getElementById("adminModal").classList.add("hidden");
       document.getElementById("adminModal").classList.remove("flex");
     }
@@ -1074,13 +1205,31 @@
       });
     }
 
+    // Instant background persistence whenever any field in Owner Studio is edited
+    function persistAndRefreshLiveUI() {
+      storeData.lastUpdated = Date.now();
+      localStorage.setItem("kp_store_data", JSON.stringify(storeData));
+      renderCatalog();
+      initCustomBuilderUI();
+      renderCustomBuilder();
+      renderCart();
+    }
+
+    function syncStoreSettingsFromInputs() {
+      storeData.whatsappNumber = document.getElementById("adminWhatsapp").value.trim();
+      storeData.deliveryInsideDhaka = Number(document.getElementById("adminDeliveryInside").value) || 70;
+      storeData.deliveryOutsideDhaka = Number(document.getElementById("adminDeliveryOutside").value) || 130;
+      storeData.adminPin = document.getElementById("adminPinInput").value.trim() || "2026";
+      persistAndRefreshLiveUI();
+    }
+
     function renderAdminInputs() {
-      // Products List
+      // 1. Products List
       const list = document.getElementById("adminProductsList");
       list.innerHTML = storeData.products.map((p, idx) => `
         <div class="p-4 rounded-2xl bg-brand-cream border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
           <div class="sm:col-span-2">
-            <img src="${p.image}" class="w-full aspect-square object-cover rounded-xl border border-brand-pink/20" />
+            <img src="${escapeAttr(p.image)}" class="w-full aspect-square object-cover rounded-xl border border-brand-pink/20" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
             <label class="mt-1.5 block text-center text-[11px] font-bold text-brand-pinkDark cursor-pointer underline">
               📷 Upload Photo
               <input type="file" accept="image/*" class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
@@ -1089,15 +1238,15 @@
           <div class="sm:col-span-10 grid sm:grid-cols-3 gap-3">
             <div>
               <label class="text-[11px] font-bold text-brand-ink/70">Product Name</label>
-              <input type="text" value="${p.name}" onchange="storeData.products[${idx}].name = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+              <input type="text" value="${escapeAttr(p.name)}" oninput="storeData.products[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
             </div>
             <div>
               <label class="text-[11px] font-bold text-brand-ink/70">Price in BDT (৳)</label>
-              <input type="number" value="${p.price}" onchange="storeData.products[${idx}].price = Number(this.value)" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark" />
+              <input type="number" value="${Number(p.price)}" oninput="storeData.products[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
             </div>
             <div>
               <label class="text-[11px] font-bold text-brand-ink/70">Category</label>
-              <select onchange="storeData.products[${idx}].category = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white">
+              <select onchange="storeData.products[${idx}].category = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white">
                 <option value="Bouquets" ${p.category === 'Bouquets' ? 'selected' : ''}>Bouquets</option>
                 <option value="Potted" ${p.category === 'Potted' ? 'selected' : ''}>Potted Blooms</option>
                 <option value="Single Stems & Cards" ${p.category === 'Single Stems & Cards' ? 'selected' : ''}>Single Stems & Cards</option>
@@ -1105,42 +1254,128 @@
             </div>
             <div class="sm:col-span-2">
               <label class="text-[11px] font-bold text-brand-ink/70">Image URL (or upload file on left)</label>
-              <input type="text" value="${p.image}" onchange="storeData.products[${idx}].image = this.value; renderAdminInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+              <input type="text" value="${escapeAttr(p.image)}" onchange="storeData.products[${idx}].image = this.value; persistAndRefreshLiveUI(); renderAdminInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
             </div>
             <div>
               <label class="text-[11px] font-bold text-brand-ink/70">Badge (e.g. Bestseller)</label>
-              <input type="text" value="${p.badge || ''}" onchange="storeData.products[${idx}].badge = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+              <input type="text" value="${escapeAttr(p.badge || '')}" oninput="storeData.products[${idx}].badge = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
             </div>
             <div class="sm:col-span-2">
               <label class="text-[11px] font-bold text-brand-ink/70">Description</label>
-              <input type="text" value="${p.description || ''}" onchange="storeData.products[${idx}].description = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+              <input type="text" value="${escapeAttr(p.description || '')}" oninput="storeData.products[${idx}].description = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
             </div>
             <div class="flex items-end justify-end">
-              <button onclick="deleteProductRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-xs font-bold hover:bg-red-100">🗑️ Remove</button>
+              <button type="button" onclick="deleteProductRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete Product</button>
             </div>
           </div>
         </div>
       `).join("");
 
-      // Stems List
+      // 2A. Stems / Flowers List (Full CRUD)
       const stemsEl = document.getElementById("adminStemsList");
       stemsEl.innerHTML = storeData.stems.map((s, idx) => `
-        <div class="p-3 rounded-xl border border-brand-pink/20 flex items-center justify-between gap-2 bg-brand-cream">
-          <span class="text-xs font-bold">${s.emoji} ${s.name}</span>
-          <div class="flex items-center gap-1">
-            <span class="text-xs text-brand-ink/60">৳</span>
-            <input type="number" value="${s.price}" onchange="storeData.stems[${idx}].price = Number(this.value)" class="w-20 rounded-lg border border-brand-pink/30 px-2 py-1 text-xs font-bold" />
+        <div class="p-3.5 rounded-2xl border border-brand-pink/25 bg-brand-cream grid sm:grid-cols-12 gap-3 items-center">
+          <div class="sm:col-span-2 flex items-center gap-2">
+            ${s.image ? `<img src="${escapeAttr(s.image)}" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/30 shrink-0" />` : `<span class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:${escapeAttr(s.color || '#D470A2')}25">${escapeAttr(s.emoji || '🌸')}</span>`}
+            <div>
+              <label class="block text-[10px] font-bold text-brand-pinkDark cursor-pointer underline">
+                📷 Photo
+                <input type="file" accept="image/*" class="hidden" onchange="handleStemImageUpload(event, ${idx})" />
+              </label>
+              ${s.image ? `<button type="button" onclick="storeData.stems[${idx}].image = ''; persistAndRefreshLiveUI(); renderAdminInputs()" class="text-[10px] text-red-600 underline">Remove</button>` : ""}
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Flower / Stem Name</label>
+            <input type="text" value="${escapeAttr(s.name)}" oninput="storeData.stems[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold bg-white" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Price / Stem (৳)</label>
+            <input type="number" value="${Number(s.price)}" oninput="storeData.stems[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Emoji Icon</label>
+            <input type="text" value="${escapeAttr(s.emoji || '🌸')}" oninput="storeData.stems[${idx}].emoji = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs text-center bg-white" placeholder="🌷" />
+          </div>
+          <div class="sm:col-span-1">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Color</label>
+            <input type="color" value="${escapeAttr(s.color || '#D470A2')}" oninput="storeData.stems[${idx}].color = this.value; persistAndRefreshLiveUI()" class="w-full h-8 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5" />
+          </div>
+          <div class="sm:col-span-2 flex justify-end">
+            <button type="button" onclick="deleteStemRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete</button>
           </div>
         </div>
       `).join("");
 
-      document.getElementById("adminFairyPrice").value = storeData.addonFairyLightsPrice;
-      document.getElementById("adminCardPrice").value = storeData.addonMiniCardPrice;
-      document.getElementById("adminWhatsapp").value = storeData.whatsappNumber;
-      document.getElementById("adminDeliveryInside").value = storeData.deliveryInsideDhaka;
-      document.getElementById("adminDeliveryOutside").value = storeData.deliveryOutsideDhaka;
+      // 2B. Wrapping Papers List (Full CRUD)
+      const wrapsEl = document.getElementById("adminWrapsList");
+      wrapsEl.innerHTML = storeData.wraps.map((w, idx) => `
+        <div class="p-3.5 rounded-2xl border border-brand-sage/30 bg-brand-cream flex flex-col gap-2.5">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex-1">
+              <label class="block text-[10px] font-bold text-brand-ink/70">Wrapping Paper Name</label>
+              <input type="text" value="${escapeAttr(w.name)}" oninput="storeData.wraps[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-white" />
+            </div>
+            <button type="button" onclick="deleteWrapRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200 mt-3">🗑️ Delete</button>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] font-bold text-brand-ink/70">Wrap Price (৳)</label>
+              <input type="number" value="${Number(w.price)}" oninput="storeData.wraps[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold text-brand-pinkDark bg-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-brand-ink/70">Paper Preview Color</label>
+              <input type="color" value="${escapeAttr(w.color || '#F9DCE8')}" oninput="storeData.wraps[${idx}].color = this.value; persistAndRefreshLiveUI()" class="w-full h-7 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5" />
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      // 2C. Color Palettes List (Full CRUD)
+      const palettesEl = document.getElementById("adminPalettesList");
+      palettesEl.innerHTML = storeData.palettes.map((pal, idx) => `
+        <div class="p-3 rounded-2xl border border-brand-pink/20 bg-brand-cream flex items-center justify-between gap-2.5">
+          <input type="color" value="${escapeAttr(pal.hex || '#D470A2')}" oninput="storeData.palettes[${idx}].hex = this.value; persistAndRefreshLiveUI()" class="w-9 h-9 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5 shrink-0" />
+          <div class="flex-1">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Palette Theme Name</label>
+            <input type="text" value="${escapeAttr(pal.name)}" oninput="storeData.palettes[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-white" />
+          </div>
+          <button type="button" onclick="deletePaletteRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200 mt-3">🗑️ Delete</button>
+        </div>
+      `).join("");
+
+      // 2D. Add-ons / Extras List (Full CRUD)
+      const addonsEl = document.getElementById("adminAddonsList");
+      addonsEl.innerHTML = storeData.addons.map((a, idx) => `
+        <div class="p-3.5 rounded-2xl border border-brand-pink/20 bg-brand-cream flex items-center justify-between gap-2.5">
+          <div class="flex-1 space-y-1.5">
+            <div>
+              <label class="block text-[10px] font-bold text-brand-ink/70">Add-on Title (with Emoji)</label>
+              <input type="text" value="${escapeAttr(a.name)}" oninput="storeData.addons[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-white" />
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex-1">
+                <label class="block text-[10px] font-bold text-brand-ink/70">Add-on Price (৳)</label>
+                <input type="number" value="${Number(a.price)}" oninput="storeData.addons[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold text-brand-pinkDark bg-white" />
+              </div>
+              <label class="flex items-center gap-1.5 text-[11px] font-semibold text-brand-ink/75 mt-3 cursor-pointer">
+                <input type="checkbox" ${a.isLights ? 'checked' : ''} onchange="storeData.addons[${idx}].isLights = this.checked; persistAndRefreshLiveUI()" class="rounded text-brand-pink" />
+                <span>Glow effect</span>
+              </label>
+            </div>
+          </div>
+          <button type="button" onclick="deleteAddonRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete</button>
+        </div>
+      `).join("");
+
+      // 3. Settings & GitHub Tab Inputs
+      document.getElementById("adminWhatsapp").value = storeData.whatsappNumber || "";
+      document.getElementById("adminDeliveryInside").value = storeData.deliveryInsideDhaka ?? 70;
+      document.getElementById("adminDeliveryOutside").value = storeData.deliveryOutsideDhaka ?? 130;
+      document.getElementById("adminPinInput").value = storeData.adminPin || "2026";
     }
 
+    // --- Product CRUD Helpers ---
     function addNewProductRow() {
       storeData.products.unshift({
         id: "kp-" + Date.now(),
@@ -1151,15 +1386,130 @@
         description: "Handcrafted 6mm fuzzy wire arrangement.",
         image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
       });
+      persistAndRefreshLiveUI();
       renderAdminInputs();
+      showToast("New product added!");
     }
 
     function deleteProductRow(idx) {
       storeData.products.splice(idx, 1);
+      persistAndRefreshLiveUI();
       renderAdminInputs();
+      showToast("Product removed!");
     }
 
     function handleProductImageUpload(event, idx) {
+      compressAndAssignImage(event, dataUrl => {
+        storeData.products[idx].image = dataUrl;
+        persistAndRefreshLiveUI();
+        renderAdminInputs();
+        showToast("Product photo attached!");
+      });
+    }
+
+    // --- Custom Builder Stems CRUD Helpers ---
+    function addNewStemRow() {
+      storeData.stems.unshift({
+        id: "stem-" + Date.now(),
+        name: "New Fuzzy Flower Stem",
+        price: 100,
+        emoji: "🌸",
+        color: "#D470A2",
+        image: ""
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New flower stem added at the top!");
+    }
+
+    function deleteStemRow(idx) {
+      const removed = storeData.stems[idx];
+      if (removed) delete customSelection.stems[removed.id];
+      storeData.stems.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Flower stem deleted!");
+    }
+
+    function handleStemImageUpload(event, idx) {
+      compressAndAssignImage(event, dataUrl => {
+        storeData.stems[idx].image = dataUrl;
+        persistAndRefreshLiveUI();
+        renderAdminInputs();
+        showToast("Stem photo attached!");
+      }, 300);
+    }
+
+    // --- Custom Builder Wraps CRUD Helpers ---
+    function addNewWrapRow() {
+      storeData.wraps.push({
+        id: "wrap-" + Date.now(),
+        name: "New Wrapping Paper",
+        price: 60,
+        color: "#F9DCE8"
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New wrapping style added!");
+    }
+
+    function deleteWrapRow(idx) {
+      if (storeData.wraps.length <= 1) {
+        showToast("Keep at least 1 wrapping style.");
+        return;
+      }
+      storeData.wraps.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Wrapping style deleted!");
+    }
+
+    // --- Custom Builder Palettes CRUD Helpers ---
+    function addNewPaletteRow() {
+      storeData.palettes.push({
+        id: "pal-" + Date.now(),
+        name: "New Color Palette",
+        hex: "#D470A2"
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New color palette added!");
+    }
+
+    function deletePaletteRow(idx) {
+      if (storeData.palettes.length <= 1) {
+        showToast("Keep at least 1 color palette.");
+        return;
+      }
+      storeData.palettes.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Color palette deleted!");
+    }
+
+    // --- Custom Builder Add-ons CRUD Helpers ---
+    function addNewAddonRow() {
+      storeData.addons.push({
+        id: "addon-" + Date.now(),
+        name: "🦋 Golden Butterfly Clip",
+        price: 40,
+        isLights: false
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New add-on added!");
+    }
+
+    function deleteAddonRow(idx) {
+      const removed = storeData.addons[idx];
+      if (removed) delete customSelection.addons[removed.id];
+      storeData.addons.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Add-on deleted!");
+    }
+
+    function compressAndAssignImage(event, callback, maxDim = 700) {
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -1167,43 +1517,33 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement("canvas");
-          const maxDim = 700;
           let w = img.width, h = img.height;
           if (w > h && w > maxDim) { h *= maxDim / w; w = maxDim; }
           else if (h > maxDim) { w *= maxDim / h; h = maxDim; }
           canvas.width = w;
           canvas.height = h;
           canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          storeData.products[idx].image = canvas.toDataURL("image/jpeg", 0.82);
-          renderAdminInputs();
-          showToast("Photo compressed & attached!");
+          callback(canvas.toDataURL("image/jpeg", 0.82));
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    function updateAddonPrices() {
-      storeData.addonFairyLightsPrice = Number(document.getElementById("adminFairyPrice").value) || 80;
-      storeData.addonMiniCardPrice = Number(document.getElementById("adminCardPrice").value) || 50;
+    function saveAdminChangesLocally(showMsg = true) {
+      syncStoreSettingsFromInputs();
+      if (showMsg) {
+        showToast("Saved! Go to Tab 3 and click 'Publish Live to GitHub Now' to push live.");
+      }
     }
 
-    function saveAdminChangesLocally() {
-      storeData.whatsappNumber = document.getElementById("adminWhatsapp").value.trim();
-      storeData.deliveryInsideDhaka = Number(document.getElementById("adminDeliveryInside").value) || 70;
-      storeData.deliveryOutsideDhaka = Number(document.getElementById("adminDeliveryOutside").value) || 130;
-      localStorage.setItem("kp_store_data", JSON.stringify(storeData));
-      renderCatalog();
-      initCustomBuilderUI();
-      renderCustomBuilder();
-      renderCart();
-      showToast("Saved locally! Use GitHub Sync tab to publish live for all visitors.");
-    }
-
-    // Direct GitHub REST API Publisher (Creates or Updates store-data.json in your repo)
+    // Direct GitHub REST API Publisher (Auto-cleans full github.com URLs)
     async function publishToGitHub() {
-      saveAdminChangesLocally();
-      const repo = document.getElementById("ghRepo").value.trim();
+      saveAdminChangesLocally(false);
+      const repoInputEl = document.getElementById("ghRepo");
+      const repo = cleanGitHubRepoSlug(repoInputEl.value);
+      repoInputEl.value = repo;
+
       const branch = document.getElementById("ghBranch").value.trim() || "main";
       const token = document.getElementById("ghToken").value.trim();
       const statusEl = document.getElementById("ghStatusMsg");
@@ -1223,7 +1563,6 @@
       };
 
       try {
-        // 1. Check if store-data.json already exists to get its SHA
         let existingSha = null;
         const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, { headers });
         if (getRes.ok) {
@@ -1231,12 +1570,11 @@
           existingSha = fileMeta.sha;
         }
 
-        // 2. Encode JSON to UTF-8 safe Base64
         const jsonString = JSON.stringify(storeData, null, 2);
         const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
 
         const bodyPayload = {
-          message: "Update Kaarupushpo store catalog and prices via Owner Studio",
+          message: "Update Kaarupushpo catalog and custom builder items via Owner Studio v2.2",
           content: base64Content,
           branch: branch
         };
@@ -1249,7 +1587,7 @@
         });
 
         if (putRes.ok) {
-          statusEl.textContent = "✅ Published live! store-data.json is now updated in your GitHub repository.";
+          statusEl.textContent = "✅ Published live! store-data.json (including all Custom Builder items) is now updated in your GitHub repository.";
           showToast("Published live to GitHub!");
         } else {
           const errData = await putRes.json();
@@ -1261,7 +1599,7 @@
     }
 
     function downloadStoreJson() {
-      saveAdminChangesLocally();
+      saveAdminChangesLocally(false);
       const blob = new Blob([JSON.stringify(storeData, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
