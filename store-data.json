@@ -1,0 +1,163 @@
+{
+  "whatsappNumber": "8801784840845",
+  "deliveryInsideDhaka": 70,
+  "deliveryOutsideDhaka": 130,
+  "adminPin": "2026",
+  "addonFairyLightsPrice": 80,
+  "addonMiniCardPrice": 50,
+  "products": [
+    {
+      "id": "kp-1",
+      "name": "Pastel Tulip Dream Bouquet",
+      "category": "Bouquets",
+      "price": 650,
+      "badge": "Bestseller",
+      "description": "7 handcrafted 6mm fuzzy wire tulips with sage eucalyptus leaves wrapped in frosted Korean paper.",
+      "image": "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "kp-2",
+      "name": "Sunflower & Daisy Sunshine Wrap",
+      "category": "Bouquets",
+      "price": 780,
+      "badge": "Signature",
+      "description": "Bright fuzzy wire golden sunflower center surrounded by chamomile daisies and warm fairy lights.",
+      "image": "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "kp-3",
+      "name": "Blush Rose & Lavender Keepsake",
+      "category": "Bouquets",
+      "price": 890,
+      "badge": "Romantic",
+      "description": "Plush rose-pink chenille roses paired with fragrant-inspired lavender stems and satin ribbon.",
+      "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "kp-4",
+      "name": "Mini Potted Desk Tulip",
+      "category": "Potted",
+      "price": 380,
+      "badge": "Desk Decor",
+      "description": "Adorable everlasting potted fuzzy wire tulip for study desks, dorm rooms, and work tables.",
+      "image": "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "kp-5",
+      "name": "Single Wrapped Chenille Rose Stem",
+      "category": "Single Stems & Cards",
+      "price": 180,
+      "badge": "Budget Gift",
+      "description": "Single oversized handmade fuzzy wire rose wrapped with baby's breath accents and ribbon.",
+      "image": "https://images.unsplash.com/photo-1508615039623-a25605d2b022?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "kp-6",
+      "name": "3D Fuzzy Floral Greeting Card",
+      "category": "Single Stems & Cards",
+      "price": 220,
+      "badge": "Custom Note",
+      "description": "Artisanal kraft greeting card adorned with a mini handmade chenille flower bouquet on the cover.",
+      "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "stems": [
+    {
+      "id": "tulip",
+      "name": "Plush Tulip Stem",
+      "price": 95,
+      "emoji": "🌷",
+      "color": "#D470A2"
+    },
+    {
+      "id": "rose",
+      "name": "Velvet Chenille Rose",
+      "price": 120,
+      "emoji": "🌹",
+      "color": "#C84B76"
+    },
+    {
+      "id": "sunflower",
+      "name": "Golden Sunflower",
+      "price": 160,
+      "emoji": "🌻",
+      "color": "#F4A261"
+    },
+    {
+      "id": "lily",
+      "name": "Stargazer Lily",
+      "price": 170,
+      "emoji": "🌺",
+      "color": "#E07A9B"
+    },
+    {
+      "id": "daisy",
+      "name": "Chamomile Daisy",
+      "price": 75,
+      "emoji": "🌼",
+      "color": "#F6BD60"
+    },
+    {
+      "id": "lavender",
+      "name": "Lavender Sprig",
+      "price": 65,
+      "emoji": "🪻",
+      "color": "#9D8DF1"
+    },
+    {
+      "id": "eucalyptus",
+      "name": "Sage Eucalyptus Leaf",
+      "price": 55,
+      "emoji": "🌿",
+      "color": "#81B29A"
+    }
+  ],
+  "wraps": [
+    {
+      "id": "korean-pink",
+      "name": "Frosted Blush Korean Paper",
+      "price": 60,
+      "color": "#F9DCE8"
+    },
+    {
+      "id": "sage-matte",
+      "name": "Sage Green Matte Film",
+      "price": 60,
+      "color": "#D8ECE3"
+    },
+    {
+      "id": "kraft-vintage",
+      "name": "Vintage Kraft & Lace",
+      "price": 50,
+      "color": "#EADBC8"
+    },
+    {
+      "id": "luxury-black",
+      "name": "Midnight Noir & Gold Trim",
+      "price": 80,
+      "color": "#3A3238"
+    }
+  ],
+  "palettes": [
+    {
+      "id": "rose-blush",
+      "name": "Kaarupushpo Rose & Cream",
+      "hex": "#D470A2"
+    },
+    {
+      "id": "pastel-lilac",
+      "name": "Pastel Lilac & Butter",
+      "hex": "#B8A1E3"
+    },
+    {
+      "id": "warm-sunset",
+      "name": "Sunflower Terracotta",
+      "hex": "#E07A5F"
+    },
+    {
+      "id": "custom-mix",
+      "name": "Artist's Custom Mix",
+      "hex": "#81B29A"
+    }
+  ]
+}
