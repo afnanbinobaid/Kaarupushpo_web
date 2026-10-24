@@ -83,7 +83,7 @@
       </nav>
 
       <div class="flex items-center gap-2.5">
-        <!-- Secret Admin Buttons (Hidden unless unlocked by Owner) -->
+        <!-- Secret Admin Button (Hidden unless unlocked by Owner) -->
         <button id="adminNavBtn" onclick="openAdminModal('products')" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-terra text-white shadow-sm hover:opacity-95 transition">
           ⚙️ Owner Studio
         </button>
@@ -146,13 +146,8 @@
         <span class="text-xs uppercase tracking-widest text-brand-terra font-bold">Ready-to-Order Collection</span>
         <h2 class="font-heading text-3xl sm:text-4xl font-bold text-brand-ink mt-1">Signature Fuzzy Wire Creations</h2>
       </div>
-      <!-- Category Filters -->
-      <div id="categoryFilterBar" class="flex flex-wrap gap-2">
-        <button onclick="setCategoryFilter('All')" data-cat="All" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-pink text-white transition">All</button>
-        <button onclick="setCategoryFilter('Bouquets')" data-cat="Bouquets" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition">Bouquets</button>
-        <button onclick="setCategoryFilter('Potted')" data-cat="Potted" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition">Potted Blooms</button>
-        <button onclick="setCategoryFilter('Single Stems & Cards')" data-cat="Single Stems & Cards" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition">Single Stems & Cards</button>
-      </div>
+      <!-- Dynamic Category Filters (Rendered from storeData.categories) -->
+      <div id="categoryFilterBar" class="flex flex-wrap gap-2"></div>
     </div>
 
     <!-- Dynamic Products Grid -->
@@ -356,16 +351,16 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (v2.2 — Full Custom Builder CRUD) -->
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.3 — Dynamic Categories + Full Custom Builder CRUD) -->
   <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
     <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
       <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.2 — Full Builder Editor</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.3 — Categories & Builder Editor</span>
           </div>
-          <p class="text-xs text-white/70 mt-0.5">Add, Edit, or Delete Store Products, Custom Flowers, Wraps, Palettes, Add-ons & Live GitHub Sync</p>
+          <p class="text-xs text-white/70 mt-0.5">Add, Rename, or Delete Product Categories, Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
         </div>
         <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
@@ -373,10 +368,10 @@
       <!-- Admin Tabs -->
       <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
         <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
-          1. Ready-Made Products
+          1. Categories & Ready-Made Products
         </button>
         <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
-          2. Custom Builder Items (Add / Edit / Delete Flowers & Wraps)
+          2. Custom Builder Items (Flowers, Wraps & Extras)
         </button>
         <button onclick="switchAdminTab('github')" id="tabBtn-github" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           3. WhatsApp & GitHub Live Sync
@@ -386,18 +381,36 @@
       <!-- Admin Tab Content -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
-        <!-- TAB 1: PRODUCTS -->
-        <div id="adminTab-products" class="space-y-5">
-          <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight p-4 rounded-2xl border border-brand-sage/30">
-            <div>
-              <h4 class="font-heading font-bold text-sm text-brand-ink">Add or Edit Ready-Made Store Products</h4>
-              <p class="text-xs text-brand-ink/70">Upload photos from your device or paste an image URL, and set prices in ৳.</p>
+        <!-- TAB 1: CATEGORIES & PRODUCTS -->
+        <div id="adminTab-products" class="space-y-7">
+
+          <!-- 1A: Dynamic Product Categories Manager -->
+          <div class="space-y-3 bg-brand-pinkLight/50 p-4 rounded-2xl border border-brand-pink/25">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h4 class="font-heading font-bold text-sm text-brand-ink">🏷️ Manage Product Categories</h4>
+                <p class="text-xs text-brand-ink/70">Rename any category (products inside it update automatically), add new categories, or delete unused ones.</p>
+              </div>
+              <button type="button" onclick="addNewCategory()" class="px-4 py-2 rounded-full bg-brand-terra text-white text-xs font-bold shadow-xs hover:opacity-90 transition">
+                + Add New Category
+              </button>
             </div>
-            <button type="button" onclick="addNewProductRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
-              + Add New Product
-            </button>
+            <div id="adminCategoriesList" class="grid sm:grid-cols-3 gap-2.5 pt-1"></div>
           </div>
-          <div id="adminProductsList" class="space-y-4"></div>
+
+          <!-- 1B: Store Products Manager -->
+          <div class="space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight p-4 rounded-2xl border border-brand-sage/30">
+              <div>
+                <h4 class="font-heading font-bold text-sm text-brand-ink">💐 Add or Edit Ready-Made Store Products</h4>
+                <p class="text-xs text-brand-ink/70">Upload photos from your device or paste an image URL, pick a category, and set prices in ৳.</p>
+              </div>
+              <button type="button" onclick="addNewProductRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
+                + Add New Product
+              </button>
+            </div>
+            <div id="adminProductsList" class="space-y-4"></div>
+          </div>
         </div>
 
         <!-- TAB 2: FULL CUSTOM BUILDER MANAGER (STEMS, WRAPS, PALETTES, ADDONS) -->
@@ -486,10 +499,10 @@
           <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
-              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.2 Live Sync</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.3 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated products, custom builder flowers, wraps, palettes, and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated categories, products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
@@ -539,7 +552,7 @@
 
   <script>
     // ==========================================
-    // 1. DEFAULT STORE DATA
+    // 1. DEFAULT STORE DATA (With Dynamic Categories)
     // ==========================================
     const DEFAULT_STORE_DATA = {
       lastUpdated: 0,
@@ -547,6 +560,11 @@
       deliveryInsideDhaka: 70,
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
+      categories: [
+        "Bouquets",
+        "Potted",
+        "Single Stems & Cards"
+      ],
       products: [
         {
           id: "kp-1",
@@ -665,6 +683,16 @@
       if (!Array.isArray(merged.wraps) || !merged.wraps.length) merged.wraps = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.wraps));
       if (!Array.isArray(merged.palettes) || !merged.palettes.length) merged.palettes = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.palettes));
 
+      // Normalize dynamic categories & ensure any category used by existing products is included
+      if (!Array.isArray(merged.categories) || !merged.categories.length) {
+        merged.categories = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.categories));
+      }
+      merged.products.forEach(p => {
+        if (p.category && !merged.categories.includes(p.category)) {
+          merged.categories.push(p.category);
+        }
+      });
+
       if (!Array.isArray(merged.addons)) {
         merged.addons = [
           { id: "fairy-lights", name: "✨ Warm LED Fairy Lights", price: Number(merged.addonFairyLightsPrice ?? 80), isLights: true },
@@ -729,21 +757,42 @@
     }
 
     // ==========================================
-    // 3. PRODUCT CATALOG RENDERING
+    // 3. PRODUCT CATALOG & DYNAMIC CATEGORY BAR
     // ==========================================
-    function setCategoryFilter(cat) {
-      currentCategory = cat;
-      document.querySelectorAll(".cat-btn").forEach(btn => {
-        if (btn.dataset.cat === cat) {
-          btn.className = "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-pink text-white transition";
-        } else {
-          btn.className = "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition";
-        }
-      });
+    function setCategoryFilterByIdx(idx) {
+      if (idx === -1) {
+        currentCategory = "All";
+      } else {
+        currentCategory = storeData.categories[idx] || "All";
+      }
       renderCatalog();
     }
 
+    function renderCategoryFilterBar() {
+      const bar = document.getElementById("categoryFilterBar");
+      if (currentCategory !== "All" && !storeData.categories.includes(currentCategory)) {
+        currentCategory = "All";
+      }
+
+      const allBtnClass = currentCategory === "All"
+        ? "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-pink text-white transition"
+        : "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition";
+
+      let html = `<button type="button" onclick="setCategoryFilterByIdx(-1)" class="${allBtnClass}">All</button>`;
+
+      storeData.categories.forEach((cat, idx) => {
+        const isActive = currentCategory === cat;
+        const btnClass = isActive
+          ? "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-pink text-white transition"
+          : "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition";
+        html += `<button type="button" onclick="setCategoryFilterByIdx(${idx})" class="${btnClass}">${escapeAttr(cat)}</button>`;
+      });
+
+      bar.innerHTML = html;
+    }
+
     function renderCatalog() {
+      renderCategoryFilterBar();
       const grid = document.getElementById("productsGrid");
       const filtered = currentCategory === "All"
         ? storeData.products
@@ -1155,7 +1204,7 @@
     }
 
     // ==========================================
-    // 6. SECRET OWNER STUDIO & AUTO-SAVING FULL CRUD
+    // 6. SECRET OWNER STUDIO & FULL CRUD (CATEGORIES + PRODUCTS + BUILDER)
     // ==========================================
     function handleSecretFooterClick() {
       footerClickCount++;
@@ -1174,7 +1223,7 @@
         document.getElementById("adminNavBtn").classList.add("inline-flex");
         document.getElementById("adminBuilderShortcutBtn").classList.remove("hidden");
         document.getElementById("adminBuilderShortcutBtn").classList.add("inline-flex");
-        openAdminModal('builder');
+        openAdminModal('products');
       } else if (entered !== null) {
         alert("Incorrect PIN.");
       }
@@ -1205,7 +1254,6 @@
       });
     }
 
-    // Instant background persistence whenever any field in Owner Studio is edited
     function persistAndRefreshLiveUI() {
       storeData.lastUpdated = Date.now();
       localStorage.setItem("kp_store_data", JSON.stringify(storeData));
@@ -1223,53 +1271,142 @@
       persistAndRefreshLiveUI();
     }
 
+    // --- Dynamic Category CRUD Helpers ---
+    function renameCategoryInline(idx, rawNewName) {
+      const newName = rawNewName.trim();
+      if (!newName) return;
+      const oldName = storeData.categories[idx];
+      if (oldName === newName) return;
+
+      storeData.categories[idx] = newName;
+      // Automatically update all products that belonged to oldName
+      storeData.products.forEach(p => {
+        if (p.category === oldName) p.category = newName;
+      });
+      if (currentCategory === oldName) currentCategory = newName;
+
+      persistAndRefreshLiveUI();
+      refreshAdminProductCategoryDropdowns();
+    }
+
+    function addNewCategory() {
+      let baseName = "New Category";
+      let count = 1;
+      let candidate = baseName;
+      while (storeData.categories.includes(candidate)) {
+        count++;
+        candidate = `${baseName} ${count}`;
+      }
+      storeData.categories.push(candidate);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast(`Category "${candidate}" added!`);
+    }
+
+    function deleteCategory(idx) {
+      if (storeData.categories.length <= 1) {
+        showToast("Please keep at least 1 category.");
+        return;
+      }
+      const removedCat = storeData.categories[idx];
+      storeData.categories.splice(idx, 1);
+      const fallbackCat = storeData.categories[0];
+
+      // Reassign any products in the deleted category to the first available category
+      storeData.products.forEach(p => {
+        if (p.category === removedCat) p.category = fallbackCat;
+      });
+      if (currentCategory === removedCat) currentCategory = "All";
+
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast(`Category "${removedCat}" deleted!`);
+    }
+
+    function refreshAdminProductCategoryDropdowns() {
+      const selects = document.querySelectorAll(".admin-prod-cat-select");
+      selects.forEach(sel => {
+        const prodIdx = Number(sel.dataset.prodIdx);
+        const prod = storeData.products[prodIdx];
+        if (!prod) return;
+        sel.innerHTML = storeData.categories.map(cat => `
+          <option value="${escapeAttr(cat)}" ${prod.category === cat ? 'selected' : ''}>${escapeAttr(cat)}</option>
+        `).join("");
+      });
+    }
+
     function renderAdminInputs() {
-      // 1. Products List
-      const list = document.getElementById("adminProductsList");
-      list.innerHTML = storeData.products.map((p, idx) => `
-        <div class="p-4 rounded-2xl bg-brand-cream border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
-          <div class="sm:col-span-2">
-            <img src="${escapeAttr(p.image)}" class="w-full aspect-square object-cover rounded-xl border border-brand-pink/20" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
-            <label class="mt-1.5 block text-center text-[11px] font-bold text-brand-pinkDark cursor-pointer underline">
-              📷 Upload Photo
-              <input type="file" accept="image/*" class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
-            </label>
-          </div>
-          <div class="sm:col-span-10 grid sm:grid-cols-3 gap-3">
-            <div>
-              <label class="text-[11px] font-bold text-brand-ink/70">Product Name</label>
-              <input type="text" value="${escapeAttr(p.name)}" oninput="storeData.products[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
-            </div>
-            <div>
-              <label class="text-[11px] font-bold text-brand-ink/70">Price in BDT (৳)</label>
-              <input type="number" value="${Number(p.price)}" oninput="storeData.products[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
-            </div>
-            <div>
-              <label class="text-[11px] font-bold text-brand-ink/70">Category</label>
-              <select onchange="storeData.products[${idx}].category = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white">
-                <option value="Bouquets" ${p.category === 'Bouquets' ? 'selected' : ''}>Bouquets</option>
-                <option value="Potted" ${p.category === 'Potted' ? 'selected' : ''}>Potted Blooms</option>
-                <option value="Single Stems & Cards" ${p.category === 'Single Stems & Cards' ? 'selected' : ''}>Single Stems & Cards</option>
-              </select>
-            </div>
-            <div class="sm:col-span-2">
-              <label class="text-[11px] font-bold text-brand-ink/70">Image URL (or upload file on left)</label>
-              <input type="text" value="${escapeAttr(p.image)}" onchange="storeData.products[${idx}].image = this.value; persistAndRefreshLiveUI(); renderAdminInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
-            </div>
-            <div>
-              <label class="text-[11px] font-bold text-brand-ink/70">Badge (e.g. Bestseller)</label>
-              <input type="text" value="${escapeAttr(p.badge || '')}" oninput="storeData.products[${idx}].badge = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="text-[11px] font-bold text-brand-ink/70">Description</label>
-              <input type="text" value="${escapeAttr(p.description || '')}" oninput="storeData.products[${idx}].description = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
-            </div>
-            <div class="flex items-end justify-end">
-              <button type="button" onclick="deleteProductRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete Product</button>
-            </div>
-          </div>
+      // 1A. Categories Manager List
+      const catListEl = document.getElementById("adminCategoriesList");
+      catListEl.innerHTML = storeData.categories.map((cat, idx) => `
+        <div class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-brand-pink/30 shadow-2xs">
+          <span class="text-xs font-bold text-brand-terra px-1.5">#${idx + 1}</span>
+          <input
+            type="text"
+            value="${escapeAttr(cat)}"
+            oninput="renameCategoryInline(${idx}, this.value)"
+            class="flex-1 rounded-lg border border-brand-pink/25 px-2.5 py-1.5 text-xs font-bold text-brand-ink focus:outline-none focus:border-brand-pink"
+            placeholder="Category Name"
+          />
+          <button
+            type="button"
+            onclick="deleteCategory(${idx})"
+            class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200 transition"
+            title="Delete Category"
+          >🗑️</button>
         </div>
       `).join("");
+
+      // 1B. Products List
+      const list = document.getElementById("adminProductsList");
+      list.innerHTML = storeData.products.map((p, idx) => {
+        const categoryOptionsHtml = storeData.categories.map(cat => `
+          <option value="${escapeAttr(cat)}" ${p.category === cat ? 'selected' : ''}>${escapeAttr(cat)}</option>
+        `).join("");
+
+        return `
+          <div class="p-4 rounded-2xl bg-brand-cream border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
+            <div class="sm:col-span-2">
+              <img src="${escapeAttr(p.image)}" class="w-full aspect-square object-cover rounded-xl border border-brand-pink/20" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
+              <label class="mt-1.5 block text-center text-[11px] font-bold text-brand-pinkDark cursor-pointer underline">
+                📷 Upload Photo
+                <input type="file" accept="image/*" class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
+              </label>
+            </div>
+            <div class="sm:col-span-10 grid sm:grid-cols-3 gap-3">
+              <div>
+                <label class="text-[11px] font-bold text-brand-ink/70">Product Name</label>
+                <input type="text" value="${escapeAttr(p.name)}" oninput="storeData.products[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+              </div>
+              <div>
+                <label class="text-[11px] font-bold text-brand-ink/70">Price in BDT (৳)</label>
+                <input type="number" value="${Number(p.price)}" oninput="storeData.products[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
+              </div>
+              <div>
+                <label class="text-[11px] font-bold text-brand-ink/70">Category</label>
+                <select data-prod-idx="${idx}" onchange="storeData.products[${idx}].category = this.value; persistAndRefreshLiveUI()" class="admin-prod-cat-select w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white font-semibold">
+                  ${categoryOptionsHtml}
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="text-[11px] font-bold text-brand-ink/70">Image URL (or upload file on left)</label>
+                <input type="text" value="${escapeAttr(p.image)}" onchange="storeData.products[${idx}].image = this.value; persistAndRefreshLiveUI(); renderAdminInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+              </div>
+              <div>
+                <label class="text-[11px] font-bold text-brand-ink/70">Badge (e.g. Bestseller)</label>
+                <input type="text" value="${escapeAttr(p.badge || '')}" oninput="storeData.products[${idx}].badge = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="text-[11px] font-bold text-brand-ink/70">Description</label>
+                <input type="text" value="${escapeAttr(p.description || '')}" oninput="storeData.products[${idx}].description = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+              </div>
+              <div class="flex items-end justify-end">
+                <button type="button" onclick="deleteProductRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete Product</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
 
       // 2A. Stems / Flowers List (Full CRUD)
       const stemsEl = document.getElementById("adminStemsList");
@@ -1380,7 +1517,7 @@
       storeData.products.unshift({
         id: "kp-" + Date.now(),
         name: "New Handmade Bouquet",
-        category: "Bouquets",
+        category: storeData.categories[0] || "Bouquets",
         price: 550,
         badge: "New",
         description: "Handcrafted 6mm fuzzy wire arrangement.",
@@ -1537,7 +1674,7 @@
       }
     }
 
-    // Direct GitHub REST API Publisher (Auto-cleans full github.com URLs)
+    // Direct GitHub REST API Publisher
     async function publishToGitHub() {
       saveAdminChangesLocally(false);
       const repoInputEl = document.getElementById("ghRepo");
@@ -1574,7 +1711,7 @@
         const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
 
         const bodyPayload = {
-          message: "Update Kaarupushpo catalog and custom builder items via Owner Studio v2.2",
+          message: "Update Kaarupushpo categories, catalog, and custom builder via Owner Studio v2.3",
           content: base64Content,
           branch: branch
         };
@@ -1587,7 +1724,7 @@
         });
 
         if (putRes.ok) {
-          statusEl.textContent = "✅ Published live! store-data.json (including all Custom Builder items) is now updated in your GitHub repository.";
+          statusEl.textContent = "✅ Published live! store-data.json (including all Categories, Products & Custom Builder items) is now updated in your GitHub repository.";
           showToast("Published live to GitHub!");
         } else {
           const errData = await putRes.json();
