@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaarupushpo | কারুপুষ্প — Handmade Fuzzy Wire Flower Boutique</title>
+  <!-- Google Fonts: Fraunces & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500..700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#D470A2',
+              pinkDark: '#b85486',
+              pinkLight: '#FDF2F7',
+              sage: '#81B29A',
+              sageDark: '#5f9179',
+              sageLight: '#F1F7F4',
+              terra: '#9E5B54',
+              cream: '#FFFDFB',
+              ink: '#2D2327'
+            }
+          },
+          fontFamily: {
+            heading: ['Fraunces', 'serif'],
+            body: ['DM Sans', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #FFFDFB;
+      color: #2D2327;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Fraunces', serif;
+    }
+    .glass-nav {
+      background: rgba(255, 253, 251, 0.9);
+      backdrop-filter: blur(12px);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D470A2;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-brand-pink selection:text-white">
+
+  <!-- Top Announcement Banner -->
+  <div class="bg-brand-pink text-white text-xs sm:text-sm py-2 px-4 text-center font-medium tracking-wide">
+    ✨ 100% Handmade 6mm Fuzzy Wire Bouquets That Never Fade • Nationwide Delivery Across Bangladesh ✨
+  </div>
+
+  <!-- Navigation Bar (Clean Public View - No Admin Buttons Visible) -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-brand-pink/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-full bg-brand-pink/15 border border-brand-pink/40 flex items-center justify-center text-lg">🌷</span>
+        <div>
+          <span class="font-heading text-xl sm:text-2xl font-bold text-brand-ink tracking-tight">Kaarupushpo</span>
+          <span class="hidden sm:inline-block text-xs text-brand-terra font-medium ml-1.5">কারুপুষ্প</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-ink/80">
+        <a href="#catalog" class="hover:text-brand-pink transition">Shop Bouquets</a>
+        <a href="#customizer" class="hover:text-brand-pink transition">Custom Bouquet Builder</a>
+        <a href="#how-it-works" class="hover:text-brand-pink transition">How to Order</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <!-- Secret Admin Badge (Hidden unless unlocked by Owner) -->
+        <button id="adminNavBtn" onclick="openAdminModal()" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-terra text-white shadow-sm hover:opacity-95 transition">
+          ⚙️ Owner Studio
+        </button>
+
+        <!-- Cart Button -->
+        <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-brand-pink hover:bg-brand-pinkDark text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition">
+          <span>🛒</span>
+          <span class="hidden sm:inline">Your Bag</span>
+          <span id="cartCountBadge" class="bg-white text-brand-pinkDark text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-brand-pinkLight via-brand-cream to-brand-sageLight border-b border-brand-pink/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-pink/30 text-brand-terra text-xs font-semibold shadow-sm">
+          <span>🌸 Handcrafted in Dhaka</span>
+          <span>•</span>
+          <span>Everlasting Chenille Stem Art</span>
+        </div>
+        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-ink leading-tight">
+          Flowers That Stay in <span class="text-brand-pink italic">Bloom Forever.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-brand-ink/75 max-w-2xl leading-relaxed">
+          Every petal at <strong>Kaarupushpo</strong> is twisted by hand from plush 6mm fuzzy chenille stems. Pick a ready-made signature arrangement or build your own custom bouquet recipe and order seamlessly via WhatsApp.
+        </p>
+        <div class="flex flex-wrap gap-3.5 pt-2">
+          <a href="#catalog" class="px-6 py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-semibold text-sm shadow-md transition">
+            Explore Collection
+          </a>
+          <a href="#customizer" class="px-6 py-3.5 rounded-full bg-white hover:bg-brand-sageLight text-brand-ink border border-brand-sage font-semibold text-sm shadow-sm transition flex items-center gap-2">
+            <span>✨ Customize Your Own Bouquet</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="relative mx-auto max-w-md rounded-3xl bg-white p-4 shadow-xl border border-brand-pink/20">
+          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-brand-pink/20 via-brand-PinkLight to-brand-sage/25 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+            <div class="text-6xl mb-3">💐</div>
+            <p class="font-heading text-xl font-bold text-brand-ink">Everlasting Handcrafted Keepsakes</p>
+            <p class="text-xs text-brand-ink/70 mt-1">Customizable stems, pastel wraps, fairy lights & handwritten notes</p>
+            <div class="mt-4 flex flex-wrap justify-center gap-2">
+              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-pinkDark">#D470A2 Signature Rose</span>
+              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-sageDark">#81B29A Sage Foliage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog Section -->
+  <section id="catalog" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 w-full">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      <div>
+        <span class="text-xs uppercase tracking-widest text-brand-terra font-bold">Ready-to-Order Collection</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-brand-ink mt-1">Signature Fuzzy Wire Creations</h2>
+      </div>
+      <!-- Category Filters -->
+      <div id="categoryFilterBar" class="flex flex-wrap gap-2">
+        <button onclick="setCategoryFilter('All')" data-cat="All" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-pink text-white transition">All</button>
+        <button onclick="setCategoryFilter('Bouquets')" data-cat="Bouquets" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition">Bouquets</button>
+        <button onclick="setCategoryFilter('Potted')" data-cat="Potted" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition">Potted Blooms</button>
+        <button onclick="setCategoryFilter('Single Stems & Cards')" data-cat="Single Stems & Cards" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition">Single Stems & Cards</button>
+      </div>
+    </div>
+
+    <!-- Dynamic Products Grid -->
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- Interactive Custom Bouquet Builder -->
+  <section id="customizer" class="py-16 bg-gradient-to-b from-brand-pinkLight/60 to-brand-sageLight/50 border-y border-brand-pink/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="px-3 py-1 rounded-full bg-brand-sage/20 text-brand-sageDark text-xs font-bold uppercase tracking-wider">Bespoke Studio</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-brand-ink mt-2">Build Your Own Custom Bouquet</h2>
+        <p class="text-sm sm:text-base text-brand-ink/75 mt-2">
+          Mix and match your favorite handmade fuzzy wire flowers, choose your color palette and wrapping style, and add it directly to your WhatsApp order.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <!-- Left Column: Live Bouquet Visualizer & Summary -->
+        <div class="lg:col-span-5 lg:sticky lg:top-24 bg-white rounded-3xl p-6 shadow-lg border border-brand-pink/20">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-terra">Live Bouquet Preview</span>
+            <span id="customStemCounter" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark">0 Stems Selected</span>
+          </div>
+
+          <!-- Dynamic SVG Preview -->
+          <div id="bouquetPreviewBox" class="aspect-square rounded-2xl bg-brand-cream border border-brand-pink/15 flex items-center justify-center p-4 relative overflow-hidden">
+            <svg id="bouquetSvg" viewBox="0 0 300 320" class="w-full h-full max-h-72"></svg>
+          </div>
+
+          <!-- Price Breakdown -->
+          <div class="mt-5 pt-4 border-t border-brand-pink/15 space-y-2 text-sm">
+            <div class="flex justify-between text-brand-ink/75">
+              <span>Selected Stems</span>
+              <span id="customStemsSubtotal" class="font-semibold">৳0</span>
+            </div>
+            <div class="flex justify-between text-brand-ink/75">
+              <span>Wrapping & Extras</span>
+              <span id="customExtrasSubtotal" class="font-semibold">৳0</span>
+            </div>
+            <div class="flex justify-between text-lg font-heading font-bold text-brand-ink pt-2 border-t border-brand-pink/15">
+              <span>Estimated Bouquet Total</span>
+              <span id="customTotalDisplay" class="text-brand-pinkDark">৳0</span>
+            </div>
+          </div>
+
+          <button onclick="addCustomBouquetToCart()" class="mt-5 w-full py-3.5 px-5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-semibold text-sm shadow-md transition flex items-center justify-center gap-2">
+            <span>💐 Add Custom Bouquet to Bag</span>
+          </button>
+        </div>
+
+        <!-- Right Column: Step-by-Step Builder Controls -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Step 1: Pick Stems -->
+          <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-heading text-xl font-bold text-brand-ink">1. Choose Your Fuzzy Wire Stems</h3>
+              <button onclick="resetCustomBuilder()" class="text-xs text-brand-terra underline hover:text-brand-pink">Reset Stems</button>
+            </div>
+            <div id="stemPickerList" class="grid sm:grid-cols-2 gap-3.5"></div>
+          </div>
+
+          <!-- Step 2: Color Palette & Wrapping -->
+          <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15 space-y-5">
+            <h3 class="font-heading text-xl font-bold text-brand-ink">2. Color Theme & Wrapping Paper</h3>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Petal Color Palette</label>
+              <div id="paletteOptions" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Wrapping Style</label>
+                <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-cream focus:outline-none focus:border-brand-pink"></select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Ribbon & Add-ons</label>
+                <div class="space-y-2 text-sm">
+                  <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" id="addonFairyLights" onchange="renderCustomBuilder()" class="rounded text-brand-pink focus:ring-brand-pink" />
+                    <span>✨ Warm LED Fairy Lights (<span id="fairyLightsPriceLabel">+৳80</span>)</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" id="addonMiniCard" onchange="renderCustomBuilder()" class="rounded text-brand-pink focus:ring-brand-pink" />
+                    <span>💌 Handmade Mini Floral Card (<span id="miniCardPriceLabel">+৳50</span>)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-1.5">Custom Note on Card / Special Instructions (Optional)</label>
+              <input type="text" id="customBouquetNote" maxlength="120" placeholder="e.g. 'Happy Anniversary!' or 'Use pastel pink & cream tulips'" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-cream focus:outline-none focus:border-brand-pink" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-xl mx-auto mb-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-brand-terra">Simple 3-Step Ordering</span>
+      <h2 class="font-heading text-3xl font-bold text-brand-ink mt-1">How WhatsApp Ordering Works</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl border border-brand-pink/15 shadow-sm">
+        <div class="w-10 h-10 rounded-full bg-brand-pinkLight text-brand-pinkDark font-bold flex items-center justify-center mb-4">1</div>
+        <h3 class="font-heading text-lg font-bold">Pick or Customize</h3>
+        <p class="text-sm text-brand-ink/75 mt-1.5">Add ready-made bouquets from our catalog or craft your own stem combination in the Custom Builder.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-brand-pink/15 shadow-sm">
+        <div class="w-10 h-10 rounded-full bg-brand-sageLight text-brand-sageDark font-bold flex items-center justify-center mb-4">2</div>
+        <h3 class="font-heading text-lg font-bold">Enter Delivery Details</h3>
+        <p class="text-sm text-brand-ink/75 mt-1.5">Open your shopping bag, add your name, address, and choose Inside or Outside Dhaka delivery.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-brand-pink/15 shadow-sm">
+        <div class="w-10 h-10 rounded-full bg-brand-pinkLight text-brand-terra font-bold flex items-center justify-center mb-4">3</div>
+        <h3 class="font-heading text-lg font-bold">Send Order on WhatsApp</h3>
+        <p class="text-sm text-brand-ink/75 mt-1.5">Click "Order via WhatsApp" to send your itemized invoice directly to our chat for instant confirmation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (Click copyright 5 times to unlock Owner Studio) -->
+  <footer class="bg-brand-ink text-white/85 py-10 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+      <div class="flex items-center gap-2.5">
+        <span class="text-xl">🌷</span>
+        <span class="font-heading font-bold text-white text-lg">Kaarupushpo • কারুপুষ্প</span>
+      </div>
+      <p id="secretFooterTrigger" onclick="handleSecretFooterClick()" class="text-xs text-white/60 select-none cursor-pointer hover:text-white/80 transition" title="Kaarupushpo Handcrafted Floral Studio">
+        © 2026 Kaarupushpo. Handcrafted with love in Dhaka, Bangladesh.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Shopping Bag & WhatsApp Checkout Drawer -->
+  <div id="cartDrawerBackdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-black/40 z-50 hidden backdrop-blur-xs"></div>
+  <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-5 border-b border-brand-pink/15 flex items-center justify-between bg-brand-pinkLight/50">
+      <div>
+        <h3 class="font-heading text-xl font-bold text-brand-ink">Your Flower Bag</h3>
+        <p class="text-xs text-brand-ink/65">Direct WhatsApp Checkout</p>
+      </div>
+      <button onclick="toggleCartDrawer(false)" class="w-8 h-8 rounded-full bg-white border border-brand-pink/20 flex items-center justify-center text-brand-ink hover:bg-brand-pink hover:text-white transition">✕</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar">
+      <!-- Cart Items -->
+      <div id="cartItemsList" class="space-y-3"></div>
+
+      <!-- Customer Delivery Form -->
+      <div id="checkoutFormSection" class="pt-4 border-t border-brand-pink/15 space-y-3.5">
+        <h4 class="font-heading font-bold text-base text-brand-ink">Delivery Details</h4>
+        <div>
+          <label class="block text-xs font-semibold text-brand-ink/75 mb-1">Your Name *</label>
+          <input type="text" id="custName" placeholder="e.g. Nusrat Jahan" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm focus:outline-none focus:border-brand-pink" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-brand-ink/75 mb-1">Phone Number *</label>
+          <input type="tel" id="custPhone" placeholder="01XXXXXXXXX" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm focus:outline-none focus:border-brand-pink" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-brand-ink/75 mb-1">Delivery Area *</label>
+          <select id="custZone" onchange="renderCart()" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm bg-white focus:outline-none focus:border-brand-pink">
+            <option value="inside">Inside Dhaka</option>
+            <option value="outside">Outside Dhaka</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-brand-ink/75 mb-1">Full Delivery Address *</label>
+          <textarea id="custAddress" rows="2" placeholder="House, Road, Area, Dhaka" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm focus:outline-none focus:border-brand-pink"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-brand-ink/75 mb-1">Preferred Delivery Date / Gift Note</label>
+          <input type="text" id="custNote" placeholder="Optional delivery date or message" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm focus:outline-none focus:border-brand-pink" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Totals & WhatsApp Order Button -->
+    <div class="p-5 border-t border-brand-pink/15 bg-brand-cream space-y-3">
+      <div class="space-y-1 text-sm">
+        <div class="flex justify-between text-brand-ink/75">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">৳0</span>
+        </div>
+        <div class="flex justify-between text-brand-ink/75">
+          <span>Delivery Charge</span>
+          <span id="cartDeliveryFee">৳70</span>
+        </div>
+        <div class="flex justify-between text-base font-heading font-bold text-brand-ink pt-1.5 border-t border-brand-pink/15">
+          <span>Total Payable</span>
+          <span id="cartGrandTotal" class="text-brand-pinkDark">৳0</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-2">
+        <button onclick="sendOrderViaWhatsApp()" class="w-full py-3.5 px-4 rounded-full bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <span>💬 Send Order via WhatsApp</span>
+        </button>
+        <button onclick="copyInvoiceText()" class="w-full py-2 px-3 rounded-full bg-white border border-brand-pink/30 text-xs font-semibold text-brand-ink/80 hover:bg-brand-pinkLight transition">
+          📋 Copy Invoice Text
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- HIDDEN OWNER STUDIO MODAL (Only Accessible via Secret Trigger + PIN) -->
+  <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 backdrop-blur-xs">
+    <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
+      <div class="p-5 bg-brand-ink text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-heading text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
+          <p class="text-xs text-white/70">Manage Product Photos, Prices, Stem Rates & Live GitHub Sync</p>
+        </div>
+        <button onclick="closeAdminModal()" class="px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold">Close ✕</button>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="flex border-b border-brand-pink/20 bg-brand-pinkLight/40 px-5 pt-3 gap-2 text-xs font-bold">
+        <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">1. Products & Photos</button>
+        <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">2. Custom Builder Prices</button>
+        <button onclick="switchAdminTab('github')" id="tabBtn-github" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">3. WhatsApp & GitHub Live Sync</button>
+      </div>
+
+      <!-- Admin Tab Content -->
+      <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+
+        <!-- TAB 1: PRODUCTS -->
+        <div id="adminTab-products" class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight p-4 rounded-2xl border border-brand-sage/30">
+            <div>
+              <h4 class="font-heading font-bold text-sm text-brand-ink">Add or Edit Store Products</h4>
+              <p class="text-xs text-brand-ink/70">Upload photos from your device (auto-compressed) or paste an image URL, and set prices in ৳.</p>
+            </div>
+            <button onclick="addNewProductRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
+              + Add New Product
+            </button>
+          </div>
+          <div id="adminProductsList" class="space-y-4"></div>
+        </div>
+
+        <!-- TAB 2: CUSTOM BUILDER RATES -->
+        <div id="adminTab-builder" class="hidden space-y-5">
+          <div class="bg-brand-pinkLight/50 p-4 rounded-2xl border border-brand-pink/20">
+            <h4 class="font-heading font-bold text-sm text-brand-ink">Fuzzy Wire Stem Prices (Per Stem in ৳)</h4>
+            <p class="text-xs text-brand-ink/70">Adjust individual stem prices for the Custom Bouquet Builder.</p>
+          </div>
+          <div id="adminStemsList" class="grid sm:grid-cols-2 gap-3"></div>
+
+          <div class="grid sm:grid-cols-2 gap-4 pt-4 border-t border-brand-pink/20">
+            <div>
+              <label class="block text-xs font-bold text-brand-ink/75 mb-1">Fairy Lights Add-on Price (৳)</label>
+              <input type="number" id="adminFairyPrice" onchange="updateAddonPrices()" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-brand-ink/75 mb-1">Mini Floral Card Add-on Price (৳)</label>
+              <input type="number" id="adminCardPrice" onchange="updateAddonPrices()" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: WHATSAPP & GITHUB DIRECT SYNC -->
+        <div id="adminTab-github" class="hidden space-y-6">
+          <div class="grid sm:grid-cols-3 gap-4 bg-brand-cream p-4 rounded-2xl border border-brand-pink/20">
+            <div>
+              <label class="block text-xs font-bold text-brand-ink/80 mb-1">Official WhatsApp Number</label>
+              <input type="text" id="adminWhatsapp" placeholder="8801XXXXXXXXX" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+              <span class="text-[11px] text-brand-ink/60">Include country code (880), no + sign</span>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-brand-ink/80 mb-1">Inside Dhaka Delivery (৳)</label>
+              <input type="number" id="adminDeliveryInside" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-brand-ink/80 mb-1">Outside Dhaka Delivery (৳)</label>
+              <input type="number" id="adminDeliveryOutside" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
+            </div>
+          </div>
+
+          <!-- GitHub Direct Push Box -->
+          <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">No Database Needed</span>
+              <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
+              <p class="text-xs text-brand-ink/75">
+                Enter your GitHub repository name and a Personal Access Token (with <code>repo</code> or <code>Contents: Read & Write</code> permission). Clicking <strong>"Publish Live to GitHub"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated photos and prices immediately!
+              </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-brand-ink/80 mb-1">GitHub Repository (username/repo)</label>
+                <input type="text" id="ghRepo" placeholder="e.g. afnan/kaarupushpo" class="w-full rounded-xl border border-brand-sage/50 px-3 py-2 text-sm bg-white" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-brand-ink/80 mb-1">Branch Name</label>
+                <input type="text" id="ghBranch" value="main" placeholder="main" class="w-full rounded-xl border border-brand-sage/50 px-3 py-2 text-sm bg-white" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-brand-ink/80 mb-1">GitHub Personal Access Token (Saved only on your browser)</label>
+              <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx or github_pat_..." class="w-full rounded-xl border border-brand-sage/50 px-3 py-2 text-sm bg-white" />
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-1">
+              <button onclick="publishToGitHub()" id="publishGhBtn" class="px-5 py-2.5 rounded-full bg-brand-ink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-sm transition">
+                🚀 Publish Live to GitHub Now
+              </button>
+              <button onclick="downloadStoreJson()" class="px-4 py-2.5 rounded-full bg-white border border-brand-ink/20 text-brand-ink text-xs font-semibold hover:bg-brand-pinkLight transition">
+                ⬇️ Download store-data.json
+              </button>
+            </div>
+            <p id="ghStatusMsg" class="text-xs font-semibold text-brand-terra"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="p-4 bg-brand-cream border-t border-brand-pink/20 flex items-center justify-between">
+        <span class="text-xs text-brand-ink/65">Changes preview immediately on this device. Click "Publish Live to GitHub" to update for all customers.</span>
+        <button onclick="saveAdminChangesLocally()" class="px-5 py-2 rounded-full bg-brand-pink text-white text-xs font-bold hover:bg-brand-pinkDark transition">
+          💾 Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastBox" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden bg-brand-ink text-white px-5 py-2.5 rounded-full text-xs font-semibold shadow-lg"></div>
+
+  <script>
+    // ==========================================
+    // 1. DEFAULT STORE DATA (Fallback if store-data.json isn't in repo yet)
+    // ==========================================
+    const DEFAULT_STORE_DATA = {
+      whatsappNumber: "8801700000000",
+      deliveryInsideDhaka: 70,
+      deliveryOutsideDhaka: 130,
+      adminPin: "2026",
+      addonFairyLightsPrice: 80,
+      addonMiniCardPrice: 50,
+      products: [
+        {
+          id: "kp-1",
+          name: "Pastel Tulip Dream Bouquet",
+          category: "Bouquets",
+          price: 650,
+          badge: "Bestseller",
+          description: "7 handcrafted 6mm fuzzy wire tulips with sage eucalyptus leaves wrapped in frosted Korean paper.",
+          image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "kp-2",
+          name: "Sunflower & Daisy Sunshine Wrap",
+          category: "Bouquets",
+          price: 780,
+          badge: "Signature",
+          description: "Bright fuzzy wire golden sunflower center surrounded by chamomile daisies and warm fairy lights.",
+          image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "kp-3",
+          name: "Blush Rose & Lavender Keepsake",
+          category: "Bouquets",
+          price: 890,
+          badge: "Romantic",
+          description: "Plush rose-pink chenille roses paired with fragrant-inspired lavender stems and satin ribbon.",
+          image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "kp-4",
+          name: "Mini Potted Desk Tulip",
+          category: "Potted",
+          price: 380,
+          badge: "Desk Decor",
+          description: "Adorable everlasting potted fuzzy wire tulip for study desks, dorm rooms, and work tables.",
+          image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "kp-5",
+          name: "Single Wrapped Chenille Rose Stem",
+          category: "Single Stems & Cards",
+          price: 180,
+          badge: "Budget Gift",
+          description: "Single oversized handmade fuzzy wire rose wrapped with baby's breath accents and ribbon.",
+          image: "https://images.unsplash.com/photo-1508615039623-a25605d2b022?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "kp-6",
+          name: "3D Fuzzy Floral Greeting Card",
+          category: "Single Stems & Cards",
+          price: 220,
+          badge: "Custom Note",
+          description: "Artisanal kraft greeting card adorned with a mini handmade chenille flower bouquet on the cover.",
+          image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80"
+        }
+      ],
+      stems: [
+        { id: "tulip", name: "Plush Tulip Stem", price: 95, emoji: "🌷", color: "#D470A2" },
+        { id: "rose", name: "Velvet Chenille Rose", price: 120, emoji: "🌹", color: "#C84B76" },
+        { id: "sunflower", name: "Golden Sunflower", price: 160, emoji: "🌻", color: "#F4A261" },
+        { id: "lily", name: "Stargazer Lily", price: 170, emoji: "🌺", color: "#E07A9B" },
+        { id: "daisy", name: "Chamomile Daisy", price: 75, emoji: "🌼", color: "#F6BD60" },
+        { id: "lavender", name: "Lavender Sprig", price: 65, emoji: "🪻", color: "#9D8DF1" },
+        { id: "eucalyptus", name: "Sage Eucalyptus Leaf", price: 55, emoji: "🌿", color: "#81B29A" }
+      ],
+      wraps: [
+        { id: "korean-pink", name: "Frosted Blush Korean Paper", price: 60, color: "#F9DCE8" },
+        { id: "sage-matte", name: "Sage Green Matte Film", price: 60, color: "#D8ECE3" },
+        { id: "kraft-vintage", name: "Vintage Kraft & Lace", price: 50, color: "#EADBC8" },
+        { id: "luxury-black", name: "Midnight Noir & Gold Trim", price: 80, color: "#3A3238" }
+      ],
+      palettes: [
+        { id: "rose-blush", name: "Kaarupushpo Rose & Cream", hex: "#D470A2" },
+        { id: "pastel-lilac", name: "Pastel Lilac & Butter", hex: "#B8A1E3" },
+        { id: "warm-sunset", name: "Sunflower Terracotta", hex: "#E07A5F" },
+        { id: "custom-mix", name: "Artist's Custom Mix", hex: "#81B29A" }
+      ]
+    };
+
+    let storeData = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA));
+    let currentCategory = "All";
+    let cart = [];
+    let customSelection = {
+      stems: { tulip: 3, daisy: 2, eucalyptus: 2 },
+      palette: "Kaarupushpo Rose & Cream",
+      wrapId: "korean-pink"
+    };
+    let footerClickCount = 0;
+    let footerClickTimer = null;
+
+    // ==========================================
+    // 2. INITIALIZE & LOAD DYNAMIC store-data.json FROM GITHUB PAGES
+    // ==========================================
+    async function initStore() {
+      // Load saved cart
+      const savedCart = localStorage.getItem("kp_cart");
+      if (savedCart) {
+        try { cart = JSON.parse(savedCart); } catch (e) {}
+      }
+
+      // Check local cached admin overrides first or fetch live store-data.json
+      try {
+        const res = await fetch("./store-data.json?t=" + Date.now(), { cache: "no-store" });
+        if (res.ok) {
+          const remoteData = await res.json();
+          storeData = { ...DEFAULT_STORE_DATA, ...remoteData };
+        } else {
+          const localOverride = localStorage.getItem("kp_store_data");
+          if (localOverride) storeData = { ...DEFAULT_STORE_DATA, ...JSON.parse(localOverride) };
+        }
+      } catch (err) {
+        const localOverride = localStorage.getItem("kp_store_data");
+        if (localOverride) storeData = { ...DEFAULT_STORE_DATA, ...JSON.parse(localOverride) };
+      }
+
+      // Restore GitHub repo config if saved in owner browser
+      const ghConfig = JSON.parse(localStorage.getItem("kp_gh_config") || "{}");
+      if (ghConfig.repo) document.getElementById("ghRepo").value = ghConfig.repo;
+      if (ghConfig.branch) document.getElementById("ghBranch").value = ghConfig.branch;
+      if (ghConfig.token) document.getElementById("ghToken").value = ghConfig.token;
+
+      // Check if URL has ?admin=true
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("admin") === "true") {
+        promptAdminUnlock();
+      }
+
+      renderCatalog();
+      initCustomBuilderUI();
+      renderCustomBuilder();
+      renderCart();
+    }
+
+    // ==========================================
+    // 3. PRODUCT CATALOG RENDERING
+    // ==========================================
+    function setCategoryFilter(cat) {
+      currentCategory = cat;
+      document.querySelectorAll(".cat-btn").forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-pink text-white transition";
+        } else {
+          btn.className = "cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white border border-brand-pink/25 text-brand-ink/80 hover:border-brand-pink transition";
+        }
+      });
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById("productsGrid");
+      const filtered = currentCategory === "All"
+        ? storeData.products
+        : storeData.products.filter(p => p.category === currentCategory);
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-brand-ink/60 text-sm">No products found in this category.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => `
+        <div class="bg-white rounded-3xl border border-brand-pink/15 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col group">
+          <div class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
+            ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${p.badge}</span>` : ""}
+            <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${p.category}</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="font-heading text-lg font-bold text-brand-ink">${p.name}</h3>
+              <p class="text-xs text-brand-ink/70 mt-1 line-clamp-2">${p.description || ""}</p>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-brand-pink/10">
+              <div>
+                <span class="text-xs text-brand-ink/60 block">Price</span>
+                <span class="font-heading text-xl font-bold text-brand-pinkDark">৳${Number(p.price).toLocaleString()}</span>
+              </div>
+              <button onclick="addProductToCart('${p.id}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
+                + Add to Bag
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // ==========================================
+    // 4. INTERACTIVE CUSTOM BOUQUET BUILDER
+    // ==========================================
+    function initCustomBuilderUI() {
+      // Populate Palette Options
+      const palContainer = document.getElementById("paletteOptions");
+      palContainer.innerHTML = storeData.palettes.map(pal => `
+        <button type="button" onclick="selectPalette('${pal.name}')" class="palette-btn p-2.5 rounded-xl border text-left transition flex items-center gap-2 ${customSelection.palette === pal.name ? 'border-brand-pink bg-brand-pinkLight font-bold' : 'border-brand-pink/20 bg-white'}">
+          <span class="w-4 h-4 rounded-full shrink-0 border border-black/10" style="background:${pal.hex}"></span>
+          <span class="text-xs leading-tight">${pal.name}</span>
+        </button>
+      `).join("");
+
+      // Populate Wrap Select
+      const wrapSelect = document.getElementById("wrapStyleSelect");
+      wrapSelect.innerHTML = storeData.wraps.map(w => `
+        <option value="${w.id}" ${customSelection.wrapId === w.id ? 'selected' : ''}>${w.name} (+৳${w.price})</option>
+      `).join("");
+
+      document.getElementById("fairyLightsPriceLabel").textContent = `+৳${storeData.addonFairyLightsPrice}`;
+      document.getElementById("miniCardPriceLabel").textContent = `+৳${storeData.addonMiniCardPrice}`;
+    }
+
+    function selectPalette(name) {
+      customSelection.palette = name;
+      initCustomBuilderUI();
+      renderCustomBuilder();
+    }
+
+    function adjustStemQty(stemId, delta) {
+      const current = customSelection.stems[stemId] || 0;
+      const next = Math.max(0, Math.min(25, current + delta));
+      customSelection.stems[stemId] = next;
+      renderCustomBuilder();
+    }
+
+    function resetCustomBuilder() {
+      customSelection.stems = {};
+      renderCustomBuilder();
+    }
+
+    function renderCustomBuilder() {
+      // Render stem controls
+      const stemList = document.getElementById("stemPickerList");
+      stemList.innerHTML = storeData.stems.map(s => {
+        const qty = customSelection.stems[s.id] || 0;
+        return `
+          <div class="flex items-center justify-between p-3 rounded-2xl border ${qty > 0 ? 'border-brand-pink bg-brand-pinkLight/40' : 'border-brand-pink/15 bg-brand-cream'}">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">${s.emoji}</span>
+              <div>
+                <p class="text-xs font-bold text-brand-ink">${s.name}</p>
+                <p class="text-xs text-brand-pinkDark font-semibold">৳${s.price} / stem</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="adjustStemQty('${s.id}', -1)" class="w-7 h-7 rounded-full bg-white border border-brand-pink/30 font-bold text-sm flex items-center justify-center hover:bg-brand-pink hover:text-white transition">−</button>
+              <span class="w-5 text-center text-xs font-bold">${qty}</span>
+              <button onclick="adjustStemQty('${s.id}', 1)" class="w-7 h-7 rounded-full bg-brand-pink text-white font-bold text-sm flex items-center justify-center hover:bg-brand-pinkDark transition">+</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Calculate totals
+      let totalStemsCount = 0;
+      let stemsCost = 0;
+      const activeFlowers = [];
+
+      storeData.stems.forEach(s => {
+        const q = customSelection.stems[s.id] || 0;
+        totalStemsCount += q;
+        stemsCost += q * Number(s.price);
+        for (let i = 0; i < q; i++) activeFlowers.push(s);
+      });
+
+      const wrapSelect = document.getElementById("wrapStyleSelect");
+      customSelection.wrapId = wrapSelect.value || storeData.wraps[0].id;
+      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0];
+
+      const hasLights = document.getElementById("addonFairyLights").checked;
+      const hasCard = document.getElementById("addonMiniCard").checked;
+
+      const extrasCost = Number(selectedWrap.price)
+        + (hasLights ? Number(storeData.addonFairyLightsPrice) : 0)
+        + (hasCard ? Number(storeData.addonMiniCardPrice) : 0);
+
+      const totalCost = totalStemsCount > 0 ? (stemsCost + extrasCost) : 0;
+
+      document.getElementById("customStemCounter").textContent = `${totalStemsCount} Stem${totalStemsCount === 1 ? '' : 's'} Selected`;
+      document.getElementById("customStemsSubtotal").textContent = `৳${stemsCost}`;
+      document.getElementById("customExtrasSubtotal").textContent = totalStemsCount > 0 ? `৳${extrasCost}` : `৳0`;
+      document.getElementById("customTotalDisplay").textContent = `৳${totalCost}`;
+
+      // Draw Live SVG Bouquet
+      drawBouquetSvg(activeFlowers, selectedWrap, hasLights);
+    }
+
+    function drawBouquetSvg(flowers, wrap, hasLights) {
+      const svg = document.getElementById("bouquetSvg");
+      if (!flowers.length) {
+        svg.innerHTML = `
+          <text x="150" y="155" text-anchor="middle" fill="#9E5B54" font-size="13" font-family="DM Sans">
+            Select stems on the right to preview your bouquet 🌸
+          </text>
+        `;
+        return;
+      }
+
+      const wrapColor = wrap ? wrap.color : "#F9DCE8";
+      let stemsLines = "";
+      let flowerHeads = "";
+
+      const count = Math.min(flowers.length, 18);
+      for (let i = 0; i < count; i++) {
+        const f = flowers[i];
+        const spread = count === 1 ? 0 : (i / (count - 1)) - 0.5;
+        const x = 150 + spread * 130;
+        const y = 95 + Math.abs(spread) * 35 + (i % 3) * 14;
+        stemsLines += `<line x1="150" y1="250" x2="${x}" y2="${y}" stroke="#81B29A" stroke-width="4" stroke-linecap="round" />`;
+        flowerHeads += `
+          <g transform="translate(${x}, ${y})">
+            <circle r="18" fill="${f.color}" opacity="0.25" />
+            <text x="0" y="7" text-anchor="middle" font-size="24">${f.emoji}</text>
+          </g>
+        `;
+      }
+
+      let lightsDots = "";
+      if (hasLights) {
+        for (let j = 0; j < 12; j++) {
+          const lx = 95 + (j * 11) % 115;
+          const ly = 75 + (j * 23) % 95;
+          lightsDots += `<circle cx="${lx}" cy="${ly}" r="3.5" fill="#FFD166"><animate attributeName="opacity" values="0.3;1;0.3" dur="${1 + (j % 3) * 0.5}s" repeatCount="indefinite"/></circle>`;
+        }
+      }
+
+      svg.innerHTML = `
+        <!-- Back Wrapping Paper -->
+        <polygon points="55,115 245,115 180,285 120,285" fill="${wrapColor}" stroke="#D470A2" stroke-width="1.5" opacity="0.85" />
+        ${stemsLines}
+        ${flowerHeads}
+        <!-- Front Wrap Fold -->
+        <polygon points="85,185 215,185 175,295 125,295" fill="${wrapColor}" stroke="#D470A2" stroke-width="1.5" />
+        <!-- Satin Ribbon Bow -->
+        <rect x="122" y="232" width="56" height="12" rx="6" fill="#D470A2" />
+        <circle cx="150" cy="238" r="8" fill="#9E5B54" />
+        ${lightsDots}
+      `;
+    }
+
+    function addCustomBouquetToCart() {
+      let totalStemsCount = 0;
+      let stemsCost = 0;
+      const stemParts = [];
+
+      storeData.stems.forEach(s => {
+        const q = customSelection.stems[s.id] || 0;
+        if (q > 0) {
+          totalStemsCount += q;
+          stemsCost += q * Number(s.price);
+          stemParts.push(`${q}x ${s.name}`);
+        }
+      });
+
+      if (totalStemsCount === 0) {
+        showToast("Please select at least 1 fuzzy wire stem first!");
+        return;
+      }
+
+      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0];
+      const hasLights = document.getElementById("addonFairyLights").checked;
+      const hasCard = document.getElementById("addonMiniCard").checked;
+      const note = document.getElementById("customBouquetNote").value.trim();
+
+      const unitPrice = stemsCost
+        + Number(selectedWrap.price)
+        + (hasLights ? Number(storeData.addonFairyLightsPrice) : 0)
+        + (hasCard ? Number(storeData.addonMiniCardPrice) : 0);
+
+      const extrasArr = [
+        `Palette: ${customSelection.palette}`,
+        `Wrap: ${selectedWrap.name}`
+      ];
+      if (hasLights) extrasArr.push("LED Fairy Lights");
+      if (hasCard) extrasArr.push("Mini Floral Card");
+      if (note) extrasArr.push(`Note: "${note}"`);
+
+      cart.push({
+        cartItemId: "custom-" + Date.now(),
+        name: "Custom Fuzzy Wire Bouquet",
+        price: unitPrice,
+        qty: 1,
+        details: `${stemParts.join(", ")} | ${extrasArr.join(" • ")}`
+      });
+
+      saveAndRefreshCart();
+      toggleCartDrawer(true);
+      showToast("Custom bouquet added to your bag!");
+    }
+
+    // ==========================================
+    // 5. CART & WHATSAPP CHECKOUT
+    // ==========================================
+    function addProductToCart(prodId) {
+      const prod = storeData.products.find(p => p.id === prodId);
+      if (!prod) return;
+
+      const existing = cart.find(item => item.productId === prodId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          cartItemId: "item-" + Date.now(),
+          productId: prod.id,
+          name: prod.name,
+          price: Number(prod.price),
+          qty: 1,
+          details: prod.category
+        });
+      }
+      saveAndRefreshCart();
+      showToast(`Added "${prod.name}" to bag!`);
+    }
+
+    function updateCartQty(cartItemId, delta) {
+      const idx = cart.findIndex(c => c.cartItemId === cartItemId);
+      if (idx === -1) return;
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      saveAndRefreshCart();
+    }
+
+    function saveAndRefreshCart() {
+      localStorage.setItem("kp_cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById("cartDrawer");
+      const backdrop = document.getElementById("cartDrawerBackdrop");
+      if (open) {
+        backdrop.classList.remove("hidden");
+        drawer.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.add("hidden");
+        drawer.classList.add("translate-x-full");
+      }
+    }
+
+    function renderCart() {
+      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById("cartCountBadge").textContent = totalItems;
+
+      const listEl = document.getElementById("cartItemsList");
+      if (!cart.length) {
+        listEl.innerHTML = `<div class="text-center py-8 text-brand-ink/60 text-sm">Your flower bag is empty 🌸</div>`;
+      } else {
+        listEl.innerHTML = cart.map(item => `
+          <div class="p-3.5 rounded-2xl bg-brand-cream border border-brand-pink/20 flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <p class="font-heading font-bold text-sm text-brand-ink">${item.name}</p>
+              <p class="text-xs text-brand-ink/70 leading-relaxed">${item.details || ""}</p>
+              <p class="text-xs font-bold text-brand-pinkDark">৳${(item.price * item.qty).toLocaleString()} (৳${item.price} each)</p>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button onclick="updateCartQty('${item.cartItemId}', -1)" class="w-6 h-6 rounded-full bg-white border border-brand-pink/30 text-xs font-bold">−</button>
+              <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+              <button onclick="updateCartQty('${item.cartItemId}', 1)" class="w-6 h-6 rounded-full bg-brand-pink text-white text-xs font-bold">+</button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+      const zone = document.getElementById("custZone").value;
+      const delivery = cart.length ? (zone === "inside" ? Number(storeData.deliveryInsideDhaka) : Number(storeData.deliveryOutsideDhaka)) : 0;
+
+      document.getElementById("cartSubtotal").textContent = `৳${subtotal.toLocaleString()}`;
+      document.getElementById("cartDeliveryFee").textContent = `৳${delivery.toLocaleString()}`;
+      document.getElementById("cartGrandTotal").textContent = `৳${(subtotal + delivery).toLocaleString()}`;
+    }
+
+    function buildWhatsAppInvoice() {
+      if (!cart.length) {
+        showToast("Your bag is empty!");
+        return null;
+      }
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const zone = document.getElementById("custZone").value;
+      const note = document.getElementById("custNote").value.trim();
+
+      if (!name || !phone || !address) {
+        showToast("Please fill in your Name, Phone & Delivery Address!");
+        return null;
+      }
+
+      const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+      const delivery = zone === "inside" ? Number(storeData.deliveryInsideDhaka) : Number(storeData.deliveryOutsideDhaka);
+      const grandTotal = subtotal + delivery;
+      const orderRef = "KP-" + Date.now().toString().slice(-5);
+
+      let msg = `🌷 *NEW ORDER — KAARUPUSHPO (কারুপুষ্প)*\n`;
+      msg += `Order Ref: *#${orderRef}*\n\n`;
+      msg += `*Customer Details:*\n`;
+      msg += `• Name: ${name}\n`;
+      msg += `• Phone: ${phone}\n`;
+      msg += `• Area: ${zone === "inside" ? "Inside Dhaka" : "Outside Dhaka"}\n`;
+      msg += `• Address: ${address}\n`;
+      if (note) msg += `• Note: ${note}\n`;
+
+      msg += `\n*Ordered Items:*\n`;
+      cart.forEach((item, i) => {
+        msg += `${i + 1}. *${item.name}* (x${item.qty}) — ৳${item.price * item.qty}\n`;
+        if (item.details) msg += `   _${item.details}_\n`;
+      });
+
+      msg += `\n*Payment Summary:*\n`;
+      msg += `• Subtotal: ৳${subtotal}\n`;
+      msg += `• Delivery Fee: ৳${delivery}\n`;
+      msg += `• *Total Payable: ৳${grandTotal}*\n\n`;
+      msg += `Please confirm my order! 🌸`;
+      return msg;
+    }
+
+    function sendOrderViaWhatsApp() {
+      const invoice = buildWhatsAppInvoice();
+      if (!invoice) return;
+      const cleanNumber = (storeData.whatsappNumber || "").replace(/[^0-9]/g, "");
+      const waUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(invoice)}`;
+      window.open(waUrl, "_blank");
+    }
+
+    function copyInvoiceText() {
+      const invoice = buildWhatsAppInvoice();
+      if (!invoice) return;
+      navigator.clipboard.writeText(invoice);
+      showToast("Order invoice copied to clipboard!");
+    }
+
+    // ==========================================
+    // 6. SECRET OWNER STUDIO & LIVE GITHUB API PUSH
+    // ==========================================
+    function handleSecretFooterClick() {
+      footerClickCount++;
+      clearTimeout(footerClickTimer);
+      footerClickTimer = setTimeout(() => { footerClickCount = 0; }, 2000);
+      if (footerClickCount >= 5) {
+        footerClickCount = 0;
+        promptAdminUnlock();
+      }
+    }
+
+    function promptAdminUnlock() {
+      const entered = prompt("Enter Kaarupushpo Owner PIN (Default: 2026):");
+      if (entered === storeData.adminPin) {
+        document.getElementById("adminNavBtn").classList.remove("hidden");
+        document.getElementById("adminNavBtn").classList.add(" inline-flex");
+        openAdminModal();
+      } else if (entered !== null) {
+        alert("Incorrect PIN.");
+      }
+    }
+
+    function openAdminModal() {
+      renderAdminInputs();
+      document.getElementById("adminModal").classList.remove("hidden");
+      document.getElementById("adminModal").classList.add("flex");
+    }
+
+    function closeAdminModal() {
+      document.getElementById("adminModal").classList.add("hidden");
+      document.getElementById("adminModal").classList.remove("flex");
+    }
+
+    function switchAdminTab(tab) {
+      ["products", "builder", "github"].forEach(t => {
+        document.getElementById("adminTab-" + t).classList.toggle("hidden", t !== tab);
+        const btn = document.getElementById("tabBtn-" + t);
+        if (t === tab) {
+          btn.className = "px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20";
+        } else {
+          btn.className = "px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink";
+        }
+      });
+    }
+
+    function renderAdminInputs() {
+      // Products List
+      const list = document.getElementById("adminProductsList");
+      list.innerHTML = storeData.products.map((p, idx) => `
+        <div class="p-4 rounded-2xl bg-brand-cream border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
+          <div class="sm:col-span-2">
+            <img src="${p.image}" class="w-full aspect-square object-cover rounded-xl border border-brand-pink/20" />
+            <label class="mt-1.5 block text-center text-[11px] font-bold text-brand-pinkDark cursor-pointer underline">
+              📷 Upload Photo
+              <input type="file" accept="image/*" class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
+            </label>
+          </div>
+          <div class="sm:col-span-10 grid sm:grid-cols-3 gap-3">
+            <div>
+              <label class="text-[11px] font-bold text-brand-ink/70">Product Name</label>
+              <input type="text" value="${p.name}" onchange="storeData.products[${idx}].name = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-brand-ink/70">Price in BDT (৳)</label>
+              <input type="number" value="${p.price}" onchange="storeData.products[${idx}].price = Number(this.value)" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark" />
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-brand-ink/70">Category</label>
+              <select onchange="storeData.products[${idx}].category = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white">
+                <option value="Bouquets" ${p.category === 'Bouquets' ? 'selected' : ''}>Bouquets</option>
+                <option value="Potted" ${p.category === 'Potted' ? 'selected' : ''}>Potted Blooms</option>
+                <option value="Single Stems & Cards" ${p.category === 'Single Stems & Cards' ? 'selected' : ''}>Single Stems & Cards</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-[11px] font-bold text-brand-ink/70">Image URL (or upload file on left)</label>
+              <input type="text" value="${p.image}" onchange="storeData.products[${idx}].image = this.value; renderAdminInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-brand-ink/70">Badge (e.g. Bestseller)</label>
+              <input type="text" value="${p.badge || ''}" onchange="storeData.products[${idx}].badge = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-[11px] font-bold text-brand-ink/70">Description</label>
+              <input type="text" value="${p.description || ''}" onchange="storeData.products[${idx}].description = this.value" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs" />
+            </div>
+            <div class="flex items-end justify-end">
+              <button onclick="deleteProductRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-xs font-bold hover:bg-red-100">🗑️ Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      // Stems List
+      const stemsEl = document.getElementById("adminStemsList");
+      stemsEl.innerHTML = storeData.stems.map((s, idx) => `
+        <div class="p-3 rounded-xl border border-brand-pink/20 flex items-center justify-between gap-2 bg-brand-cream">
+          <span class="text-xs font-bold">${s.emoji} ${s.name}</span>
+          <div class="flex items-center gap-1">
+            <span class="text-xs text-brand-ink/60">৳</span>
+            <input type="number" value="${s.price}" onchange="storeData.stems[${idx}].price = Number(this.value)" class="w-20 rounded-lg border border-brand-pink/30 px-2 py-1 text-xs font-bold" />
+          </div>
+        </div>
+      `).join("");
+
+      document.getElementById("adminFairyPrice").value = storeData.addonFairyLightsPrice;
+      document.getElementById("adminCardPrice").value = storeData.addonMiniCardPrice;
+      document.getElementById("adminWhatsapp").value = storeData.whatsappNumber;
+      document.getElementById("adminDeliveryInside").value = storeData.deliveryInsideDhaka;
+      document.getElementById("adminDeliveryOutside").value = storeData.deliveryOutsideDhaka;
+    }
+
+    function addNewProductRow() {
+      storeData.products.unshift({
+        id: "kp-" + Date.now(),
+        name: "New Handmade Bouquet",
+        category: "Bouquets",
+        price: 550,
+        badge: "New",
+        description: "Handcrafted 6mm fuzzy wire arrangement.",
+        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+      });
+      renderAdminInputs();
+    }
+
+    function deleteProductRow(idx) {
+      storeData.products.splice(idx, 1);
+      renderAdminInputs();
+    }
+
+    function handleProductImageUpload(event, idx) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxDim = 700;
+          let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h *= maxDim / w; w = maxDim; }
+          else if (h > maxDim) { w *= maxDim / h; h = maxDim; }
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          storeData.products[idx].image = canvas.toDataURL("image/jpeg", 0.82);
+          renderAdminInputs();
+          showToast("Photo compressed & attached!");
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateAddonPrices() {
+      storeData.addonFairyLightsPrice = Number(document.getElementById("adminFairyPrice").value) || 80;
+      storeData.addonMiniCardPrice = Number(document.getElementById("adminCardPrice").value) || 50;
+    }
+
+    function saveAdminChangesLocally() {
+      storeData.whatsappNumber = document.getElementById("adminWhatsapp").value.trim();
+      storeData.deliveryInsideDhaka = Number(document.getElementById("adminDeliveryInside").value) || 70;
+      storeData.deliveryOutsideDhaka = Number(document.getElementById("adminDeliveryOutside").value) || 130;
+      localStorage.setItem("kp_store_data", JSON.stringify(storeData));
+      renderCatalog();
+      initCustomBuilderUI();
+      renderCustomBuilder();
+      renderCart();
+      showToast("Saved locally! Use GitHub Sync tab to publish live for all visitors.");
+    }
+
+    // Direct GitHub REST API Publisher (Creates or Updates store-data.json in your repo)
+    async function publishToGitHub() {
+      saveAdminChangesLocally();
+      const repo = document.getElementById("ghRepo").value.trim();
+      const branch = document.getElementById("ghBranch").value.trim() || "main";
+      const token = document.getElementById("ghToken").value.trim();
+      const statusEl = document.getElementById("ghStatusMsg");
+
+      if (!repo || !token) {
+        statusEl.textContent = "⚠️ Please enter both your GitHub Repository (username/repo) and Personal Access Token.";
+        return;
+      }
+
+      localStorage.setItem("kp_gh_config", JSON.stringify({ repo, branch, token }));
+      statusEl.textContent = "⏳ Connecting to GitHub and publishing store-data.json...";
+
+      const apiUrl = `https://api.github.com/repos/${repo}/contents/store-data.json`;
+      const headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": `Bearer ${token}`
+      };
+
+      try {
+        // 1. Check if store-data.json already exists to get its SHA
+        let existingSha = null;
+        const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, { headers });
+        if (getRes.ok) {
+          const fileMeta = await getRes.json();
+          existingSha = fileMeta.sha;
+        }
+
+        // 2. Encode JSON to UTF-8 safe Base64
+        const jsonString = JSON.stringify(storeData, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+
+        const bodyPayload = {
+          message: "Update Kaarupushpo store catalog and prices via Owner Studio",
+          content: base64Content,
+          branch: branch
+        };
+        if (existingSha) bodyPayload.sha = existingSha;
+
+        const putRes = await fetch(apiUrl, {
+          method: "PUT",
+          headers: { ...headers, "Content-Type": "application/json" },
+          body: JSON.stringify(bodyPayload)
+        });
+
+        if (putRes.ok) {
+          statusEl.textContent = "✅ Published live! store-data.json is now updated in your GitHub repository.";
+          showToast("Published live to GitHub!");
+        } else {
+          const errData = await putRes.json();
+          statusEl.textContent = `❌ GitHub Error: ${errData.message || putRes.statusText}`;
+        }
+      } catch (error) {
+        statusEl.textContent = `❌ Network Error: ${error.message}`;
+      }
+    }
+
+    function downloadStoreJson() {
+      saveAdminChangesLocally();
+      const blob = new Blob([JSON.stringify(storeData, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "store-data.json";
+      a.click();
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById("toastBox");
+      box.textContent = msg;
+      box.classList.remove("hidden");
+      setTimeout(() => box.classList.add("hidden"), 3000);
+    }
+
+    window.addEventListener("DOMContentLoaded", initStore);
+  </script>
+</body>
+</html>
