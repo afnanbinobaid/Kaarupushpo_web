@@ -7,7 +7,7 @@
   <!-- Google Fonts: Fraunces & DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -23,7 +23,8 @@
               sageDark: '#5f9179',
               sageLight: '#F1F7F4',
               terra: '#9E5B54',
-              cream: '#FFFDFB',
+              cream: '#F8F4F0',
+              paper: '#FFFDFB',
               ink: '#2D2327'
             }
           },
@@ -46,8 +47,8 @@
       font-family: 'Fraunces', serif;
     }
     .glass-nav {
-      background: rgba(255, 253, 251, 0.9);
-      backdrop-filter: blur(12px);
+      background: rgba(248, 244, 240, 0.88);
+      backdrop-filter: blur(14px);
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
@@ -56,27 +57,50 @@
       background: #D470A2;
       border-radius: 9999px;
     }
+    /* Seamless diagonal split on desktop inspired by reference template */
+    @media (min-width: 1024px) {
+      .hero-diagonal-clip {
+        clip-path: polygon(14% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+    }
+    .frosted-glass-card {
+      background: rgba(255, 253, 251, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 24px 48px -12px rgba(45, 35, 39, 0.18);
+    }
+    .orb-pink-sage {
+      background: radial-gradient(circle at 30% 30%, #ffffff 0%, #F9DCE8 35%, #D470A2 75%, #81B29A 100%);
+      box-shadow: 0 12px 24px -6px rgba(212, 112, 162, 0.45);
+    }
+    .orb-sage-gold {
+      background: radial-gradient(circle at 30% 30%, #ffffff 0%, #E6F4EE 35%, #81B29A 75%, #2D2327 100%);
+      box-shadow: 0 10px 20px -5px rgba(129, 178, 154, 0.45);
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+    .animate-float-slow {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-brand-pink selection:text-white">
 
-  <!-- Top Announcement Banner (Updated to 8mm) -->
-  <div class="bg-brand-pink text-white text-xs sm:text-sm py-2 px-4 text-center font-medium tracking-wide">
-    ✨ 100% Handmade 8mm Fuzzy Wire Bouquets That Never Fade • Nationwide Delivery Across Bangladesh ✨
-  </div>
-
   <!-- Navigation Bar -->
-  <header class="sticky top-0 z-40 glass-nav border-b border-brand-pink/15">
+  <header class="sticky top-0 z-40 glass-nav border-b border-brand-ink/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5">
-        <span class="w-9 h-9 rounded-full bg-brand-pink/15 border border-brand-pink/40 flex items-center justify-center text-lg">🌷</span>
-        <div>
-          <span class="font-heading text-xl sm:text-2xl font-bold text-brand-ink tracking-tight">Kaarupushpo</span>
-          <span class="hidden sm:inline-block text-xs text-brand-terra font-medium ml-1.5">কারুপুষ্প</span>
+        <span class="w-9 h-9 rounded-full bg-brand-ink text-white flex items-center justify-center text-base font-bold shadow-xs">🌷</span>
+        <div class="flex items-baseline gap-1.5">
+          <span class="font-heading text-xl sm:text-2xl font-extrabold text-brand-ink tracking-tight uppercase">Kaarupushpo</span>
+          <span class="hidden sm:inline-block text-xs text-brand-terra font-bold">কারুপুষ্প</span>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-ink/80">
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-brand-ink/80">
         <a href="#catalog" class="hover:text-brand-pink transition">Shop Bouquets</a>
         <a href="#customizer" class="hover:text-brand-pink transition">Custom Bouquet Builder</a>
         <a href="#how-it-works" class="hover:text-brand-pink transition">How to Order</a>
@@ -89,49 +113,118 @@
         </button>
 
         <!-- Cart Button -->
-        <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-brand-pink hover:bg-brand-pinkDark text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition">
+        <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-brand-ink hover:bg-brand-pinkDark text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition">
           <span>🛒</span>
           <span class="hidden sm:inline">Your Bag</span>
-          <span id="cartCountBadge" class="bg-white text-brand-pinkDark text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+          <span id="cartCountBadge" class="bg-brand-pink text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section (Updated to 8mm + Editable Right Showcase Photo) -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-brand-pinkLight via-brand-cream to-brand-sageLight border-b border-brand-pink/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 grid lg:grid-cols-12 gap-10 items-center">
-      <div class="lg:col-span-7 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-pink/30 text-brand-terra text-xs font-semibold shadow-sm">
-          <span>🌸 Handcrafted in Dhaka</span>
-          <span>•</span>
-          <span>Everlasting 8mm Chenille Stem Art</span>
-        </div>
-        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-ink leading-tight">
-          Flowers That Stay in <span class="text-brand-pink italic">Bloom Forever.</span>
-        </h1>
-        <p class="text-base sm:text-lg text-brand-ink/75 max-w-2xl leading-relaxed">
-          Every petal at <strong>Kaarupushpo</strong> is twisted by hand from plush 8mm fuzzy chenille stems. Pick a ready-made signature arrangement or build your own custom bouquet recipe and order seamlessly via WhatsApp.
-        </p>
-        <div class="flex flex-wrap gap-3.5 pt-2">
-          <a href="#catalog" class="px-6 py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-semibold text-sm shadow-md transition">
-            Explore Collection
-          </a>
-          <a href="#customizer" class="px-6 py-3.5 rounded-full bg-white hover:bg-brand-sageLight text-brand-ink border border-brand-sage font-semibold text-sm shadow-sm transition flex items-center gap-2">
-            <span>✨ Customize Your Own Bouquet</span>
-          </a>
-        </div>
-      </div>
+  <!-- SEAMLESS EDITORIAL HERO SECTION (Inspired by Nimbus Template) -->
+  <section class="relative bg-brand-cream overflow-hidden border-b border-brand-ink/10">
+    <!-- Subtle ambient radial glow behind text -->
+    <div class="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full bg-brand-pink/10 blur-3xl"></div>
 
-      <!-- Editable Hero Showcase Card -->
-      <div class="lg:col-span-5">
-        <div class="relative mx-auto max-w-md rounded-3xl bg-white p-4 shadow-xl border border-brand-pink/20 group">
-          <!-- Quick Admin Edit Button Overlaid on Hero Card (Hidden from Public) -->
-          <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-6 right-6 z-20 items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-md hover:bg-brand-pinkDark transition">
-            📷 Change Hero Photo
+    <div class="relative max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-12 min-h-[540px] lg:min-h-[620px] items-stretch">
+
+        <!-- Left Editorial Typography Column -->
+        <div class="lg:col-span-6 px-5 sm:px-8 lg:pl-8 lg:pr-6 py-12 lg:py-20 flex flex-col justify-center relative z-20">
+          <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-brand-terra mb-4">
+            <span class="w-2 h-2 rounded-full bg-brand-pink"></span>
+            <span>Handcrafted 8mm Chenille Studio • Dhaka</span>
+          </div>
+
+          <!-- Bold Stacked Headline -->
+          <h1 class="font-heading text-5xl sm:text-6xl lg:text-[4.15rem] font-extrabold text-brand-ink tracking-tight leading-[0.96] uppercase">
+            Flowers <br />
+            that last.<br />
+            <span class="text-brand-pink italic normal-case font-bold">Feelings that stay.</span>
+          </h1>
+
+          <!-- Supporting Copy -->
+          <p class="mt-6 text-base sm:text-lg text-brand-ink/80 max-w-md leading-relaxed font-medium">
+            “Handcrafted fuzzy-wire bouquets, made with love and personalized just for you.”
+          </p>
+
+          <!-- Dual Pill Buttons (Matching Reference Template) -->
+          <div class="mt-8 flex flex-wrap items-center gap-3.5">
+            <a href="#catalog" class="px-7 py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-brand-pink/30 transition transform hover:-translate-y-0.5">
+              Shop Bouquets
+            </a>
+            <a href="#customizer" class="pl-2.5 pr-6 py-2.5 rounded-full bg-transparent hover:bg-white/80 text-brand-ink border border-brand-ink/30 font-bold text-xs sm:text-sm uppercase tracking-wider transition flex items-center gap-3">
+              <span class="w-7 h-7 rounded-full bg-brand-ink text-white flex items-center justify-center text-xs">✦</span>
+              <span>Customize Yours</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Seamless Full-Bleed Image & Floating Frosted Elements -->
+        <div class="lg:col-span-6 relative min-h-[380px] sm:min-h-[460px] lg:min-h-full flex items-center justify-center">
+
+          <!-- Quick Admin Edit Button Overlaid on Hero (Hidden from Public) -->
+          <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-5 right-5 z-30 items-center gap-1.5 px-4 py-2 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-lg hover:bg-brand-pinkDark transition">
+            📷 Edit Hero Photos
           </button>
 
-          <div id="heroShowcaseCardInner"></div>
+          <!-- Full-Bleed Diagonal Image Canvas -->
+          <div class="w-full h-full absolute inset-0 hero-diagonal-clip overflow-hidden bg-gradient-to-tr from-brand-pink/30 via-brand-pinkLight to-brand-sage/30">
+            <img
+              id="heroMainImgEl"
+              src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1400&q=85"
+              alt="Kaarupushpo Handcrafted Fuzzy Wire Bouquets"
+              class="w-full h-full object-cover object-center scale-105 hover:scale-100 transition duration-700"
+            />
+            <!-- Soft seam gradient blend so left edge melts into the background -->
+            <div class=" inset-0 absolute bg-gradient-to-r from-brand-cream via-transparent to-transparent opacity-60 lg:opacity-45 pointer-events-none"></div>
+            <div class="inset-0 absolute bg-gradient-to-t from-brand-ink/35 via-transparent to-transparent pointer-events-none"></div>
+          </div>
+
+          <!-- SEAM OVERLAY 1: Floating Frosted Glass Showcase Card (Matches upper-left floating square in reference) -->
+          <div class="relative z-20 lg:absolute lg:-left-14 lg:top-12 max-w-[230px] sm:max-w-[250px] frosted-glass-card rounded-3xl p-3.5 animate-float-slow my-6 lg:my-0">
+            <div id="heroFloatingCardInner"></div>
+          </div>
+
+          <!-- SEAM OVERLAY 2: Floating 3D Gradient Sphere on the Diagonal Seam -->
+          <div class="hidden sm:block pointer-events-none absolute z-20 left-6 lg:left-10 bottom-24 w-11 h-11 rounded-full orb-pink-sage"></div>
+
+          <!-- SEAM OVERLAY 3: Bold Curved Accent Arc Straddling the Seam -->
+          <svg class="hidden sm:block pointer-events-none absolute z-20 left-2 lg:-left-8 bottom-6 w-24 h-24 text-brand-pink" viewBox="0 0 100 100" fill="none">
+            <path d="M 15 85 A 60 60 0 0 1 85 20" stroke="currentColor" stroke-width="11" stroke-linecap="round" />
+          </svg>
+
+          <!-- SEAM OVERLAY 4: Bottom-Right Frosted Pill & Sparkle Accents -->
+          <div class="pointer-events-none absolute z-20 right-6 bottom-6 flex items-center gap-3">
+            <span class="text-brand-sage text-2xl drop-shadow">✦</span>
+            <div class="frosted-glass-card rounded-2xl px-3.5 py-2 flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full orb-sage-gold"></span>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-ink">Everlasting 8mm Stems</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Dark Editorial Ticker Bar (Matches // LATEST DROPS bar in reference) -->
+    <div class="bg-brand-ink text-white py-3 px-4 border-t border-white/10 overflow-x-auto">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] whitespace-nowrap">
+        <div>
+          <span class="text-brand-sage">//</span>
+          <span class="text-brand-pink ml-1">SIGNATURE DROPS:</span>
+          <span class="text-white/90 ml-1">PASTEL TULIPS, SUNSHINE WRAPS, CHENILLE ROSES</span>
+        </div>
+        <div class="hidden md:block">
+          <span class="text-brand-sage">//</span>
+          <span class="text-white/90 ml-1">100% HANDMADE 8MM FUZZY WIRE BOUQUETS THAT NEVER FADE</span>
+        </div>
+        <div>
+          <span class="text-brand-sage">//</span>
+          <span class="text-white/90 ml-1">FAST DELIVERY INSIDE & OUTSIDE DHAKA</span>
+          <span class="text-brand-sage ml-1">//</span>
         </div>
       </div>
     </div>
@@ -176,7 +269,7 @@
           </div>
 
           <!-- Dynamic SVG Preview -->
-          <div id="bouquetPreviewBox" class="aspect-square rounded-2xl bg-brand-cream border border-brand-pink/15 flex items-center justify-center p-4 relative overflow-hidden">
+          <div id="bouquetPreviewBox" class="aspect-square rounded-2xl bg-brand-paper border border-brand-pink/15 flex items-center justify-center p-4 relative overflow-hidden">
             <svg id="bouquetSvg" viewBox="0 0 300 320" class="w-full h-full max-h-72"></svg>
           </div>
 
@@ -224,7 +317,7 @@
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Wrapping Style</label>
-                <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-cream focus:outline-none focus:border-brand-pink"></select>
+                <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink"></select>
               </div>
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Ribbon & Add-ons</label>
@@ -234,7 +327,7 @@
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-1.5">Custom Note on Card / Special Instructions (Optional)</label>
-              <input type="text" id="customBouquetNote" maxlength="120" placeholder="e.g. 'Happy Anniversary!' or 'Use pastel pink & cream tulips'" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-cream focus:outline-none focus:border-brand-pink" />
+              <input type="text" id="customBouquetNote" maxlength="120" placeholder="e.g. 'Happy Anniversary!' or 'Use pastel pink & cream tulips'" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink" />
             </div>
           </div>
         </div>
@@ -322,7 +415,7 @@
       </div>
     </div>
 
-    <div class="p-5 border-t border-brand-pink/15 bg-brand-cream space-y-3">
+    <div class="p-5 border-t border-brand-pink/15 bg-brand-paper space-y-3">
       <div class="space-y-1 text-sm">
         <div class="flex justify-between text-brand-ink/75">
           <span>Subtotal</span>
@@ -349,16 +442,16 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (v2.4 — Hero Photo + Dynamic Categories + Full Custom Builder) -->
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.5 — Seamless Hero + Categories + Full Custom Builder) -->
   <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
     <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
       <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.4 — Hero Photo & Full Editor</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.5 — Seamless Hero & Full Editor</span>
           </div>
-          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
+          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photos, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
         </div>
         <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
@@ -366,7 +459,7 @@
       <!-- Admin Tabs -->
       <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
         <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
-          1. Hero Photo, Categories & Products
+          1. Hero Photos, Categories & Products
         </button>
         <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           2. Custom Builder Items (Flowers, Wraps & Extras)
@@ -379,45 +472,60 @@
       <!-- Admin Tab Content -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
-        <!-- TAB 1: HERO SHOWCASE PHOTO + CATEGORIES + PRODUCTS -->
+        <!-- TAB 1: SEAMLESS HERO PHOTOS + CATEGORIES + PRODUCTS -->
         <div id="adminTab-products" class="space-y-7">
 
-          <!-- 1A: Hero Showcase Photo & Caption Editor -->
+          <!-- 1A: Seamless Hero Section Photo & Floating Frosted Card Editor -->
           <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Top Banner Card</span>
-                <h4 class="font-heading font-bold text-sm sm:text-base text-brand-ink mt-1">🖼️ Hero Showcase Photo & Caption</h4>
-                <p class="text-xs text-brand-ink/70">Upload a featured bouquet photo from your phone/computer or paste an image link for the top right showcase card.</p>
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Seamless Hero Visuals</span>
+                <h4 class="font-heading font-bold text-sm sm:text-base text-brand-ink mt-1">🖼️ Main Diagonal Hero Photo & Floating Glass Card</h4>
+                <p class="text-xs text-brand-ink/70">Upload your main right-side hero bouquet photo and customize the floating frosted-glass card overlapping the seam.</p>
               </div>
               <button type="button" onclick="clearHeroPhoto()" class="px-3 py-1.5 rounded-full bg-white border border-brand-pink/30 text-xs font-semibold text-brand-terra hover:bg-brand-pinkLight transition">
-                🔄 Reset to Default Card
+                🔄 Reset Hero Defaults
               </button>
             </div>
 
-            <div class="grid sm:grid-cols-12 gap-4 items-center bg-white p-3.5 rounded-2xl border border-brand-pink/20">
-              <div class="sm:col-span-3 flex flex-col items-center">
-                <div id="adminHeroThumbBox" class="w-full aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden flex items-center justify-center text-3xl">
-                  💐
+            <div class="grid md:grid-cols-2 gap-4">
+              <!-- Main Full-Bleed Hero Image Uploader -->
+              <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 flex gap-3.5 items-center">
+                <div id="adminHeroThumbBox" class="w-24 aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center"></div>
+                <div class="flex-1 space-y-2">
+                  <label class="block text-xs font-bold text-brand-ink">1. Main Seamless Hero Photo</label>
+                  <input type="text" id="adminHeroImageInput" onchange="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload..." class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs bg-brand-paper" />
+                  <label class="inline-block px-3 py-1.5 rounded-full bg-brand-pink text-white text-[11px] font-bold cursor-pointer hover:bg-brand-pinkDark transition">
+                    📷 Upload Main Photo
+                    <input type="file" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)" />
+                  </label>
                 </div>
-                <label class="mt-2 px-3 py-1.5 rounded-full bg-brand-pink text-white text-xs font-bold cursor-pointer hover:bg-brand-pinkDark transition text-center w-full">
-                  📷 Upload Hero Photo
-                  <input type="file" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)" />
-                </label>
               </div>
 
-              <div class="sm:col-span-9 grid sm:grid-cols-2 gap-3">
-                <div class="sm:col-span-2">
-                  <label class="block text-[11px] font-bold text-brand-ink/70 mb-1">Hero Photo URL (or use Upload button on the left)</label>
-                  <input type="text" id="adminHeroImageInput" onchange="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload a photo..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-cream" />
+              <!-- Floating Frosted Glass Card Uploader & Caption -->
+              <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 space-y-2.5">
+                <div class="flex items-center gap-3">
+                  <div id="adminFloatThumbBox" class="w-16 h-16 rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center text-2xl">💐</div>
+                  <div class="flex-1 space-y-1.5">
+                    <label class="block text-xs font-bold text-brand-ink">2. Floating Glass Card Photo (Optional)</label>
+                    <div class="flex flex-wrap gap-2">
+                      <label class="px-3 py-1 rounded-full bg-brand-terra text-white text-[11px] font-bold cursor-pointer hover:opacity-90 transition">
+                        📷 Upload Card Photo
+                        <input type="file" accept="image/*" class="hidden" onchange="handleFloatImageUpload(event)" />
+                      </label>
+                      <button type="button" onclick="storeData.heroFloatImage=''; persistAndRefreshLiveUI(); renderAdminInputs();" class="text-[11px] text-brand-ink/60 underline">Use Emoji/Main</button>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-brand-ink/70 mb-1">Card Heading</label>
-                  <input type="text" id="adminHeroTitleInput" oninput="updateHeroFieldsFromInputs()" placeholder="Everlasting Handcrafted Keepsakes" class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs font-bold bg-brand-cream" />
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-brand-ink/70 mb-1">Card Subtitle</label>
-                  <input type="text" id="adminHeroSubtitleInput" oninput="updateHeroFieldsFromInputs()" placeholder="Customizable stems, pastel wraps, fairy lights & handwritten notes" class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-cream" />
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                  <div>
+                    <label class="block text-[10px] font-bold text-brand-ink/70">Floating Card Title</label>
+                    <input type="text" id="adminHeroTitleInput" oninput="updateHeroFieldsFromInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-brand-paper" />
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold text-brand-ink/70">Floating Card Tag</label>
+                    <input type="text" id="adminHeroSubtitleInput" oninput="updateHeroFieldsFromInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs bg-brand-paper" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -485,7 +593,7 @@
 
           <!-- 2C: Petal Color Palettes Manager -->
           <div class="space-y-3 pt-4 border-t border-brand-pink/20">
-            <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-cream p-4 rounded-2xl border border-brand-pink/25">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-paper p-4 rounded-2xl border border-brand-pink/25">
               <div>
                 <h4 class="font-heading font-bold text-sm text-brand-ink">🎨 3. Petal Color Palettes</h4>
                 <p class="text-xs text-brand-ink/70">Add, rename, recolor, or remove bouquet color palettes.</p>
@@ -515,7 +623,7 @@
 
         <!-- TAB 3: WHATSAPP & GITHUB DIRECT SYNC -->
         <div id="adminTab-github" class="hidden space-y-6">
-          <div class="grid sm:grid-cols-4 gap-4 bg-brand-cream p-4 rounded-2xl border border-brand-pink/20">
+          <div class="grid sm:grid-cols-4 gap-4 bg-brand-paper p-4 rounded-2xl border border-brand-pink/20">
             <div>
               <label class="block text-xs font-bold text-brand-ink/80 mb-1">Official WhatsApp Number</label>
               <input type="text" id="adminWhatsapp" oninput="syncStoreSettingsFromInputs()" placeholder="8801XXXXXXXXX" class="w-full rounded-xl border border-brand-pink/30 px-3 py-2 text-sm" />
@@ -538,10 +646,10 @@
           <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
-              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.4 Live Sync</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.5 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photos, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
@@ -575,7 +683,7 @@
 
       </div>
 
-      <div class="p-4 bg-brand-cream border-t border-brand-pink/20 flex flex-wrap items-center justify-between gap-3">
+      <div class="p-4 bg-brand-paper border-t border-brand-pink/20 flex flex-wrap items-center justify-between gap-3">
         <span class="text-xs text-brand-ink/65">All edits auto-save on this device immediately. Click "Publish Live to GitHub Now" in Tab 3 to update for all customers.</span>
         <div class="flex items-center gap-2">
           <button type="button" onclick="saveAdminChangesLocally(true)" class="px-5 py-2 rounded-full bg-brand-pink text-white text-xs font-bold hover:bg-brand-pinkDark transition">
@@ -591,17 +699,20 @@
 
   <script>
     // ==========================================
-    // 1. DEFAULT STORE DATA (With Hero Photo & 8mm Text)
+    // 1. DEFAULT STORE DATA (v2.5 Seamless Hero)
     // ==========================================
+    const DEFAULT_HERO_BG = "https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1400&q=85";
+
     const DEFAULT_STORE_DATA = {
       lastUpdated: 0,
       whatsappNumber: "8801700000000",
       deliveryInsideDhaka: 70,
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
-      heroImage: "",
-      heroTitle: "Everlasting Handcrafted Keepsakes",
-      heroSubtitle: "Customizable stems, pastel wraps, fairy lights & handwritten notes",
+      heroImage: DEFAULT_HERO_BG,
+      heroFloatImage: "",
+      heroTitle: "Everlasting Keepsake",
+      heroSubtitle: "Custom 8mm Chenille Edition",
       categories: [
         "Bouquets",
         "Potted",
@@ -720,7 +831,10 @@
 
     function normalizeStoreData(raw) {
       const merged = { ...DEFAULT_STORE_DATA, ...raw };
-      if (typeof merged.heroImage !== "string") merged.heroImage = "";
+      if (!merged.heroImage || typeof merged.heroImage !== "string" || merged.heroImage.trim() === "") {
+        merged.heroImage = DEFAULT_HERO_BG;
+      }
+      if (typeof merged.heroFloatImage !== "string") merged.heroFloatImage = "";
       if (!merged.heroTitle) merged.heroTitle = DEFAULT_STORE_DATA.heroTitle;
       if (!merged.heroSubtitle) merged.heroSubtitle = DEFAULT_STORE_DATA.heroSubtitle;
 
@@ -733,7 +847,6 @@
         merged.categories = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.categories));
       }
 
-      // Automatically upgrade any old "6mm" or "6 mm" text in product descriptions to "8mm"
       merged.products.forEach(p => {
         if (p.description) {
           p.description = p.description.replace(/6\s*mm/gi, "8mm");
@@ -808,35 +921,40 @@
     }
 
     // ==========================================
-    // 3. HERO SHOWCASE & PRODUCT CATALOG RENDERING
+    // 3. SEAMLESS HERO & PRODUCT CATALOG RENDERING
     // ==========================================
     function renderHeroShowcase() {
-      const container = document.getElementById("heroShowcaseCardInner");
+      const mainImgEl = document.getElementById("heroMainImgEl");
+      const floatCardEl = document.getElementById("heroFloatingCardInner");
+
+      const mainSrc = (storeData.heroImage && storeData.heroImage.trim() !== "")
+        ? storeData.heroImage
+        : DEFAULT_HERO_BG;
+      if (mainImgEl) {
+        mainImgEl.src = mainSrc;
+      }
+
       const title = storeData.heroTitle || DEFAULT_STORE_DATA.heroTitle;
       const subtitle = storeData.heroSubtitle || DEFAULT_STORE_DATA.heroSubtitle;
+      const floatImgSrc = storeData.heroFloatImage && storeData.heroFloatImage.trim() !== ""
+        ? storeData.heroFloatImage
+        : (storeData.products[0]?.image || "");
 
-      if (storeData.heroImage && storeData.heroImage.trim() !== "") {
-        container.innerHTML = `
-          <div class="rounded-2xl overflow-hidden bg-brand-pinkLight">
-            <div class="aspect-[4/3] w-full overflow-hidden relative">
-              <img src="${escapeAttr(storeData.heroImage)}" alt="${escapeAttr(title)}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+      const mediaHtml = floatImgSrc
+        ? `<div class="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-white/60 mb-2.5 border border-white/80">
+             <img src="${escapeAttr(floatImgSrc)}" alt="${escapeAttr(title)}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+           </div>`
+        : `<div class="aspect-[4/3] w-full rounded-2xl bg-white/50 flex items-center justify-center text-5xl mb-2.5 border border-white/80">💐</div>`;
+
+      if (floatCardEl) {
+        floatCardEl.innerHTML = `
+          ${mediaHtml}
+          <div class="px-1">
+            <div class="flex items-center justify-between gap-1">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-pinkDark">${escapeAttr(subtitle)}</span>
+              <span class="text-xs">✨</span>
             </div>
-            <div class="p-4 text-center bg-gradient-to-tr from-brand-pinkLight/70 via-white to-brand-sageLight/70 border-t border-brand-pink/15">
-              <p class="font-heading text-lg font-bold text-brand-ink">${escapeAttr(title)}</p>
-              <p class="text-xs text-brand-ink/70 mt-0.5">${escapeAttr(subtitle)}</p>
-            </div>
-          </div>
-        `;
-      } else {
-        container.innerHTML = `
-          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-brand-pink/20 via-brand-pinkLight to-brand-sage/25 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
-            <div class="text-6xl mb-3">💐</div>
-            <p class="font-heading text-xl font-bold text-brand-ink">${escapeAttr(title)}</p>
-            <p class="text-xs text-brand-ink/70 mt-1">${escapeAttr(subtitle)}</p>
-            <div class="mt-4 flex flex-wrap justify-center gap-2">
-              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-pinkDark">#D470A2 Signature Rose</span>
-              <span class="px-2.5 py-1 bg-white/90 rounded-full text-xs font-medium text-brand-sageDark">#81B29A Sage Foliage</span>
-            </div>
+            <p class="font-heading text-sm font-bold text-brand-ink leading-snug mt-0.5">${escapeAttr(title)}</p>
           </div>
         `;
       }
@@ -987,7 +1105,7 @@
             ? `<img src="${escapeAttr(s.image)}" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/20 shrink-0" />`
             : `<span class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:${escapeAttr(s.color || '#D470A2')}22">${escapeAttr(s.emoji || '🌸')}</span>`;
           return `
-            <div class="flex items-center justify-between p-3 rounded-2xl border ${qty > 0 ? 'border-brand-pink bg-brand-pinkLight/40' : 'border-brand-pink/15 bg-brand-cream'}">
+            <div class="flex items-center justify-between p-3 rounded-2xl border ${qty > 0 ? 'border-brand-pink bg-brand-pinkLight/40' : 'border-brand-pink/15 bg-brand-paper'}">
               <div class="flex items-center gap-2.5">
                 ${visualThumb}
                 <div>
@@ -1203,7 +1321,7 @@
         listEl.innerHTML = `<div class="text-center py-8 text-brand-ink/60 text-sm">Your flower bag is empty 🌸</div>`;
       } else {
         listEl.innerHTML = cart.map(item => `
-          <div class="p-3.5 rounded-2xl bg-brand-cream border border-brand-pink/20 flex items-start justify-between gap-3">
+          <div class="p-3.5 rounded-2xl bg-brand-paper border border-brand-pink/20 flex items-start justify-between gap-3">
             <div class="space-y-1">
               <p class="font-heading font-bold text-sm text-brand-ink">${escapeAttr(item.name)}</p>
               <p class="text-xs text-brand-ink/70 leading-relaxed">${escapeAttr(item.details || "")}</p>
@@ -1287,7 +1405,7 @@
     }
 
     // ==========================================
-    // 6. SECRET OWNER STUDIO & FULL CRUD (HERO + CATEGORIES + PRODUCTS + BUILDER)
+    // 6. SECRET OWNER STUDIO & FULL CRUD
     // ==========================================
     function handleSecretFooterClick() {
       footerClickCount++;
@@ -1363,12 +1481,22 @@
         storeData.heroImage = dataUrl;
         persistAndRefreshLiveUI();
         renderAdminInputs();
-        showToast("Hero showcase photo updated!");
-      }, 900);
+        showToast("Main seamless hero photo updated!");
+      }, 1000);
+    }
+
+    function handleFloatImageUpload(event) {
+      compressAndAssignImage(event, dataUrl => {
+        storeData.heroFloatImage = dataUrl;
+        persistAndRefreshLiveUI();
+        renderAdminInputs();
+        showToast("Floating glass card photo updated!");
+      }, 500);
     }
 
     function updateHeroFieldsFromInputs() {
-      storeData.heroImage = document.getElementById("adminHeroImageInput").value.trim();
+      const val = document.getElementById("adminHeroImageInput").value.trim();
+      storeData.heroImage = val || DEFAULT_HERO_BG;
       storeData.heroTitle = document.getElementById("adminHeroTitleInput").value;
       storeData.heroSubtitle = document.getElementById("adminHeroSubtitleInput").value;
       persistAndRefreshLiveUI();
@@ -1376,21 +1504,29 @@
     }
 
     function clearHeroPhoto() {
-      storeData.heroImage = "";
+      storeData.heroImage = DEFAULT_HERO_BG;
+      storeData.heroFloatImage = "";
       storeData.heroTitle = DEFAULT_STORE_DATA.heroTitle;
       storeData.heroSubtitle = DEFAULT_STORE_DATA.heroSubtitle;
       persistAndRefreshLiveUI();
       renderAdminInputs();
-      showToast("Reset to default hero card!");
+      showToast("Reset to default seamless hero visuals!");
     }
 
     function renderAdminHeroThumb() {
       const thumbBox = document.getElementById("adminHeroThumbBox");
-      if (!thumbBox) return;
-      if (storeData.heroImage && storeData.heroImage.trim() !== "") {
-        thumbBox.innerHTML = `<img src="${escapeAttr(storeData.heroImage)}" class="w-full h-full object-cover" />`;
-      } else {
-        thumbBox.innerHTML = `<span class="text-3xl">💐</span>`;
+      if (thumbBox) {
+        const src = storeData.heroImage || DEFAULT_HERO_BG;
+        thumbBox.innerHTML = `<img src="${escapeAttr(src)}" class="w-full h-full object-cover" />`;
+      }
+      const floatBox = document.getElementById("adminFloatThumbBox");
+      if (floatBox) {
+        const fSrc = storeData.heroFloatImage || storeData.products[0]?.image || "";
+        if (fSrc) {
+          floatBox.innerHTML = `<img src="${escapeAttr(fSrc)}" class="w-full h-full object-cover" />`;
+        } else {
+          floatBox.innerHTML = `<span class="text-2xl">💐</span>`;
+        }
       }
     }
 
@@ -1458,7 +1594,7 @@
 
     function renderAdminInputs() {
       // 1A. Hero Showcase Inputs
-      document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
+      document.getElementById("adminHeroImageInput").value = storeData.heroImage || DEFAULT_HERO_BG;
       document.getElementById("adminHeroTitleInput").value = storeData.heroTitle || DEFAULT_STORE_DATA.heroTitle;
       document.getElementById("adminHeroSubtitleInput").value = storeData.heroSubtitle || DEFAULT_STORE_DATA.heroSubtitle;
       renderAdminHeroThumb();
@@ -1492,7 +1628,7 @@
         `).join("");
 
         return `
-          <div class="p-4 rounded-2xl bg-brand-cream border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
+          <div class="p-4 rounded-2xl bg-brand-paper border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
             <div class="sm:col-span-2">
               <img src="${escapeAttr(p.image)}" class="w-full aspect-square object-cover rounded-xl border border-brand-pink/20" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
               <label class="mt-1.5 block text-center text-[11px] font-bold text-brand-pinkDark cursor-pointer underline">
@@ -1535,10 +1671,10 @@
         `;
       }).join("");
 
-      // 2A. Stems / Flowers List (Full CRUD)
+      // 2A. Stems / Flowers List
       const stemsEl = document.getElementById("adminStemsList");
       stemsEl.innerHTML = storeData.stems.map((s, idx) => `
-        <div class="p-3.5 rounded-2xl border border-brand-pink/25 bg-brand-cream grid sm:grid-cols-12 gap-3 items-center">
+        <div class="p-3.5 rounded-2xl border border-brand-pink/25 bg-brand-paper grid sm:grid-cols-12 gap-3 items-center">
           <div class="sm:col-span-2 flex items-center gap-2">
             ${s.image ? `<img src="${escapeAttr(s.image)}" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/30 shrink-0" />` : `<span class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:${escapeAttr(s.color || '#D470A2')}25">${escapeAttr(s.emoji || '🌸')}</span>`}
             <div>
@@ -1571,10 +1707,10 @@
         </div>
       `).join("");
 
-      // 2B. Wrapping Papers List (Full CRUD)
+      // 2B. Wrapping Papers List
       const wrapsEl = document.getElementById("adminWrapsList");
       wrapsEl.innerHTML = storeData.wraps.map((w, idx) => `
-        <div class="p-3.5 rounded-2xl border border-brand-sage/30 bg-brand-cream flex flex-col gap-2.5">
+        <div class="p-3.5 rounded-2xl border border-brand-sage/30 bg-brand-paper flex flex-col gap-2.5">
           <div class="flex items-center justify-between gap-2">
             <div class="flex-1">
               <label class="block text-[10px] font-bold text-brand-ink/70">Wrapping Paper Name</label>
@@ -1595,10 +1731,10 @@
         </div>
       `).join("");
 
-      // 2C. Color Palettes List (Full CRUD)
+      // 2C. Color Palettes List
       const palettesEl = document.getElementById("adminPalettesList");
       palettesEl.innerHTML = storeData.palettes.map((pal, idx) => `
-        <div class="p-3 rounded-2xl border border-brand-pink/20 bg-brand-cream flex items-center justify-between gap-2.5">
+        <div class="p-3 rounded-2xl border border-brand-pink/20 bg-brand-paper flex items-center justify-between gap-2.5">
           <input type="color" value="${escapeAttr(pal.hex || '#D470A2')}" oninput="storeData.palettes[${idx}].hex = this.value; persistAndRefreshLiveUI()" class="w-9 h-9 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5 shrink-0" />
           <div class="flex-1">
             <label class="block text-[10px] font-bold text-brand-ink/70">Palette Theme Name</label>
@@ -1608,10 +1744,10 @@
         </div>
       `).join("");
 
-      // 2D. Add-ons / Extras List (Full CRUD)
+      // 2D. Add-ons / Extras List
       const addonsEl = document.getElementById("adminAddonsList");
       addonsEl.innerHTML = storeData.addons.map((a, idx) => `
-        <div class="p-3.5 rounded-2xl border border-brand-pink/20 bg-brand-cream flex items-center justify-between gap-2.5">
+        <div class="p-3.5 rounded-2xl border border-brand-pink/20 bg-brand-paper flex items-center justify-between gap-2.5">
           <div class="flex-1 space-y-1.5">
             <div>
               <label class="block text-[10px] font-bold text-brand-ink/70">Add-on Title (with Emoji)</label>
@@ -1838,7 +1974,7 @@
         const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
 
         const bodyPayload = {
-          message: "Update Kaarupushpo hero photo, categories, catalog, and custom builder via Owner Studio v2.4",
+          message: "Update Kaarupushpo seamless hero, categories, catalog, and custom builder via Owner Studio v2.5",
           content: base64Content,
           branch: branch
         };
@@ -1851,7 +1987,7 @@
         });
 
         if (putRes.ok) {
-          statusEl.textContent = "✅ Published live! store-data.json (including Hero Photo, Categories, Products & Custom Builder) is now updated on GitHub.";
+          statusEl.textContent = "✅ Published live! store-data.json is now updated on GitHub.";
           showToast("Published live to GitHub!");
         } else {
           const errData = await putRes.json();
