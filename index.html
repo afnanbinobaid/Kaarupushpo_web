@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kaarupushpo | কারুপুষ্প — Handmade Fuzzy Wire Flower Boutique</title>
-  <!-- Preload store-data.json immediately so the browser doesn't wait for bottom JS -->
+  <!-- Preload store-data.json immediately -->
   <link rel="preload" href="./store-data.json" as="fetch" crossorigin="anonymous">
   <!-- Google Fonts: Fraunces & DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,10 +59,16 @@
       background: #D470A2;
       border-radius: 9999px;
     }
-    /* Clean diagonal cut on desktop; full-bleed top image on mobile */
+    /* Desktop: Diagonal cut on right | Mobile: Seamless vertical melt from top text into image */
     @media (min-width: 1024px) {
       .hero-diagonal-clip {
         clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+    }
+    @media (max-width: 1023px) {
+      .mobile-seamless-mask {
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 14%, rgba(0,0,0,1) 32%, rgba(0,0,0,1) 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 14%, rgba(0,0,0,1) 32%, rgba(0,0,0,1) 100%);
       }
     }
   </style>
@@ -102,44 +108,50 @@
     </div>
   </header>
 
-  <!-- CLEAN SEAMLESS HERO SECTION (Mobile: Image Top, Text Bottom | Desktop: Text Left, Diagonal Image Right) -->
+  <!-- SEAMLESS HERO SECTION (Mobile: Centered Text Top Melts Seamlessly Into Image Below | Desktop: Left Text, Right Diagonal Image) -->
   <section class="relative bg-brand-cream overflow-hidden border-b border-brand-ink/10">
     <div class="max-w-7xl mx-auto">
-      <div class="grid lg:grid-cols-12 min-h-[520px] lg:min-h-[600px] items-stretch">
+      <div class="grid lg:grid-cols-12 lg:min-h-[600px] items-stretch">
 
-        <!-- Left Editorial Typography Column (order-2 on mobile so it sits below image; lg:order-1 on desktop) -->
-        <div class="order-2 lg:order-1 lg:col-span-6 px-5 sm:px-8 lg:pl-8 lg:pr-6 py-10 sm:py-12 lg:py-20 flex flex-col justify-center relative z-10">
+        <!-- Editorial Typography Column (Top on Mobile, Centered like Woojer Reference | Left-Aligned on Desktop) -->
+        <div class="lg:col-span-6 px-5 sm:px-8 lg:pl-8 lg:pr-6 pt-10 pb-4 sm:pt-12 sm:pb-6 lg:py-20 flex flex-col items-center text-center lg:items-start lg:text-left justify-center relative z-20">
+          <!-- Subtle Pill Badge at Top (Matches Reference Layout) -->
+          <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-pinkLight/90 border border-brand-pink/25 text-[11px] font-bold text-brand-pinkDark mb-4 shadow-2xs">
+            <span>★</span>
+            <span>100% Handcrafted 8mm Chenille Bouquets</span>
+          </div>
+
           <!-- Headline -->
-          <h1 class="font-heading text-4xl sm:text-5xl lg:text-[4rem] font-extrabold text-brand-ink tracking-tight leading-[1.02]">
+          <h1 class="font-heading text-4xl sm:text-5xl lg:text-[4rem] font-extrabold text-brand-ink tracking-tight leading-[1.03]">
             Flowers that last.<br />
             <span class="text-brand-pink italic font-bold">Feelings that stay.</span>
           </h1>
 
           <!-- Supporting Copy -->
-          <p class="mt-5 text-base sm:text-lg text-brand-ink/80 max-w-md leading-relaxed font-medium">
+          <p class="mt-4 sm:mt-5 text-sm sm:text-lg text-brand-ink/75 max-w-md leading-relaxed font-medium">
             “Handcrafted fuzzy-wire bouquets, made with love and personalized just for you.”
           </p>
 
           <!-- CTA Pill Buttons -->
-          <div class="mt-8 flex flex-wrap items-center gap-3.5">
-            <a href="#catalog" class="px-7 py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+            <a href="#catalog" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
               Shop Bouquets
             </a>
-            <a href="#customizer" class="px-7 py-3.5 rounded-full bg-white hover:bg-brand-sageLight text-brand-ink border border-brand-ink/25 font-bold text-xs sm:text-sm uppercase tracking-wider transition">
+            <a href="#customizer" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/90 hover:bg-brand-sageLight text-brand-ink border border-brand-ink/20 font-bold text-xs sm:text-sm uppercase tracking-wider transition">
               Customize Yours
             </a>
           </div>
         </div>
 
-        <!-- Right Seamless Full-Bleed Image (order-1 on mobile so it appears above text; lg:order-2 on desktop) -->
-        <div class="order-1 lg:order-2 lg:col-span-6 relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
+        <!-- Seamless Image Container (Melts into cream background at the top on mobile; Diagonal full-bleed on desktop) -->
+        <div class="lg:col-span-6 relative min-h-[320px] sm:min-h-[400px] lg:min-h-full -mt-2 lg:mt-0">
           <!-- Quick Admin Edit Button Overlaid on Hero (Hidden from Public) -->
-          <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-4 right-4 z-30 items-center gap-1.5 px-4 py-2 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-lg hover:bg-brand-pinkDark transition">
+          <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-6 right-4 z-30 items-center gap-1.5 px-4 py-2 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-lg hover:bg-brand-pinkDark transition">
             📷 Change Hero Photo
           </button>
 
-          <!-- Clean Full-Bleed Diagonal Image Canvas (Starts transparent on soft pink background; zero stock photo flash) -->
-          <div class="w-full h-full absolute inset-0 hero-diagonal-clip overflow-hidden bg-gradient-to-tr from-brand-pinkLight via-brand-cream to-brand-sageLight">
+          <!-- Seamless Image Canvas -->
+          <div class="w-full h-full absolute inset-0 hero-diagonal-clip mobile-seamless-mask overflow-hidden bg-gradient-to-b from-brand-cream via-brand-pinkLight/50 to-brand-sageLight/60">
             <img
               id="heroMainImgEl"
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -155,7 +167,7 @@
     </div>
 
     <!-- Bottom Dark Editorial Strip -->
-    <div class="bg-brand-ink text-white py-3 px-4 border-t border-white/10 overflow-x-auto">
+    <div class="bg-brand-ink text-white py-3 px-4 border-t border-white/10 overflow-x-auto relative z-20">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] whitespace-nowrap">
         <div>
           <span class="text-brand-sage">//</span>
@@ -387,14 +399,14 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (v2.7 — Instant Load & Zero Stock-Photo Flash) -->
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.8 — Seamless Mobile Hero & Instant Load) -->
   <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
     <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
       <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.7 — Fast Load & Full Editor</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.8 — Seamless Mobile Hero</span>
           </div>
           <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
         </div>
@@ -561,7 +573,7 @@
           <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
-              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.7 Instant Sync</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.8 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
                 Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
@@ -614,7 +626,7 @@
 
   <script>
     // ==========================================
-    // 1. DEFAULT STORE DATA (v2.7 — No Stock Hero Flash)
+    // 1. DEFAULT STORE DATA (v2.8)
     // ==========================================
     const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
@@ -780,7 +792,6 @@
       document.getElementById("ghBranch").value = ghConfig.branch || "main";
       if (ghConfig.token) document.getElementById("ghToken").value = ghConfig.token;
 
-      // 1. Instant 0ms paint if cached data exists locally (prevents any blank delay)
       let localData = null;
       const localOverride = localStorage.getItem("kp_store_data");
       if (localOverride) {
@@ -791,7 +802,6 @@
         } catch (e) {}
       }
 
-      // 2. Fetch live store-data.json from GitHub Pages
       try {
         const res = await fetch("./store-data.json", { cache: "no-cache" });
         if (res.ok) {
@@ -821,7 +831,6 @@
       const mainImgEl = document.getElementById("heroMainImgEl");
       if (!mainImgEl) return;
 
-      // Use your uploaded hero photo, or fall back to your first product's photo if heroImage is empty
       const heroSrc = (storeData.heroImage && storeData.heroImage.trim() !== "")
         ? storeData.heroImage.trim()
         : (storeData.products[0]?.image || "");
@@ -1458,11 +1467,9 @@
     }
 
     function renderAdminInputs() {
-      // 1A. Hero Showcase Input
       document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
       renderAdminHeroThumb();
 
-      // 1B. Categories Manager List
       const catListEl = document.getElementById("adminCategoriesList");
       catListEl.innerHTML = storeData.categories.map((cat, idx) => `
         <div class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-brand-pink/30 shadow-2xs">
@@ -1483,7 +1490,6 @@
         </div>
       `).join("");
 
-      // 1C. Products List
       const list = document.getElementById("adminProductsList");
       list.innerHTML = storeData.products.map((p, idx) => {
         const categoryOptionsHtml = storeData.categories.map(cat => `
@@ -1536,7 +1542,6 @@
         `;
       }).join("");
 
-      // 2A. Stems / Flowers List
       const stemsEl = document.getElementById("adminStemsList");
       stemsEl.innerHTML = storeData.stems.map((s, idx) => `
         <div class="p-3.5 rounded-2xl border border-brand-pink/25 bg-brand-paper grid sm:grid-cols-12 gap-3 items-center">
@@ -1572,7 +1577,6 @@
         </div>
       `).join("");
 
-      // 2B. Wrapping Papers List
       const wrapsEl = document.getElementById("adminWrapsList");
       wrapsEl.innerHTML = storeData.wraps.map((w, idx) => `
         <div class="p-3.5 rounded-2xl border border-brand-sage/30 bg-brand-paper flex flex-col gap-2.5">
@@ -1596,7 +1600,6 @@
         </div>
       `).join("");
 
-      // 2C. Color Palettes List
       const palettesEl = document.getElementById("adminPalettesList");
       palettesEl.innerHTML = storeData.palettes.map((pal, idx) => `
         <div class="p-3 rounded-2xl border border-brand-pink/20 bg-brand-paper flex items-center justify-between gap-2.5">
@@ -1609,7 +1612,6 @@
         </div>
       `).join("");
 
-      // 2D. Add-ons / Extras List
       const addonsEl = document.getElementById("adminAddonsList");
       addonsEl.innerHTML = storeData.addons.map((a, idx) => `
         <div class="p-3.5 rounded-2xl border border-brand-pink/20 bg-brand-paper flex items-center justify-between gap-2.5">
@@ -1633,7 +1635,6 @@
         </div>
       `).join("");
 
-      // 3. Settings & GitHub Tab Inputs
       document.getElementById("adminWhatsapp").value = storeData.whatsappNumber || "";
       document.getElementById("adminDeliveryInside").value = storeData.deliveryInsideDhaka ?? 70;
       document.getElementById("adminDeliveryOutside").value = storeData.deliveryOutsideDhaka ?? 130;
@@ -1839,7 +1840,7 @@
         const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
 
         const bodyPayload = {
-          message: "Update Kaarupushpo store data via Owner Studio v2.7",
+          message: "Update Kaarupushpo store data via Owner Studio v2.8",
           content: base64Content,
           branch: branch
         };
