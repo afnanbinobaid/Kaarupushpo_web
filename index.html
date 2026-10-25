@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kaarupushpo | কারুপুষ্প — Handmade Fuzzy Wire Flower Boutique</title>
+  <!-- Preload store-data.json immediately so the browser doesn't wait for bottom JS -->
+  <link rel="preload" href="./store-data.json" as="fetch" crossorigin="anonymous">
   <!-- Google Fonts: Fraunces & DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,13 +138,15 @@
             📷 Change Hero Photo
           </button>
 
-          <!-- Clean Full-Bleed Diagonal Image Canvas (No white shadowing, no floating cards) -->
-          <div class="w-full h-full absolute inset-0 hero-diagonal-clip overflow-hidden bg-brand-pinkLight">
+          <!-- Clean Full-Bleed Diagonal Image Canvas (Starts transparent on soft pink background; zero stock photo flash) -->
+          <div class="w-full h-full absolute inset-0 hero-diagonal-clip overflow-hidden bg-gradient-to-tr from-brand-pinkLight via-brand-cream to-brand-sageLight">
             <img
               id="heroMainImgEl"
-              src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1400&q=85"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               alt="Kaarupushpo Handcrafted Fuzzy Wire Bouquets"
-              class="w-full h-full object-cover object-center"
+              fetchpriority="high"
+              decoding="async"
+              class="w-full h-full object-cover object-center opacity-0 transition-opacity duration-300"
             />
           </div>
         </div>
@@ -383,14 +387,14 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (v2.6 — Clean Hero + Categories + Full Custom Builder) -->
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.7 — Instant Load & Zero Stock-Photo Flash) -->
   <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
     <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
       <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.6 — Clean Hero & Full Editor</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.7 — Fast Load & Full Editor</span>
           </div>
           <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
         </div>
@@ -425,12 +429,12 @@
                 <p class="text-xs text-brand-ink/70">Upload your main hero bouquet photo from your phone/computer or paste an image link.</p>
               </div>
               <button type="button" onclick="clearHeroPhoto()" class="px-3 py-1.5 rounded-full bg-white border border-brand-pink/30 text-xs font-semibold text-brand-terra hover:bg-brand-pinkLight transition">
-                🔄 Reset Default Photo
+                🗑️ Clear Hero Photo
               </button>
             </div>
 
             <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 flex flex-col sm:flex-row gap-4 items-center">
-              <div id="adminHeroThumbBox" class="w-32 aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center"></div>
+              <div id="adminHeroThumbBox" class="w-32 aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center text-xs text-brand-ink/50 text-center p-2">No photo set</div>
               <div class="flex-1 w-full space-y-2">
                 <label class="block text-xs font-bold text-brand-ink">Hero Image URL (or upload file below)</label>
                 <input type="text" id="adminHeroImageInput" onchange="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-paper" />
@@ -557,7 +561,7 @@
           <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
-              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.6 Live Sync</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.7 Instant Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
                 Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
@@ -610,9 +614,9 @@
 
   <script>
     // ==========================================
-    // 1. DEFAULT STORE DATA (v2.6 Clean Hero)
+    // 1. DEFAULT STORE DATA (v2.7 — No Stock Hero Flash)
     // ==========================================
-    const DEFAULT_HERO_BG = "https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1400&q=85";
+    const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
     const DEFAULT_STORE_DATA = {
       lastUpdated: 0,
@@ -620,7 +624,7 @@
       deliveryInsideDhaka: 70,
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
-      heroImage: DEFAULT_HERO_BG,
+      heroImage: "",
       categories: [
         "Bouquets",
         "Potted",
@@ -634,7 +638,7 @@
           price: 650,
           badge: "Bestseller",
           description: "7 handcrafted 8mm fuzzy wire tulips with sage eucalyptus leaves wrapped in frosted Korean paper.",
-          image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+          image: ""
         },
         {
           id: "kp-2",
@@ -643,7 +647,7 @@
           price: 780,
           badge: "Signature",
           description: "Bright fuzzy wire golden sunflower center surrounded by chamomile daisies and warm fairy lights.",
-          image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=800&q=80"
+          image: ""
         },
         {
           id: "kp-3",
@@ -652,34 +656,7 @@
           price: 890,
           badge: "Romantic",
           description: "Plush rose-pink chenille roses paired with fragrant-inspired lavender stems and satin ribbon.",
-          image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          id: "kp-4",
-          name: "Mini Potted Desk Tulip",
-          category: "Potted",
-          price: 380,
-          badge: "Desk Decor",
-          description: "Adorable everlasting potted fuzzy wire tulip for study desks, dorm rooms, and work tables.",
-          image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          id: "kp-5",
-          name: "Single Wrapped Chenille Rose Stem",
-          category: "Single Stems & Cards",
-          price: 180,
-          badge: "Budget Gift",
-          description: "Single oversized handmade fuzzy wire rose wrapped with baby's breath accents and ribbon.",
-          image: "https://images.unsplash.com/photo-1508615039623-a25605d2b022?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          id: "kp-6",
-          name: "3D Fuzzy Floral Greeting Card",
-          category: "Single Stems & Cards",
-          price: 220,
-          badge: "Custom Note",
-          description: "Artisanal kraft greeting card adorned with a mini handmade chenille flower bouquet on the cover.",
-          image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80"
+          image: ""
         }
       ],
       stems: [
@@ -739,8 +716,8 @@
 
     function normalizeStoreData(raw) {
       const merged = { ...DEFAULT_STORE_DATA, ...raw };
-      if (!merged.heroImage || typeof merged.heroImage !== "string" || merged.heroImage.trim() === "") {
-        merged.heroImage = DEFAULT_HERO_BG;
+      if (typeof merged.heroImage !== "string") {
+        merged.heroImage = "";
       }
 
       if (!Array.isArray(merged.products)) merged.products = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.products));
@@ -770,52 +747,16 @@
       return merged;
     }
 
-    // ==========================================
-    // 2. INITIALIZE & LOAD DYNAMIC store-data.json
-    // ==========================================
-    async function initStore() {
-      const savedCart = localStorage.getItem("kp_cart");
-      if (savedCart) {
-        try { cart = JSON.parse(savedCart); } catch (e) {}
-      }
-
-      let localData = null;
-      const localOverride = localStorage.getItem("kp_store_data");
-      if (localOverride) {
-        try { localData = JSON.parse(localOverride); } catch (e) {}
-      }
-
-      try {
-        const res = await fetch("./store-data.json?t=" + Date.now(), { cache: "no-store" });
-        if (res.ok) {
-          const remoteData = await res.json();
-          if (localData && Number(localData.lastUpdated || 0) > Number(remoteData.lastUpdated || 0)) {
-            storeData = normalizeStoreData(localData);
-          } else {
-            storeData = normalizeStoreData(remoteData);
-          }
-        } else if (localData) {
-          storeData = normalizeStoreData(localData);
-        }
-      } catch (err) {
-        if (localData) storeData = normalizeStoreData(localData);
-      }
-
+    function applyStoreDataToUI() {
       if (storeData.stems.length > 0 && Object.keys(customSelection.stems).length === 0) {
         customSelection.stems[storeData.stems[0].id] = 3;
         if (storeData.stems[1]) customSelection.stems[storeData.stems[1].id] = 2;
       }
-      customSelection.palette = storeData.palettes[0]?.name || "Standard Palette";
-      customSelection.wrapId = storeData.wraps[0]?.id || "";
-
-      const ghConfig = JSON.parse(localStorage.getItem("kp_gh_config") || "{}");
-      document.getElementById("ghRepo").value = cleanGitHubRepoSlug(ghConfig.repo || "afnanbinobaid/Kaarupushpo_web");
-      document.getElementById("ghBranch").value = ghConfig.branch || "main";
-      if (ghConfig.token) document.getElementById("ghToken").value = ghConfig.token;
-
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("admin") === "true") {
-        promptAdminUnlock();
+      if (!customSelection.palette) {
+        customSelection.palette = storeData.palettes[0]?.name || "Standard Palette";
+      }
+      if (!customSelection.wrapId) {
+        customSelection.wrapId = storeData.wraps[0]?.id || "";
       }
 
       renderHeroShowcase();
@@ -826,15 +767,77 @@
     }
 
     // ==========================================
+    // 2. FAST INITIALIZATION (0ms Cache Paint + Background Fetch)
+    // ==========================================
+    async function initStore() {
+      const savedCart = localStorage.getItem("kp_cart");
+      if (savedCart) {
+        try { cart = JSON.parse(savedCart); } catch (e) {}
+      }
+
+      const ghConfig = JSON.parse(localStorage.getItem("kp_gh_config") || "{}");
+      document.getElementById("ghRepo").value = cleanGitHubRepoSlug(ghConfig.repo || "afnanbinobaid/Kaarupushpo_web");
+      document.getElementById("ghBranch").value = ghConfig.branch || "main";
+      if (ghConfig.token) document.getElementById("ghToken").value = ghConfig.token;
+
+      // 1. Instant 0ms paint if cached data exists locally (prevents any blank delay)
+      let localData = null;
+      const localOverride = localStorage.getItem("kp_store_data");
+      if (localOverride) {
+        try {
+          localData = JSON.parse(localOverride);
+          storeData = normalizeStoreData(localData);
+          applyStoreDataToUI();
+        } catch (e) {}
+      }
+
+      // 2. Fetch live store-data.json from GitHub Pages
+      try {
+        const res = await fetch("./store-data.json", { cache: "no-cache" });
+        if (res.ok) {
+          const remoteData = await res.json();
+          if (!localData || Number(remoteData.lastUpdated || 0) >= Number(localData.lastUpdated || 0)) {
+            storeData = normalizeStoreData(remoteData);
+            localStorage.setItem("kp_store_data", JSON.stringify(storeData));
+            applyStoreDataToUI();
+          }
+        } else if (!localData) {
+          applyStoreDataToUI();
+        }
+      } catch (err) {
+        if (!localData) applyStoreDataToUI();
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("admin") === "true") {
+        promptAdminUnlock();
+      }
+    }
+
+    // ==========================================
     // 3. CLEAN HERO & PRODUCT CATALOG RENDERING
     // ==========================================
     function renderHeroShowcase() {
       const mainImgEl = document.getElementById("heroMainImgEl");
-      const mainSrc = (storeData.heroImage && storeData.heroImage.trim() !== "")
-        ? storeData.heroImage
-        : DEFAULT_HERO_BG;
-      if (mainImgEl) {
-        mainImgEl.src = mainSrc;
+      if (!mainImgEl) return;
+
+      // Use your uploaded hero photo, or fall back to your first product's photo if heroImage is empty
+      const heroSrc = (storeData.heroImage && storeData.heroImage.trim() !== "")
+        ? storeData.heroImage.trim()
+        : (storeData.products[0]?.image || "");
+
+      if (heroSrc) {
+        if (mainImgEl.getAttribute("src") !== heroSrc) {
+          mainImgEl.classList.add("opacity-0");
+          mainImgEl.onload = () => mainImgEl.classList.remove("opacity-0");
+          mainImgEl.src = heroSrc;
+        }
+        if (mainImgEl.complete) {
+          mainImgEl.classList.remove("opacity-0");
+        }
+      } else {
+        mainImgEl.classList.add("opacity-0");
+        mainImgEl.src = TRANSPARENT_PIXEL;
       }
     }
 
@@ -884,8 +887,11 @@
 
       grid.innerHTML = filtered.map(p => `
         <div class="bg-white rounded-3xl border border-brand-pink/15 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col group">
-          <div class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden">
-            <img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.name)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
+          <div class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden flex items-center justify-center">
+            ${p.image
+              ? `<img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.name)}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none'" />`
+              : `<span class="text-4xl">💐</span>`
+            }
             ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${escapeAttr(p.badge)}</span>` : ""}
             <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${escapeAttr(p.category)}</span>
           </div>
@@ -980,7 +986,7 @@
         stemList.innerHTML = storeData.stems.map(s => {
           const qty = customSelection.stems[s.id] || 0;
           const visualThumb = s.image
-            ? `<img src="${escapeAttr(s.image)}" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/20 shrink-0" />`
+            ? `<img src="${escapeAttr(s.image)}" loading="lazy" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/20 shrink-0" />`
             : `<span class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:${escapeAttr(s.color || '#D470A2')}22">${escapeAttr(s.emoji || '🌸')}</span>`;
           return `
             <div class="flex items-center justify-between p-3 rounded-2xl border ${qty > 0 ? 'border-brand-pink bg-brand-pinkLight/40' : 'border-brand-pink/15 bg-brand-paper'}">
@@ -1360,28 +1366,32 @@
         persistAndRefreshLiveUI();
         renderAdminInputs();
         showToast("Hero photo updated!");
-      }, 1000);
+      }, 950);
     }
 
     function updateHeroFieldsFromInputs() {
-      const val = document.getElementById("adminHeroImageInput").value.trim();
-      storeData.heroImage = val || DEFAULT_HERO_BG;
+      storeData.heroImage = document.getElementById("adminHeroImageInput").value.trim();
       persistAndRefreshLiveUI();
       renderAdminHeroThumb();
     }
 
     function clearHeroPhoto() {
-      storeData.heroImage = DEFAULT_HERO_BG;
+      storeData.heroImage = "";
       persistAndRefreshLiveUI();
       renderAdminInputs();
-      showToast("Reset to default hero photo!");
+      showToast("Hero photo cleared!");
     }
 
     function renderAdminHeroThumb() {
       const thumbBox = document.getElementById("adminHeroThumbBox");
-      if (thumbBox) {
-        const src = storeData.heroImage || DEFAULT_HERO_BG;
+      if (!thumbBox) return;
+      const src = (storeData.heroImage && storeData.heroImage.trim() !== "")
+        ? storeData.heroImage
+        : (storeData.products[0]?.image || "");
+      if (src) {
         thumbBox.innerHTML = `<img src="${escapeAttr(src)}" class="w-full h-full object-cover" />`;
+      } else {
+        thumbBox.innerHTML = `<span class="text-xs text-brand-ink/50">No photo set</span>`;
       }
     }
 
@@ -1449,7 +1459,7 @@
 
     function renderAdminInputs() {
       // 1A. Hero Showcase Input
-      document.getElementById("adminHeroImageInput").value = storeData.heroImage || DEFAULT_HERO_BG;
+      document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
       renderAdminHeroThumb();
 
       // 1B. Categories Manager List
@@ -1483,7 +1493,9 @@
         return `
           <div class="p-4 rounded-2xl bg-brand-paper border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
             <div class="sm:col-span-2">
-              <img src="${escapeAttr(p.image)}" class="w-full aspect-square object-cover rounded-xl border border-brand-pink/20" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80'" />
+              <div class="w-full aspect-square rounded-xl border border-brand-pink/20 bg-brand-pinkLight overflow-hidden flex items-center justify-center">
+                ${p.image ? `<img src="${escapeAttr(p.image)}" class="w-full h-full object-cover" />` : `<span class="text-2xl">💐</span>`}
+              </div>
               <label class="mt-1.5 block text-center text-[11px] font-bold text-brand-pinkDark cursor-pointer underline">
                 📷 Upload Photo
                 <input type="file" accept="image/*" class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
@@ -1637,7 +1649,7 @@
         price: 550,
         badge: "New",
         description: "Handcrafted 8mm fuzzy wire arrangement.",
-        image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+        image: ""
       });
       persistAndRefreshLiveUI();
       renderAdminInputs();
@@ -1762,7 +1774,7 @@
       showToast("Add-on deleted!");
     }
 
-    function compressAndAssignImage(event, callback, maxDim = 700) {
+    function compressAndAssignImage(event, callback, maxDim = 650) {
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -1776,7 +1788,7 @@
           canvas.width = w;
           canvas.height = h;
           canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          callback(canvas.toDataURL("image/jpeg", 0.84));
+          callback(canvas.toDataURL("image/jpeg", 0.8));
         };
         img.src = e.target.result;
       };
@@ -1827,7 +1839,7 @@
         const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
 
         const bodyPayload = {
-          message: "Update Kaarupushpo clean hero, categories, catalog, and custom builder via Owner Studio v2.6",
+          message: "Update Kaarupushpo store data via Owner Studio v2.7",
           content: base64Content,
           branch: branch
         };
