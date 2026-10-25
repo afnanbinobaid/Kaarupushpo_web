@@ -47,7 +47,7 @@
       font-family: 'Fraunces', serif;
     }
     .glass-nav {
-      background: rgba(248, 244, 240, 0.88);
+      background: rgba(248, 244, 240, 0.9);
       backdrop-filter: blur(14px);
     }
     .custom-scrollbar::-webkit-scrollbar {
@@ -57,33 +57,11 @@
       background: #D470A2;
       border-radius: 9999px;
     }
-    /* Seamless diagonal split on desktop inspired by reference template */
+    /* Clean diagonal cut on desktop; full-bleed top image on mobile */
     @media (min-width: 1024px) {
       .hero-diagonal-clip {
-        clip-path: polygon(14% 0%, 100% 0%, 100% 100%, 0% 100%);
+        clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
       }
-    }
-    .frosted-glass-card {
-      background: rgba(255, 253, 251, 0.55);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      box-shadow: 0 24px 48px -12px rgba(45, 35, 39, 0.18);
-    }
-    .orb-pink-sage {
-      background: radial-gradient(circle at 30% 30%, #ffffff 0%, #F9DCE8 35%, #D470A2 75%, #81B29A 100%);
-      box-shadow: 0 12px 24px -6px rgba(212, 112, 162, 0.45);
-    }
-    .orb-sage-gold {
-      background: radial-gradient(circle at 30% 30%, #ffffff 0%, #E6F4EE 35%, #81B29A 75%, #2D2327 100%);
-      box-shadow: 0 10px 20px -5px rgba(129, 178, 154, 0.45);
-    }
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px) rotate(-2deg); }
-      50% { transform: translateY(-8px) rotate(1deg); }
-    }
-    .animate-float-slow {
-      animation: floatSlow 5s ease-in-out infinite;
     }
   </style>
 </head>
@@ -122,94 +100,57 @@
     </div>
   </header>
 
-  <!-- SEAMLESS EDITORIAL HERO SECTION (Inspired by Nimbus Template) -->
+  <!-- CLEAN SEAMLESS HERO SECTION (Mobile: Image Top, Text Bottom | Desktop: Text Left, Diagonal Image Right) -->
   <section class="relative bg-brand-cream overflow-hidden border-b border-brand-ink/10">
-    <!-- Subtle ambient radial glow behind text -->
-    <div class="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full bg-brand-pink/10 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-12 min-h-[520px] lg:min-h-[600px] items-stretch">
 
-    <div class="relative max-w-7xl mx-auto">
-      <div class="grid lg:grid-cols-12 min-h-[540px] lg:min-h-[620px] items-stretch">
-
-        <!-- Left Editorial Typography Column -->
-        <div class="lg:col-span-6 px-5 sm:px-8 lg:pl-8 lg:pr-6 py-12 lg:py-20 flex flex-col justify-center relative z-20">
-          <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-brand-terra mb-4">
-            <span class="w-2 h-2 rounded-full bg-brand-pink"></span>
-            <span>Handcrafted 8mm Chenille Studio • Dhaka</span>
-          </div>
-
-          <!-- Bold Stacked Headline -->
-          <h1 class="font-heading text-5xl sm:text-6xl lg:text-[4.15rem] font-extrabold text-brand-ink tracking-tight leading-[0.96] uppercase">
-            Flowers <br />
-            that last.<br />
-            <span class="text-brand-pink italic normal-case font-bold">Feelings that stay.</span>
+        <!-- Left Editorial Typography Column (order-2 on mobile so it sits below image; lg:order-1 on desktop) -->
+        <div class="order-2 lg:order-1 lg:col-span-6 px-5 sm:px-8 lg:pl-8 lg:pr-6 py-10 sm:py-12 lg:py-20 flex flex-col justify-center relative z-10">
+          <!-- Headline -->
+          <h1 class="font-heading text-4xl sm:text-5xl lg:text-[4rem] font-extrabold text-brand-ink tracking-tight leading-[1.02]">
+            Flowers that last.<br />
+            <span class="text-brand-pink italic font-bold">Feelings that stay.</span>
           </h1>
 
           <!-- Supporting Copy -->
-          <p class="mt-6 text-base sm:text-lg text-brand-ink/80 max-w-md leading-relaxed font-medium">
+          <p class="mt-5 text-base sm:text-lg text-brand-ink/80 max-w-md leading-relaxed font-medium">
             “Handcrafted fuzzy-wire bouquets, made with love and personalized just for you.”
           </p>
 
-          <!-- Dual Pill Buttons (Matching Reference Template) -->
+          <!-- CTA Pill Buttons -->
           <div class="mt-8 flex flex-wrap items-center gap-3.5">
-            <a href="#catalog" class="px-7 py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-brand-pink/30 transition transform hover:-translate-y-0.5">
+            <a href="#catalog" class="px-7 py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
               Shop Bouquets
             </a>
-            <a href="#customizer" class="pl-2.5 pr-6 py-2.5 rounded-full bg-transparent hover:bg-white/80 text-brand-ink border border-brand-ink/30 font-bold text-xs sm:text-sm uppercase tracking-wider transition flex items-center gap-3">
-              <span class="w-7 h-7 rounded-full bg-brand-ink text-white flex items-center justify-center text-xs">✦</span>
-              <span>Customize Yours</span>
+            <a href="#customizer" class="px-7 py-3.5 rounded-full bg-white hover:bg-brand-sageLight text-brand-ink border border-brand-ink/25 font-bold text-xs sm:text-sm uppercase tracking-wider transition">
+              Customize Yours
             </a>
           </div>
         </div>
 
-        <!-- Right Seamless Full-Bleed Image & Floating Frosted Elements -->
-        <div class="lg:col-span-6 relative min-h-[380px] sm:min-h-[460px] lg:min-h-full flex items-center justify-center">
-
+        <!-- Right Seamless Full-Bleed Image (order-1 on mobile so it appears above text; lg:order-2 on desktop) -->
+        <div class="order-1 lg:order-2 lg:col-span-6 relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
           <!-- Quick Admin Edit Button Overlaid on Hero (Hidden from Public) -->
-          <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-5 right-5 z-30 items-center gap-1.5 px-4 py-2 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-lg hover:bg-brand-pinkDark transition">
-            📷 Edit Hero Photos
+          <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-4 right-4 z-30 items-center gap-1.5 px-4 py-2 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-lg hover:bg-brand-pinkDark transition">
+            📷 Change Hero Photo
           </button>
 
-          <!-- Full-Bleed Diagonal Image Canvas -->
-          <div class="w-full h-full absolute inset-0 hero-diagonal-clip overflow-hidden bg-gradient-to-tr from-brand-pink/30 via-brand-pinkLight to-brand-sage/30">
+          <!-- Clean Full-Bleed Diagonal Image Canvas (No white shadowing, no floating cards) -->
+          <div class="w-full h-full absolute inset-0 hero-diagonal-clip overflow-hidden bg-brand-pinkLight">
             <img
               id="heroMainImgEl"
               src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1400&q=85"
               alt="Kaarupushpo Handcrafted Fuzzy Wire Bouquets"
-              class="w-full h-full object-cover object-center scale-105 hover:scale-100 transition duration-700"
+              class="w-full h-full object-cover object-center"
             />
-            <!-- Soft seam gradient blend so left edge melts into the background -->
-            <div class=" inset-0 absolute bg-gradient-to-r from-brand-cream via-transparent to-transparent opacity-60 lg:opacity-45 pointer-events-none"></div>
-            <div class="inset-0 absolute bg-gradient-to-t from-brand-ink/35 via-transparent to-transparent pointer-events-none"></div>
           </div>
-
-          <!-- SEAM OVERLAY 1: Floating Frosted Glass Showcase Card (Matches upper-left floating square in reference) -->
-          <div class="relative z-20 lg:absolute lg:-left-14 lg:top-12 max-w-[230px] sm:max-w-[250px] frosted-glass-card rounded-3xl p-3.5 animate-float-slow my-6 lg:my-0">
-            <div id="heroFloatingCardInner"></div>
-          </div>
-
-          <!-- SEAM OVERLAY 2: Floating 3D Gradient Sphere on the Diagonal Seam -->
-          <div class="hidden sm:block pointer-events-none absolute z-20 left-6 lg:left-10 bottom-24 w-11 h-11 rounded-full orb-pink-sage"></div>
-
-          <!-- SEAM OVERLAY 3: Bold Curved Accent Arc Straddling the Seam -->
-          <svg class="hidden sm:block pointer-events-none absolute z-20 left-2 lg:-left-8 bottom-6 w-24 h-24 text-brand-pink" viewBox="0 0 100 100" fill="none">
-            <path d="M 15 85 A 60 60 0 0 1 85 20" stroke="currentColor" stroke-width="11" stroke-linecap="round" />
-          </svg>
-
-          <!-- SEAM OVERLAY 4: Bottom-Right Frosted Pill & Sparkle Accents -->
-          <div class="pointer-events-none absolute z-20 right-6 bottom-6 flex items-center gap-3">
-            <span class="text-brand-sage text-2xl drop-shadow">✦</span>
-            <div class="frosted-glass-card rounded-2xl px-3.5 py-2 flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full orb-sage-gold"></span>
-              <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-ink">Everlasting 8mm Stems</span>
-            </div>
-          </div>
-
         </div>
 
       </div>
     </div>
 
-    <!-- Bottom Dark Editorial Ticker Bar (Matches // LATEST DROPS bar in reference) -->
+    <!-- Bottom Dark Editorial Strip -->
     <div class="bg-brand-ink text-white py-3 px-4 border-t border-white/10 overflow-x-auto">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] whitespace-nowrap">
         <div>
@@ -442,16 +383,16 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (v2.5 — Seamless Hero + Categories + Full Custom Builder) -->
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.6 — Clean Hero + Categories + Full Custom Builder) -->
   <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
     <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
       <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.5 — Seamless Hero & Full Editor</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.6 — Clean Hero & Full Editor</span>
           </div>
-          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photos, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
+          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
         </div>
         <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
@@ -459,7 +400,7 @@
       <!-- Admin Tabs -->
       <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
         <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
-          1. Hero Photos, Categories & Products
+          1. Hero Photo, Categories & Products
         </button>
         <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           2. Custom Builder Items (Flowers, Wraps & Extras)
@@ -472,61 +413,31 @@
       <!-- Admin Tab Content -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
-        <!-- TAB 1: SEAMLESS HERO PHOTOS + CATEGORIES + PRODUCTS -->
+        <!-- TAB 1: HERO PHOTO + CATEGORIES + PRODUCTS -->
         <div id="adminTab-products" class="space-y-7">
 
-          <!-- 1A: Seamless Hero Section Photo & Floating Frosted Card Editor -->
-          <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-4">
+          <!-- 1A: Main Hero Section Photo Editor -->
+          <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Seamless Hero Visuals</span>
-                <h4 class="font-heading font-bold text-sm sm:text-base text-brand-ink mt-1">🖼️ Main Diagonal Hero Photo & Floating Glass Card</h4>
-                <p class="text-xs text-brand-ink/70">Upload your main right-side hero bouquet photo and customize the floating frosted-glass card overlapping the seam.</p>
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Hero Banner Photo</span>
+                <h4 class="font-heading font-bold text-sm sm:text-base text-brand-ink mt-1">🖼️ Main Hero Photo</h4>
+                <p class="text-xs text-brand-ink/70">Upload your main hero bouquet photo from your phone/computer or paste an image link.</p>
               </div>
               <button type="button" onclick="clearHeroPhoto()" class="px-3 py-1.5 rounded-full bg-white border border-brand-pink/30 text-xs font-semibold text-brand-terra hover:bg-brand-pinkLight transition">
-                🔄 Reset Hero Defaults
+                🔄 Reset Default Photo
               </button>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-4">
-              <!-- Main Full-Bleed Hero Image Uploader -->
-              <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 flex gap-3.5 items-center">
-                <div id="adminHeroThumbBox" class="w-24 aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center"></div>
-                <div class="flex-1 space-y-2">
-                  <label class="block text-xs font-bold text-brand-ink">1. Main Seamless Hero Photo</label>
-                  <input type="text" id="adminHeroImageInput" onchange="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload..." class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs bg-brand-paper" />
-                  <label class="inline-block px-3 py-1.5 rounded-full bg-brand-pink text-white text-[11px] font-bold cursor-pointer hover:bg-brand-pinkDark transition">
-                    📷 Upload Main Photo
-                    <input type="file" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)" />
-                  </label>
-                </div>
-              </div>
-
-              <!-- Floating Frosted Glass Card Uploader & Caption -->
-              <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 space-y-2.5">
-                <div class="flex items-center gap-3">
-                  <div id="adminFloatThumbBox" class="w-16 h-16 rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center text-2xl">💐</div>
-                  <div class="flex-1 space-y-1.5">
-                    <label class="block text-xs font-bold text-brand-ink">2. Floating Glass Card Photo (Optional)</label>
-                    <div class="flex flex-wrap gap-2">
-                      <label class="px-3 py-1 rounded-full bg-brand-terra text-white text-[11px] font-bold cursor-pointer hover:opacity-90 transition">
-                        📷 Upload Card Photo
-                        <input type="file" accept="image/*" class="hidden" onchange="handleFloatImageUpload(event)" />
-                      </label>
-                      <button type="button" onclick="storeData.heroFloatImage=''; persistAndRefreshLiveUI(); renderAdminInputs();" class="text-[11px] text-brand-ink/60 underline">Use Emoji/Main</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2 pt-1">
-                  <div>
-                    <label class="block text-[10px] font-bold text-brand-ink/70">Floating Card Title</label>
-                    <input type="text" id="adminHeroTitleInput" oninput="updateHeroFieldsFromInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-brand-paper" />
-                  </div>
-                  <div>
-                    <label class="block text-[10px] font-bold text-brand-ink/70">Floating Card Tag</label>
-                    <input type="text" id="adminHeroSubtitleInput" oninput="updateHeroFieldsFromInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs bg-brand-paper" />
-                  </div>
-                </div>
+            <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 flex flex-col sm:flex-row gap-4 items-center">
+              <div id="adminHeroThumbBox" class="w-32 aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center"></div>
+              <div class="flex-1 w-full space-y-2">
+                <label class="block text-xs font-bold text-brand-ink">Hero Image URL (or upload file below)</label>
+                <input type="text" id="adminHeroImageInput" onchange="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-paper" />
+                <label class="inline-block px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold cursor-pointer hover:bg-brand-pinkDark transition">
+                  📷 Upload Hero Photo from Device
+                  <input type="file" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)" />
+                </label>
               </div>
             </div>
           </div>
@@ -646,10 +557,10 @@
           <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
-              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.5 Live Sync</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.6 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photos, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
@@ -699,7 +610,7 @@
 
   <script>
     // ==========================================
-    // 1. DEFAULT STORE DATA (v2.5 Seamless Hero)
+    // 1. DEFAULT STORE DATA (v2.6 Clean Hero)
     // ==========================================
     const DEFAULT_HERO_BG = "https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1400&q=85";
 
@@ -710,9 +621,6 @@
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
       heroImage: DEFAULT_HERO_BG,
-      heroFloatImage: "",
-      heroTitle: "Everlasting Keepsake",
-      heroSubtitle: "Custom 8mm Chenille Edition",
       categories: [
         "Bouquets",
         "Potted",
@@ -834,9 +742,6 @@
       if (!merged.heroImage || typeof merged.heroImage !== "string" || merged.heroImage.trim() === "") {
         merged.heroImage = DEFAULT_HERO_BG;
       }
-      if (typeof merged.heroFloatImage !== "string") merged.heroFloatImage = "";
-      if (!merged.heroTitle) merged.heroTitle = DEFAULT_STORE_DATA.heroTitle;
-      if (!merged.heroSubtitle) merged.heroSubtitle = DEFAULT_STORE_DATA.heroSubtitle;
 
       if (!Array.isArray(merged.products)) merged.products = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.products));
       if (!Array.isArray(merged.stems)) merged.stems = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.stems));
@@ -921,42 +826,15 @@
     }
 
     // ==========================================
-    // 3. SEAMLESS HERO & PRODUCT CATALOG RENDERING
+    // 3. CLEAN HERO & PRODUCT CATALOG RENDERING
     // ==========================================
     function renderHeroShowcase() {
       const mainImgEl = document.getElementById("heroMainImgEl");
-      const floatCardEl = document.getElementById("heroFloatingCardInner");
-
       const mainSrc = (storeData.heroImage && storeData.heroImage.trim() !== "")
         ? storeData.heroImage
         : DEFAULT_HERO_BG;
       if (mainImgEl) {
         mainImgEl.src = mainSrc;
-      }
-
-      const title = storeData.heroTitle || DEFAULT_STORE_DATA.heroTitle;
-      const subtitle = storeData.heroSubtitle || DEFAULT_STORE_DATA.heroSubtitle;
-      const floatImgSrc = storeData.heroFloatImage && storeData.heroFloatImage.trim() !== ""
-        ? storeData.heroFloatImage
-        : (storeData.products[0]?.image || "");
-
-      const mediaHtml = floatImgSrc
-        ? `<div class="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-white/60 mb-2.5 border border-white/80">
-             <img src="${escapeAttr(floatImgSrc)}" alt="${escapeAttr(title)}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
-           </div>`
-        : `<div class="aspect-[4/3] w-full rounded-2xl bg-white/50 flex items-center justify-center text-5xl mb-2.5 border border-white/80">💐</div>`;
-
-      if (floatCardEl) {
-        floatCardEl.innerHTML = `
-          ${mediaHtml}
-          <div class="px-1">
-            <div class="flex items-center justify-between gap-1">
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-pinkDark">${escapeAttr(subtitle)}</span>
-              <span class="text-xs">✨</span>
-            </div>
-            <p class="font-heading text-sm font-bold text-brand-ink leading-snug mt-0.5">${escapeAttr(title)}</p>
-          </div>
-        `;
       }
     }
 
@@ -1475,42 +1353,28 @@
       persistAndRefreshLiveUI();
     }
 
-    // --- Hero Showcase CRUD Helpers ---
+    // --- Hero Photo CRUD Helpers ---
     function handleHeroImageUpload(event) {
       compressAndAssignImage(event, dataUrl => {
         storeData.heroImage = dataUrl;
         persistAndRefreshLiveUI();
         renderAdminInputs();
-        showToast("Main seamless hero photo updated!");
+        showToast("Hero photo updated!");
       }, 1000);
-    }
-
-    function handleFloatImageUpload(event) {
-      compressAndAssignImage(event, dataUrl => {
-        storeData.heroFloatImage = dataUrl;
-        persistAndRefreshLiveUI();
-        renderAdminInputs();
-        showToast("Floating glass card photo updated!");
-      }, 500);
     }
 
     function updateHeroFieldsFromInputs() {
       const val = document.getElementById("adminHeroImageInput").value.trim();
       storeData.heroImage = val || DEFAULT_HERO_BG;
-      storeData.heroTitle = document.getElementById("adminHeroTitleInput").value;
-      storeData.heroSubtitle = document.getElementById("adminHeroSubtitleInput").value;
       persistAndRefreshLiveUI();
       renderAdminHeroThumb();
     }
 
     function clearHeroPhoto() {
       storeData.heroImage = DEFAULT_HERO_BG;
-      storeData.heroFloatImage = "";
-      storeData.heroTitle = DEFAULT_STORE_DATA.heroTitle;
-      storeData.heroSubtitle = DEFAULT_STORE_DATA.heroSubtitle;
       persistAndRefreshLiveUI();
       renderAdminInputs();
-      showToast("Reset to default seamless hero visuals!");
+      showToast("Reset to default hero photo!");
     }
 
     function renderAdminHeroThumb() {
@@ -1518,15 +1382,6 @@
       if (thumbBox) {
         const src = storeData.heroImage || DEFAULT_HERO_BG;
         thumbBox.innerHTML = `<img src="${escapeAttr(src)}" class="w-full h-full object-cover" />`;
-      }
-      const floatBox = document.getElementById("adminFloatThumbBox");
-      if (floatBox) {
-        const fSrc = storeData.heroFloatImage || storeData.products[0]?.image || "";
-        if (fSrc) {
-          floatBox.innerHTML = `<img src="${escapeAttr(fSrc)}" class="w-full h-full object-cover" />`;
-        } else {
-          floatBox.innerHTML = `<span class="text-2xl">💐</span>`;
-        }
       }
     }
 
@@ -1593,10 +1448,8 @@
     }
 
     function renderAdminInputs() {
-      // 1A. Hero Showcase Inputs
+      // 1A. Hero Showcase Input
       document.getElementById("adminHeroImageInput").value = storeData.heroImage || DEFAULT_HERO_BG;
-      document.getElementById("adminHeroTitleInput").value = storeData.heroTitle || DEFAULT_STORE_DATA.heroTitle;
-      document.getElementById("adminHeroSubtitleInput").value = storeData.heroSubtitle || DEFAULT_STORE_DATA.heroSubtitle;
       renderAdminHeroThumb();
 
       // 1B. Categories Manager List
@@ -1974,7 +1827,7 @@
         const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
 
         const bodyPayload = {
-          message: "Update Kaarupushpo seamless hero, categories, catalog, and custom builder via Owner Studio v2.5",
+          message: "Update Kaarupushpo clean hero, categories, catalog, and custom builder via Owner Studio v2.6",
           content: base64Content,
           branch: branch
         };
