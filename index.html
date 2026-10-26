@@ -166,21 +166,21 @@
       </div>
     </div>
 
-    <!-- Bottom Dark Editorial Strip -->
+    <!-- Bottom Dark Editorial Strip (Editable in Owner Studio) -->
     <div class="bg-brand-ink text-white py-3 px-4 border-t border-white/10 overflow-x-auto relative z-20">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] whitespace-nowrap">
         <div>
           <span class="text-brand-sage">//</span>
-          <span class="text-brand-pink ml-1">SIGNATURE DROPS:</span>
-          <span class="text-white/90 ml-1">PASTEL TULIPS, SUNSHINE WRAPS, CHENILLE ROSES</span>
+          <span id="heroRibbonLabelEl" class="text-brand-pink ml-1">SIGNATURE DROPS:</span>
+          <span id="heroRibbonText1El" class="text-white/90 ml-1">PASTEL TULIPS, SUNSHINE WRAPS, CHENILLE ROSES</span>
         </div>
         <div class="hidden md:block">
           <span class="text-brand-sage">//</span>
-          <span class="text-white/90 ml-1">100% HANDMADE 8MM FUZZY WIRE BOUQUETS THAT NEVER FADE</span>
+          <span id="heroRibbonText2El" class="text-white/90 ml-1">100% HANDMADE 8MM FUZZY WIRE BOUQUETS THAT NEVER FADE</span>
         </div>
         <div>
           <span class="text-brand-sage">//</span>
-          <span class="text-white/90 ml-1">FAST DELIVERY INSIDE & OUTSIDE DHAKA</span>
+          <span id="heroRibbonText3El" class="text-white/90 ml-1">FAST DELIVERY INSIDE & OUTSIDE DHAKA</span>
           <span class="text-brand-sage ml-1">//</span>
         </div>
       </div>
@@ -200,6 +200,9 @@
 
     <!-- Dynamic Products Grid -->
     <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <!-- See More / Show Less Button Container -->
+    <div id="catalogSeeMoreWrap" class="mt-8 text-center hidden"></div>
   </section>
 
   <!-- Interactive Custom Bouquet Builder -->
@@ -260,6 +263,7 @@
               <button onclick="resetCustomBuilder()" class="text-xs text-brand-terra underline hover:text-brand-pink">Reset Stems</button>
             </div>
             <div id="stemPickerList" class="grid sm:grid-cols-2 gap-3.5"></div>
+            <div id="stemSeeMoreWrap" class="mt-4 text-center hidden"></div>
           </div>
 
           <!-- Step 2: Color Palette, Wrapping & Add-ons -->
@@ -269,22 +273,31 @@
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Petal Color Palette</label>
               <div id="paletteOptions" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
+              <div id="paletteSeeMoreWrap" class="mt-2.5 text-center hidden"></div>
             </div>
 
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Wrapping Style</label>
-                <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink"></select>
-              </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Wrapping Style</label>
+              <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink"></select>
+            </div>
+
+            <!-- Collapsible Extra Customization Options (Ribbon/Add-ons & Custom Card Note) -->
+            <div id="moreCustomOptionsWrap" class="hidden space-y-5 pt-2 border-t border-brand-pink/15">
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Ribbon & Add-ons</label>
                 <div id="addonsChecklist" class="space-y-2 text-sm"></div>
               </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-1.5">Custom Note on Card / Special Instructions (Optional)</label>
+                <input type="text" id="customBouquetNote" maxlength="120" placeholder="e.g. 'Happy Anniversary!' or 'Use pastel pink & cream tulips'" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink" />
+              </div>
             </div>
 
-            <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-1.5">Custom Note on Card / Special Instructions (Optional)</label>
-              <input type="text" id="customBouquetNote" maxlength="120" placeholder="e.g. 'Happy Anniversary!' or 'Use pastel pink & cream tulips'" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink" />
+            <div class="pt-1 text-center">
+              <button type="button" id="toggleMoreCustomOptionsBtn" onclick="toggleMoreCustomOptions()" class="px-5 py-2 rounded-full bg-brand-pinkLight hover:bg-brand-pink hover:text-white text-brand-pinkDark text-xs font-bold border border-brand-pink/25 transition">
+                See More Customization Options (Add-ons & Card Note) ↓
+              </button>
             </div>
           </div>
         </div>
@@ -329,6 +342,30 @@
       </p>
     </div>
   </footer>
+
+  <!-- PRODUCT IMAGE LIGHTBOX MODAL (Viewable Image & Multi-Photo Gallery) -->
+  <div id="productLightboxModal" onclick="handleLightboxBackdropClick(event)" class="fixed inset-0 bg-black/85 z-50 hidden items-center justify-center p-3 sm:p-6 backdrop-blur-xs">
+    <div class="relative max-w-3xl w-full bg-brand-paper rounded-3xl overflow-hidden shadow-2xl border border-brand-pink/30 flex flex-col max-h-[92vh]">
+      <!-- Top Bar -->
+      <div class="p-3.5 sm:px-5 bg-brand-ink text-white flex items-center justify-between gap-3">
+        <div>
+          <h4 id="lightboxProdTitle" class="font-heading text-base sm:text-lg font-bold">Product Photo</h4>
+          <p id="lightboxCounter" class="text-[11px] text-white/70">1 / 1</p>
+        </div>
+        <button type="button" onclick="closeProductLightbox()" class="w-8 h-8 rounded-full bg-white/15 hover:bg-brand-pink text-white flex items-center justify-center text-sm font-bold transition">✕</button>
+      </div>
+
+      <!-- Main Image Viewer -->
+      <div class="relative flex-1 bg-black/95 flex items-center justify-center min-h-[280px] sm:min-h-[420px] max-h-[70vh] overflow-hidden">
+        <button type="button" id="lightboxPrevBtn" onclick="stepLightboxImage(-1)" class="hidden absolute left-3 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-brand-pink hover:text-white text-brand-ink font-bold text-lg shadow-lg items-center justify-center transition">‹</button>
+        <img id="lightboxMainImg" src="" alt="Product View" class="max-w-full max-h-[68vh] object-contain select-none" />
+        <button type="button" id="lightboxNextBtn" onclick="stepLightboxImage(1)" class="hidden absolute right-3 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-brand-pink hover:text-white text-brand-ink font-bold text-lg shadow-lg items-center justify-center transition">›</button>
+      </div>
+
+      <!-- Thumbnails Strip -->
+      <div id="lightboxThumbStrip" class="p-3 bg-brand-cream border-t border-brand-pink/15 flex items-center justify-center gap-2 overflow-x-auto"></div>
+    </div>
+  </div>
 
   <!-- Shopping Bag & WhatsApp Checkout Drawer -->
   <div id="cartDrawerBackdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-black/40 z-50 hidden backdrop-blur-xs"></div>
@@ -408,7 +445,7 @@
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
             <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.8 — Seamless Mobile Hero</span>
           </div>
-          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Categories, Store Products, Custom Builder Flowers, Wraps & Live GitHub Sync</p>
+          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Ribbon Text, Categories, Product Serial & Multi-Photos, Custom Builder & GitHub Sync</p>
         </div>
         <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
@@ -416,7 +453,7 @@
       <!-- Admin Tabs -->
       <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
         <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
-          1. Hero Photo, Categories & Products
+          1. Hero Photo, Ribbon, Categories & Products
         </button>
         <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           2. Custom Builder Items (Flowers, Wraps & Extras)
@@ -429,7 +466,7 @@
       <!-- Admin Tab Content -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
-        <!-- TAB 1: HERO PHOTO + CATEGORIES + PRODUCTS -->
+        <!-- TAB 1: HERO PHOTO + RIBBON + CATEGORIES + PRODUCTS -->
         <div id="adminTab-products" class="space-y-7">
 
           <!-- 1A: Main Hero Section Photo Editor -->
@@ -456,6 +493,29 @@
                 </label>
               </div>
             </div>
+
+            <!-- Hero Bottom Ribbon Text Editor -->
+            <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 space-y-2.5">
+              <h5 class="font-heading font-bold text-xs sm:text-sm text-brand-ink">🎗️ Hero Bottom Ribbon Text (Dark Strip Below Hero)</h5>
+              <div class="grid sm:grid-cols-2 gap-2.5">
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70">Pink Highlight Label (Left)</label>
+                  <input type="text" id="adminRibbonLabelInput" oninput="updateHeroRibbonFromInputs()" placeholder="SIGNATURE DROPS:" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-brand-paper font-bold text-brand-pinkDark" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70">First Ribbon Text (Next to Label)</label>
+                  <input type="text" id="adminRibbonText1Input" oninput="updateHeroRibbonFromInputs()" placeholder="PASTEL TULIPS, SUNSHINE WRAPS, CHENILLE ROSES" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-brand-paper" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70">Middle Ribbon Text</label>
+                  <input type="text" id="adminRibbonText2Input" oninput="updateHeroRibbonFromInputs()" placeholder="100% HANDMADE 8MM FUZZY WIRE BOUQUETS THAT NEVER FADE" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-brand-paper" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70">Right Ribbon Text</label>
+                  <input type="text" id="adminRibbonText3Input" oninput="updateHeroRibbonFromInputs()" placeholder="FAST DELIVERY INSIDE & OUTSIDE DHAKA" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-brand-paper" />
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- 1B: Dynamic Product Categories Manager -->
@@ -476,8 +536,8 @@
           <div class="space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight p-4 rounded-2xl border border-brand-sage/30">
               <div>
-                <h4 class="font-heading font-bold text-sm text-brand-ink">💐 Add or Edit Ready-Made Store Products</h4>
-                <p class="text-xs text-brand-ink/70">Upload photos from your device or paste an image URL, pick a category, and set prices in ৳.</p>
+                <h4 class="font-heading font-bold text-sm text-brand-ink">💐 Add, Reorder or Edit Ready-Made Store Products</h4>
+                <p class="text-xs text-brand-ink/70">Set product serial order, upload multiple photos per product or paste image URLs, pick a category, and set prices in ৳.</p>
               </div>
               <button type="button" onclick="addNewProductRow()" class="px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold shadow-xs hover:bg-brand-pinkDark transition">
                 + Add New Product
@@ -576,7 +636,7 @@
               <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.8 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, ribbon, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
@@ -637,6 +697,10 @@
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
       heroImage: "",
+      heroRibbonLabel: "SIGNATURE DROPS:",
+      heroRibbonText1: "PASTEL TULIPS, SUNSHINE WRAPS, CHENILLE ROSES",
+      heroRibbonText2: "100% HANDMADE 8MM FUZZY WIRE BOUQUETS THAT NEVER FADE",
+      heroRibbonText3: "FAST DELIVERY INSIDE & OUTSIDE DHAKA",
       categories: [
         "Bouquets",
         "Potted",
@@ -650,7 +714,8 @@
           price: 650,
           badge: "Bestseller",
           description: "7 handcrafted 8mm fuzzy wire tulips with sage eucalyptus leaves wrapped in frosted Korean paper.",
-          image: ""
+          image: "",
+          images: []
         },
         {
           id: "kp-2",
@@ -659,7 +724,8 @@
           price: 780,
           badge: "Signature",
           description: "Bright fuzzy wire golden sunflower center surrounded by chamomile daisies and warm fairy lights.",
-          image: ""
+          image: "",
+          images: []
         },
         {
           id: "kp-3",
@@ -668,7 +734,8 @@
           price: 890,
           badge: "Romantic",
           description: "Plush rose-pink chenille roses paired with fragrant-inspired lavender stems and satin ribbon.",
-          image: ""
+          image: "",
+          images: []
         }
       ],
       stems: [
@@ -700,6 +767,11 @@
 
     let storeData = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA));
     let currentCategory = "All";
+    let catalogExpanded = false;
+    let stemsExpanded = false;
+    let palettesExpanded = false;
+    let moreCustomOptionsExpanded = false;
+    let lightboxState = { productId: null, images: [], index: 0, title: "" };
     let cart = [];
     let customSelection = {
       stems: {},
@@ -726,11 +798,24 @@
         .replace(/^\/+|\/+$/g, "");
     }
 
+    function normalizeProductImages(p) {
+      let imgs = Array.isArray(p.images) ? p.images.filter(u => typeof u === "string" && u.trim() !== "") : [];
+      if (typeof p.image === "string" && p.image.trim() !== "" && !imgs.includes(p.image.trim())) {
+        imgs.unshift(p.image.trim());
+      }
+      p.images = imgs;
+      p.image = imgs[0] || "";
+    }
+
     function normalizeStoreData(raw) {
       const merged = { ...DEFAULT_STORE_DATA, ...raw };
       if (typeof merged.heroImage !== "string") {
         merged.heroImage = "";
       }
+      if (typeof merged.heroRibbonLabel !== "string") merged.heroRibbonLabel = DEFAULT_STORE_DATA.heroRibbonLabel;
+      if (typeof merged.heroRibbonText1 !== "string") merged.heroRibbonText1 = DEFAULT_STORE_DATA.heroRibbonText1;
+      if (typeof merged.heroRibbonText2 !== "string") merged.heroRibbonText2 = DEFAULT_STORE_DATA.heroRibbonText2;
+      if (typeof merged.heroRibbonText3 !== "string") merged.heroRibbonText3 = DEFAULT_STORE_DATA.heroRibbonText3;
 
       if (!Array.isArray(merged.products)) merged.products = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.products));
       if (!Array.isArray(merged.stems)) merged.stems = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA.stems));
@@ -745,6 +830,7 @@
         if (p.description) {
           p.description = p.description.replace(/6\s*mm/gi, "8mm");
         }
+        normalizeProductImages(p);
         if (p.category && !merged.categories.includes(p.category)) {
           merged.categories.push(p.category);
         }
@@ -825,15 +911,25 @@
     }
 
     // ==========================================
-    // 3. CLEAN HERO & PRODUCT CATALOG RENDERING
+    // 3. CLEAN HERO, EDITABLE RIBBON & PRODUCT CATALOG RENDERING
     // ==========================================
     function renderHeroShowcase() {
+      const labelEl = document.getElementById("heroRibbonLabelEl");
+      const text1El = document.getElementById("heroRibbonText1El");
+      const text2El = document.getElementById("heroRibbonText2El");
+      const text3El = document.getElementById("heroRibbonText3El");
+      if (labelEl) labelEl.textContent = storeData.heroRibbonLabel ?? DEFAULT_STORE_DATA.heroRibbonLabel;
+      if (text1El) text1El.textContent = storeData.heroRibbonText1 ?? DEFAULT_STORE_DATA.heroRibbonText1;
+      if (text2El) text2El.textContent = storeData.heroRibbonText2 ?? DEFAULT_STORE_DATA.heroRibbonText2;
+      if (text3El) text3El.textContent = storeData.heroRibbonText3 ?? DEFAULT_STORE_DATA.heroRibbonText3;
+
       const mainImgEl = document.getElementById("heroMainImgEl");
       if (!mainImgEl) return;
 
+      const firstProdImg = storeData.products[0]?.images?.[0] || storeData.products[0]?.image || "";
       const heroSrc = (storeData.heroImage && storeData.heroImage.trim() !== "")
         ? storeData.heroImage.trim()
-        : (storeData.products[0]?.image || "");
+        : firstProdImg;
 
       if (heroSrc) {
         if (mainImgEl.getAttribute("src") !== heroSrc) {
@@ -856,6 +952,12 @@
       } else {
         currentCategory = storeData.categories[idx] || "All";
       }
+      catalogExpanded = false;
+      renderCatalog();
+    }
+
+    function toggleCatalogSeeMore() {
+      catalogExpanded = !catalogExpanded;
       renderCatalog();
     }
 
@@ -885,47 +987,189 @@
     function renderCatalog() {
       renderCategoryFilterBar();
       const grid = document.getElementById("productsGrid");
+      const seeMoreWrap = document.getElementById("catalogSeeMoreWrap");
+
       const filtered = currentCategory === "All"
         ? storeData.products
         : storeData.products.filter(p => p.category === currentCategory);
 
       if (!filtered.length) {
         grid.innerHTML = `<div class="col-span-full text-center py-12 text-brand-ink/60 text-sm">No products found in this category.</div>`;
+        if (seeMoreWrap) seeMoreWrap.classList.add("hidden");
         return;
       }
 
-      grid.innerHTML = filtered.map(p => `
-        <div class="bg-white rounded-3xl border border-brand-pink/15 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col group">
-          <div class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden flex items-center justify-center">
-            ${p.image
-              ? `<img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.name)}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none'" />`
-              : `<span class="text-4xl">💐</span>`
-            }
-            ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${escapeAttr(p.badge)}</span>` : ""}
-            <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${escapeAttr(p.category)}</span>
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
-            <div>
-              <h3 class="font-heading text-lg font-bold text-brand-ink">${escapeAttr(p.name)}</h3>
-              <p class="text-xs text-brand-ink/70 mt-1 line-clamp-2">${escapeAttr(p.description || "")}</p>
+      const visibleProducts = catalogExpanded ? filtered : filtered.slice(0, 6);
+
+      grid.innerHTML = visibleProducts.map(p => {
+        normalizeProductImages(p);
+        const primaryImg = p.images[0] || "";
+        const imgCount = p.images.length;
+
+        return `
+          <div class="bg-[#F8E8EF] rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition overflow-hidden flex flex-col group">
+            <div
+              ${primaryImg ? `onclick="openProductLightbox('${escapeAttr(p.id)}', 0)" title="Click to view full photo"` : ""}
+              class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden flex items-center justify-center ${primaryImg ? 'cursor-pointer' : ''}"
+            >
+              ${primaryImg
+                ? `<img src="${escapeAttr(primaryImg)}" alt="${escapeAttr(p.name)}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none'" />`
+                : `<span class="text-4xl">💐</span>`
+              }
+              ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${escapeAttr(p.badge)}</span>` : ""}
+              ${imgCount > 1 ? `<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-ink/80 text-white text-[11px] font-bold shadow-xs">📷 ${imgCount} Photos</span>` : (primaryImg ? `<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-ink/70 text-white text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition">🔍 View</span>` : "")}
+              <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${escapeAttr(p.category)}</span>
             </div>
-            <div class="flex items-center justify-between pt-3 border-t border-brand-pink/10">
+            <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <span class="text-xs text-brand-ink/60 block">Price</span>
-                <span class="font-heading text-xl font-bold text-brand-pinkDark">৳${Number(p.price).toLocaleString()}</span>
+                <h3 class="font-heading text-lg font-bold text-[#382B32]">${escapeAttr(p.name)}</h3>
+                <p class="text-xs text-brand-ink/70 mt-1 line-clamp-2">${escapeAttr(p.description || "")}</p>
               </div>
-              <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
-                + Add to Bag
-              </button>
+              <div class="flex items-center justify-between pt-3 border-t border-[#EED9E2]">
+                <div>
+                  <span class="text-xs text-brand-ink/60 block">Price</span>
+                  <span class="font-heading text-xl font-bold text-brand-pinkDark">৳${Number(p.price).toLocaleString()}</span>
+                </div>
+                <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
+                  + Add to Bag
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      `).join("");
+        `;
+      }).join("");
+
+      if (seeMoreWrap) {
+        if (filtered.length > 6) {
+          seeMoreWrap.classList.remove("hidden");
+          const remaining = filtered.length - 6;
+          seeMoreWrap.innerHTML = `
+            <button type="button" onclick="toggleCatalogSeeMore()" class="px-7 py-3 rounded-full bg-white hover:bg-brand-pink hover:text-white text-brand-ink border border-brand-pink/40 font-bold text-xs sm:text-sm uppercase tracking-wider shadow-xs transition">
+              ${catalogExpanded ? "Show Less ↑" : `See More (${remaining} More) ↓`}
+            </button>
+          `;
+        } else {
+          seeMoreWrap.classList.add("hidden");
+          seeMoreWrap.innerHTML = "";
+        }
+      }
     }
+
+    // ==========================================
+    // 3B. PRODUCT PHOTO LIGHTBOX VIEWER
+    // ==========================================
+    function openProductLightbox(prodId, startIdx = 0) {
+      const prod = storeData.products.find(p => p.id === prodId);
+      if (!prod) return;
+      normalizeProductImages(prod);
+      if (!prod.images.length) return;
+
+      lightboxState.productId = prod.id;
+      lightboxState.images = prod.images;
+      lightboxState.index = Math.max(0, Math.min(startIdx, prod.images.length - 1));
+      lightboxState.title = prod.name;
+
+      updateLightboxModalUI();
+      const modal = document.getElementById("productLightboxModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function updateLightboxModalUI() {
+      const imgs = lightboxState.images || [];
+      if (!imgs.length) return;
+      const idx = lightboxState.index;
+
+      document.getElementById("lightboxProdTitle").textContent = lightboxState.title || "Product Photo";
+      document.getElementById("lightboxCounter").textContent = `Photo ${idx + 1} of ${imgs.length}`;
+      document.getElementById("lightboxMainImg").src = imgs[idx];
+
+      const prevBtn = document.getElementById("lightboxPrevBtn");
+      const nextBtn = document.getElementById("lightboxNextBtn");
+      if (imgs.length > 1) {
+        prevBtn.classList.remove("hidden");
+        prevBtn.classList.add("flex");
+        nextBtn.classList.remove("hidden");
+        nextBtn.classList.add("flex");
+      } else {
+        prevBtn.classList.add("hidden");
+        prevBtn.classList.remove("flex");
+        nextBtn.classList.add("hidden");
+        nextBtn.classList.remove("flex");
+      }
+
+      const strip = document.getElementById("lightboxThumbStrip");
+      if (imgs.length > 1) {
+        strip.classList.remove("hidden");
+        strip.innerHTML = imgs.map((imgUrl, i) => `
+          <button type="button" onclick="selectLightboxImage(${i})" class="w-14 h-14 rounded-xl overflow-hidden border-2 transition shrink-0 ${i === idx ? 'border-brand-pink scale-105 shadow-sm' : 'border-transparent opacity-65 hover:opacity-100'}">
+            <img src="${escapeAttr(imgUrl)}" class="w-full h-full object-cover" />
+          </button>
+        `).join("");
+      } else {
+        strip.classList.add("hidden");
+        strip.innerHTML = "";
+      }
+    }
+
+    function stepLightboxImage(delta) {
+      const len = lightboxState.images.length;
+      if (len <= 1) return;
+      lightboxState.index = (lightboxState.index + delta + len) % len;
+      updateLightboxModalUI();
+    }
+
+    function selectLightboxImage(idx) {
+      lightboxState.index = idx;
+      updateLightboxModalUI();
+    }
+
+    function closeProductLightbox() {
+      const modal = document.getElementById("productLightboxModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function handleLightboxBackdropClick(event) {
+      if (event.target.id === "productLightboxModal") {
+        closeProductLightbox();
+      }
+    }
+
+    window.addEventListener("keydown", (e) => {
+      const modal = document.getElementById("productLightboxModal");
+      if (!modal || modal.classList.contains("hidden")) return;
+      if (e.key === "Escape") closeProductLightbox();
+      if (e.key === "ArrowLeft") stepLightboxImage(-1);
+      if (e.key === "ArrowRight") stepLightboxImage(1);
+    });
 
     // ==========================================
     // 4. INTERACTIVE CUSTOM BOUQUET BUILDER
     // ==========================================
+    function toggleMoreStems() {
+      stemsExpanded = !stemsExpanded;
+      renderCustomBuilder();
+    }
+
+    function toggleMorePalettes() {
+      palettesExpanded = !palettesExpanded;
+      initCustomBuilderUI();
+    }
+
+    function toggleMoreCustomOptions() {
+      moreCustomOptionsExpanded = !moreCustomOptionsExpanded;
+      const wrap = document.getElementById("moreCustomOptionsWrap");
+      const btn = document.getElementById("toggleMoreCustomOptionsBtn");
+      if (moreCustomOptionsExpanded) {
+        wrap.classList.remove("hidden");
+        btn.textContent = "Show Less Customization Options ↑";
+      } else {
+        wrap.classList.add("hidden");
+        btn.textContent = "See More Customization Options (Add-ons & Card Note) ↓";
+      }
+    }
+
     function initCustomBuilderUI() {
       if (!storeData.palettes.some(p => p.name === customSelection.palette)) {
         customSelection.palette = storeData.palettes[0]?.name || "Custom Palette";
@@ -935,12 +1179,29 @@
       }
 
       const palContainer = document.getElementById("paletteOptions");
-      palContainer.innerHTML = storeData.palettes.map((pal, idx) => `
+      const palSeeMoreWrap = document.getElementById("paletteSeeMoreWrap");
+      const visiblePalettes = palettesExpanded ? storeData.palettes : storeData.palettes.slice(0, 4);
+
+      palContainer.innerHTML = visiblePalettes.map((pal, idx) => `
         <button type="button" onclick="selectPaletteIndex(${idx})" class="palette-btn p-2.5 rounded-xl border text-left transition flex items-center gap-2 ${customSelection.palette === pal.name ? 'border-brand-pink bg-brand-pinkLight font-bold' : 'border-brand-pink/20 bg-white'}">
           <span class="w-4 h-4 rounded-full shrink-0 border border-black/10" style="background:${escapeAttr(pal.hex)}"></span>
           <span class="text-xs leading-tight">${escapeAttr(pal.name)}</span>
         </button>
       `).join("");
+
+      if (palSeeMoreWrap) {
+        if (storeData.palettes.length > 4) {
+          palSeeMoreWrap.classList.remove("hidden");
+          palSeeMoreWrap.innerHTML = `
+            <button type="button" onclick="toggleMorePalettes()" class="text-xs font-bold text-brand-pinkDark underline hover:text-brand-pink">
+              ${palettesExpanded ? "Show Less Palettes ↑" : `See More Palettes (${storeData.palettes.length - 4} more) ↓`}
+            </button>
+          `;
+        } else {
+          palSeeMoreWrap.classList.add("hidden");
+          palSeeMoreWrap.innerHTML = "";
+        }
+      }
 
       const wrapSelect = document.getElementById("wrapStyleSelect");
       wrapSelect.innerHTML = storeData.wraps.map(w => `
@@ -989,10 +1250,14 @@
 
     function renderCustomBuilder() {
       const stemList = document.getElementById("stemPickerList");
+      const stemSeeMoreWrap = document.getElementById("stemSeeMoreWrap");
+
       if (!storeData.stems.length) {
         stemList.innerHTML = `<div class="col-span-full text-xs text-brand-ink/60 py-4">No stems configured yet. Add flowers in the Owner Studio!</div>`;
+        if (stemSeeMoreWrap) stemSeeMoreWrap.classList.add("hidden");
       } else {
-        stemList.innerHTML = storeData.stems.map(s => {
+        const visibleStems = stemsExpanded ? storeData.stems : storeData.stems.slice(0, 4);
+        stemList.innerHTML = visibleStems.map(s => {
           const qty = customSelection.stems[s.id] || 0;
           const visualThumb = s.image
             ? `<img src="${escapeAttr(s.image)}" loading="lazy" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/20 shrink-0" />`
@@ -1014,6 +1279,21 @@
             </div>
           `;
         }).join("");
+
+        if (stemSeeMoreWrap) {
+          if (storeData.stems.length > 4) {
+            stemSeeMoreWrap.classList.remove("hidden");
+            const moreCount = storeData.stems.length - 4;
+            stemSeeMoreWrap.innerHTML = `
+              <button type="button" onclick="toggleMoreStems()" class="px-5 py-2 rounded-full bg-brand-pinkLight hover:bg-brand-pink hover:text-white text-brand-pinkDark text-xs font-bold border border-brand-pink/25 transition">
+                ${stemsExpanded ? "Show Less Flowers ↑" : `See More Flowers (${moreCount} More) ↓`}
+              </button>
+            `;
+          } else {
+            stemSeeMoreWrap.classList.add("hidden");
+            stemSeeMoreWrap.innerHTML = "";
+          }
+        }
       }
 
       let totalStemsCount = 0;
@@ -1368,7 +1648,7 @@
       persistAndRefreshLiveUI();
     }
 
-    // --- Hero Photo CRUD Helpers ---
+    // --- Hero Photo & Ribbon CRUD Helpers ---
     function handleHeroImageUpload(event) {
       compressAndAssignImage(event, dataUrl => {
         storeData.heroImage = dataUrl;
@@ -1384,6 +1664,14 @@
       renderAdminHeroThumb();
     }
 
+    function updateHeroRibbonFromInputs() {
+      storeData.heroRibbonLabel = document.getElementById("adminRibbonLabelInput").value;
+      storeData.heroRibbonText1 = document.getElementById("adminRibbonText1Input").value;
+      storeData.heroRibbonText2 = document.getElementById("adminRibbonText2Input").value;
+      storeData.heroRibbonText3 = document.getElementById("adminRibbonText3Input").value;
+      persistAndRefreshLiveUI();
+    }
+
     function clearHeroPhoto() {
       storeData.heroImage = "";
       persistAndRefreshLiveUI();
@@ -1396,7 +1684,7 @@
       if (!thumbBox) return;
       const src = (storeData.heroImage && storeData.heroImage.trim() !== "")
         ? storeData.heroImage
-        : (storeData.products[0]?.image || "");
+        : (storeData.products[0]?.images?.[0] || storeData.products[0]?.image || "");
       if (src) {
         thumbBox.innerHTML = `<img src="${escapeAttr(src)}" class="w-full h-full object-cover" />`;
       } else {
@@ -1466,8 +1754,66 @@
       });
     }
 
+    // --- Product Serial / Reordering & Multi-Image Helpers ---
+    function moveProductOrder(fromIdx, toIdx) {
+      if (toIdx < 0 || toIdx >= storeData.products.length || fromIdx === toIdx) return;
+      const [moved] = storeData.products.splice(fromIdx, 1);
+      storeData.products.splice(toIdx, 0, moved);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast(`Product moved to Serial #${toIdx + 1}`);
+    }
+
+    function setProductSerial(fromIdx, newSerialValue) {
+      const targetIdx = Math.max(0, Math.min(storeData.products.length - 1, (Number(newSerialValue) || 1) - 1));
+      moveProductOrder(fromIdx, targetIdx);
+    }
+
+    function addProductImageByUrl(prodIdx) {
+      const inputEl = document.getElementById(`prodNewImgUrl-${prodIdx}`);
+      if (!inputEl) return;
+      const url = inputEl.value.trim();
+      if (!url) return;
+      const p = storeData.products[prodIdx];
+      normalizeProductImages(p);
+      p.images.push(url);
+      p.image = p.images[0] || "";
+      inputEl.value = "";
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Image URL added to product!");
+    }
+
+    function removeProductImageAt(prodIdx, imgIdx) {
+      const p = storeData.products[prodIdx];
+      if (!p) return;
+      normalizeProductImages(p);
+      p.images.splice(imgIdx, 1);
+      p.image = p.images[0] || "";
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Photo removed from product.");
+    }
+
+    function setProductPrimaryImage(prodIdx, imgIdx) {
+      const p = storeData.products[prodIdx];
+      if (!p) return;
+      normalizeProductImages(p);
+      if (imgIdx <= 0 || imgIdx >= p.images.length) return;
+      const [chosen] = p.images.splice(imgIdx, 1);
+      p.images.unshift(chosen);
+      p.image = p.images[0] || "";
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Set as primary cover photo!");
+    }
+
     function renderAdminInputs() {
       document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
+      document.getElementById("adminRibbonLabelInput").value = storeData.heroRibbonLabel ?? DEFAULT_STORE_DATA.heroRibbonLabel;
+      document.getElementById("adminRibbonText1Input").value = storeData.heroRibbonText1 ?? DEFAULT_STORE_DATA.heroRibbonText1;
+      document.getElementById("adminRibbonText2Input").value = storeData.heroRibbonText2 ?? DEFAULT_STORE_DATA.heroRibbonText2;
+      document.getElementById("adminRibbonText3Input").value = storeData.heroRibbonText3 ?? DEFAULT_STORE_DATA.heroRibbonText3;
       renderAdminHeroThumb();
 
       const catListEl = document.getElementById("adminCategoriesList");
@@ -1492,50 +1838,87 @@
 
       const list = document.getElementById("adminProductsList");
       list.innerHTML = storeData.products.map((p, idx) => {
+        normalizeProductImages(p);
         const categoryOptionsHtml = storeData.categories.map(cat => `
           <option value="${escapeAttr(cat)}" ${p.category === cat ? 'selected' : ''}>${escapeAttr(cat)}</option>
         `).join("");
 
+        const thumbsHtml = p.images.length
+          ? p.images.map((imgSrc, imgIdx) => `
+              <div class="relative group w-14 h-14 rounded-xl overflow-hidden border ${imgIdx === 0 ? 'border-brand-pink ring-2 ring-brand-pink/40' : 'border-brand-pink/25'} bg-white shrink-0">
+                <img src="${escapeAttr(imgSrc)}" class="w-full h-full object-cover" />
+                ${imgIdx === 0
+                  ? `<span class="absolute bottom-0 inset-x-0 bg-brand-pink text-white text-[9px] font-bold text-center">Main</span>`
+                  : `<button type="button" onclick="setProductPrimaryImage(${idx}, ${imgIdx})" class="absolute bottom-0 inset-x-0 bg-brand-ink/80 text-white text-[9px] font-semibold text-center opacity-0 group-hover:opacity-100 transition">Set Main</button>`
+                }
+                <button type="button" onclick="removeProductImageAt(${idx}, ${imgIdx})" class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-red-600 text-white text-[10px] leading-none flex items-center justify-center shadow" title="Remove photo">✕</button>
+              </div>
+            `).join("")
+          : `<span class="text-[11px] text-brand-ink/50">No photos added yet</span>`;
+
         return `
-          <div class="p-4 rounded-2xl bg-brand-paper border border-brand-pink/25 grid sm:grid-cols-12 gap-4 items-center">
-            <div class="sm:col-span-2">
-              <div class="w-full aspect-square rounded-xl border border-brand-pink/20 bg-brand-pinkLight overflow-hidden flex items-center justify-center">
-                ${p.image ? `<img src="${escapeAttr(p.image)}" class="w-full h-full object-cover" />` : `<span class="text-2xl">💐</span>`}
+          <div class="p-4 rounded-2xl bg-brand-paper border border-brand-pink/25 space-y-3">
+            <!-- Serial / Order Header Row -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-brand-pink/15">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg bg-brand-ink text-white text-xs font-bold">Serial #</span>
+                <input
+                  type="number"
+                  min="1"
+                  max="${storeData.products.length}"
+                  value="${idx + 1}"
+                  onchange="setProductSerial(${idx}, this.value)"
+                  class="w-16 rounded-lg border border-brand-pink/40 px-2 py-1 text-xs font-extrabold text-brand-pinkDark bg-white text-center"
+                />
+                <div class="flex items-center gap-1">
+                  <button type="button" onclick="moveProductOrder(${idx}, ${idx - 1})" ${idx === 0 ? 'disabled' : ''} class="px-2.5 py-1 rounded-lg bg-white border border-brand-pink/30 text-xs font-bold hover:bg-brand-pinkLight disabled:opacity-40">↑ Move Up</button>
+                  <button type="button" onclick="moveProductOrder(${idx}, ${idx + 1})" ${idx === storeData.products.length - 1 ? 'disabled' : ''} class="px-2.5 py-1 rounded-lg bg-white border border-brand-pink/30 text-xs font-bold hover:bg-brand-pinkLight disabled:opacity-40">↓ Move Down</button>
+                </div>
               </div>
-              <label class="mt-1.5 block text-center text-[11px] font-bold text-brand-pinkDark cursor-pointer underline">
-                📷 Upload Photo
-                <input type="file" accept="image/*" class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
-              </label>
+              <button type="button" onclick="deleteProductRow(${idx})" class="px-3 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete Product</button>
             </div>
-            <div class="sm:col-span-10 grid sm:grid-cols-3 gap-3">
-              <div>
-                <label class="text-[11px] font-bold text-brand-ink/70">Product Name</label>
-                <input type="text" value="${escapeAttr(p.name)}" oninput="storeData.products[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+
+            <div class="grid sm:grid-cols-12 gap-4 items-start">
+              <!-- Multi-Image Gallery Column -->
+              <div class="sm:col-span-4 space-y-2">
+                <label class="block text-[11px] font-bold text-brand-ink/70">Product Photos (${p.images.length})</label>
+                <div class="flex flex-wrap gap-2 p-2 rounded-xl bg-brand-pinkLight/50 border border-brand-pink/20 min-h-[68px] items-center">
+                  ${thumbsHtml}
+                </div>
+                <label class="inline-block w-full text-center px-3 py-1.5 rounded-full bg-brand-pink text-white text-[11px] font-bold cursor-pointer hover:bg-brand-pinkDark transition">
+                  📷 Upload Photo(s) (Multiple Allowed)
+                  <input type="file" accept="image/*" multiple class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
+                </label>
+                <div class="flex gap-1.5">
+                  <input type="text" id="prodNewImgUrl-${idx}" placeholder="Paste image URL..." class="flex-1 rounded-lg border border-brand-pink/30 px-2 py-1 text-xs bg-white" />
+                  <button type="button" onclick="addProductImageByUrl(${idx})" class="px-2.5 py-1 rounded-lg bg-brand-ink text-white text-[11px] font-bold hover:bg-brand-pinkDark shrink-0">+ Add URL</button>
+                </div>
               </div>
-              <div>
-                <label class="text-[11px] font-bold text-brand-ink/70">Price in BDT (৳)</label>
-                <input type="number" value="${Number(p.price)}" oninput="storeData.products[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
-              </div>
-              <div>
-                <label class="text-[11px] font-bold text-brand-ink/70">Category</label>
-                <select data-prod-idx="${idx}" onchange="storeData.products[${idx}].category = this.value; persistAndRefreshLiveUI()" class="admin-prod-cat-select w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white font-semibold">
-                  ${categoryOptionsHtml}
-                </select>
-              </div>
-              <div class="sm:col-span-2">
-                <label class="text-[11px] font-bold text-brand-ink/70">Image URL (or upload file on left)</label>
-                <input type="text" value="${escapeAttr(p.image)}" onchange="storeData.products[${idx}].image = this.value; persistAndRefreshLiveUI(); renderAdminInputs()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
-              </div>
-              <div>
-                <label class="text-[11px] font-bold text-brand-ink/70">Badge (e.g. Bestseller)</label>
-                <input type="text" value="${escapeAttr(p.badge || '')}" oninput="storeData.products[${idx}].badge = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
-              </div>
-              <div class="sm:col-span-2">
-                <label class="text-[11px] font-bold text-brand-ink/70">Description</label>
-                <input type="text" value="${escapeAttr(p.description || '')}" oninput="storeData.products[${idx}].description = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
-              </div>
-              <div class="flex items-end justify-end">
-                <button type="button" onclick="deleteProductRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete Product</button>
+
+              <!-- Product Fields Column -->
+              <div class="sm:col-span-8 grid sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Product Name</label>
+                  <input type="text" value="${escapeAttr(p.name)}" oninput="storeData.products[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Price in BDT (৳)</label>
+                  <input type="number" value="${Number(p.price)}" oninput="storeData.products[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Category</label>
+                  <select data-prod-idx="${idx}" onchange="storeData.products[${idx}].category = this.value; persistAndRefreshLiveUI()" class="admin-prod-cat-select w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white font-semibold">
+                    ${categoryOptionsHtml}
+                  </select>
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Badge (e.g. Bestseller)</label>
+                  <input type="text" value="${escapeAttr(p.badge || '')}" oninput="storeData.products[${idx}].badge = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="text-[11px] font-bold text-brand-ink/70">Description</label>
+                  <input type="text" value="${escapeAttr(p.description || '')}" oninput="storeData.products[${idx}].description = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+                </div>
               </div>
             </div>
           </div>
@@ -1650,7 +2033,8 @@
         price: 550,
         badge: "New",
         description: "Handcrafted 8mm fuzzy wire arrangement.",
-        image: ""
+        image: "",
+        images: []
       });
       persistAndRefreshLiveUI();
       renderAdminInputs();
@@ -1665,11 +2049,23 @@
     }
 
     function handleProductImageUpload(event, idx) {
-      compressAndAssignImage(event, dataUrl => {
-        storeData.products[idx].image = dataUrl;
-        persistAndRefreshLiveUI();
-        renderAdminInputs();
-        showToast("Product photo attached!");
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+      const p = storeData.products[idx];
+      normalizeProductImages(p);
+
+      let processed = 0;
+      files.forEach(file => {
+        compressFileToDataUrl(file, dataUrl => {
+          p.images.push(dataUrl);
+          p.image = p.images[0] || "";
+          processed++;
+          if (processed === files.length) {
+            persistAndRefreshLiveUI();
+            renderAdminInputs();
+            showToast(`${files.length} photo(s) attached!`);
+          }
+        }, 650);
       });
     }
 
@@ -1775,9 +2171,7 @@
       showToast("Add-on deleted!");
     }
 
-    function compressAndAssignImage(event, callback, maxDim = 650) {
-      const file = event.target.files[0];
-      if (!file) return;
+    function compressFileToDataUrl(file, callback, maxDim = 650) {
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
@@ -1794,6 +2188,12 @@
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
+    }
+
+    function compressAndAssignImage(event, callback, maxDim = 650) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressFileToDataUrl(file, callback, maxDim);
     }
 
     function saveAdminChangesLocally(showMsg = true) {
