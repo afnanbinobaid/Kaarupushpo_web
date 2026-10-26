@@ -27,7 +27,7 @@
               sageLight: '#F1F7F4',
               terra: '#9E5B54',
               cream: '#F8F4F0',
-              paper: '#FFFDFB',
+              paper: '#FFFCFA',
               ink: '#2D2327'
             }
           },
@@ -42,7 +42,7 @@
   <style>
     body {
       font-family: 'DM Sans', sans-serif;
-      background-color: #FFFDFB;
+      background-color: #FFFCFA;
       color: #2D2327;
       scroll-behavior: smooth;
     }
@@ -296,7 +296,7 @@
 
             <div class="pt-1 text-center">
               <button type="button" id="toggleMoreCustomOptionsBtn" onclick="toggleMoreCustomOptions()" class="px-5 py-2 rounded-full bg-brand-pinkLight hover:bg-brand-pink hover:text-white text-brand-pinkDark text-xs font-bold border border-brand-pink/25 transition">
-                See More Customization Options (Add-ons & Card Note) ↓
+                See More ↓
               </button>
             </div>
           </div>
@@ -1042,10 +1042,9 @@
       if (seeMoreWrap) {
         if (filtered.length > 6) {
           seeMoreWrap.classList.remove("hidden");
-          const remaining = filtered.length - 6;
           seeMoreWrap.innerHTML = `
             <button type="button" onclick="toggleCatalogSeeMore()" class="px-7 py-3 rounded-full bg-white hover:bg-brand-pink hover:text-white text-brand-ink border border-brand-pink/40 font-bold text-xs sm:text-sm uppercase tracking-wider shadow-xs transition">
-              ${catalogExpanded ? "Show Less ↑" : `See More (${remaining} More) ↓`}
+              ${catalogExpanded ? "Show Less ↑" : "See More ↓"}
             </button>
           `;
         } else {
@@ -1163,10 +1162,10 @@
       const btn = document.getElementById("toggleMoreCustomOptionsBtn");
       if (moreCustomOptionsExpanded) {
         wrap.classList.remove("hidden");
-        btn.textContent = "Show Less Customization Options ↑";
+        btn.textContent = "Show Less ↑";
       } else {
         wrap.classList.add("hidden");
-        btn.textContent = "See More Customization Options (Add-ons & Card Note) ↓";
+        btn.textContent = "See More ↓";
       }
     }
 
@@ -1194,7 +1193,7 @@
           palSeeMoreWrap.classList.remove("hidden");
           palSeeMoreWrap.innerHTML = `
             <button type="button" onclick="toggleMorePalettes()" class="text-xs font-bold text-brand-pinkDark underline hover:text-brand-pink">
-              ${palettesExpanded ? "Show Less Palettes ↑" : `See More Palettes (${storeData.palettes.length - 4} more) ↓`}
+              ${palettesExpanded ? "Show Less ↑" : "See More ↓"}
             </button>
           `;
         } else {
@@ -1283,10 +1282,9 @@
         if (stemSeeMoreWrap) {
           if (storeData.stems.length > 4) {
             stemSeeMoreWrap.classList.remove("hidden");
-            const moreCount = storeData.stems.length - 4;
             stemSeeMoreWrap.innerHTML = `
               <button type="button" onclick="toggleMoreStems()" class="px-5 py-2 rounded-full bg-brand-pinkLight hover:bg-brand-pink hover:text-white text-brand-pinkDark text-xs font-bold border border-brand-pink/25 transition">
-                ${stemsExpanded ? "Show Less Flowers ↑" : `See More Flowers (${moreCount} More) ↓`}
+                ${stemsExpanded ? "Show Less ↑" : "See More ↓"}
               </button>
             `;
           } else {
