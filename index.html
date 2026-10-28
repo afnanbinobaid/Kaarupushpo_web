@@ -97,26 +97,28 @@
         <a href="#how-it-works" onclick="smoothScrollToSection(event, 'how-it-works')" class="hover:text-brand-pink transition">How to Order</a>
       </nav>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2.5">
         <!-- Secret Admin Button (Hidden unless unlocked by Owner) -->
         <button id="adminNavBtn" onclick="openAdminModal('products')" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-terra text-white shadow-sm hover:opacity-95 transition">
           ⚙️ Owner Studio
         </button>
 
-        <!-- Bookmarks Button -->
-        <button onclick="toggleBookmarkDrawer(true)" title="Saved Bookmarks" class="relative flex items-center gap-1.5 bg-white hover:bg-brand-pinkLight text-brand-ink border border-brand-pink/30 px-3 py-2 rounded-full text-sm font-semibold shadow-2xs transition">
+        <!-- Bookmarks Button (Icon Only + Small Top-Left Badge when >= 1) -->
+        <button onclick="toggleBookmarkDrawer(true)" title="Saved Bookmarks" class="relative w-10 h-10 flex items-center justify-center bg-white hover:bg-brand-pinkLight text-brand-ink border border-brand-pink/30 rounded-full shadow-2xs transition">
+          <span id="bookmarkCountBadge" class="hidden absolute -top-1 -left-1 min-w-[18px] h-[18px] px-1 rounded-full bg-brand-pink text-white text-[10px] font-extrabold items-center justify-center shadow-xs leading-none"></span>
           <svg class="w-4 h-4 text-brand-pinkDark fill-current" viewBox="0 0 24 24">
             <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2z"/>
           </svg>
-          <span class="hidden lg:inline text-xs font-bold">Saved</span>
-          <span id="bookmarkCountBadge" class="bg-brand-pinkLight text-brand-pinkDark border border-brand-pink/30 text-xs font-bold px-1.5 py-0.2 rounded-full">0</span>
         </button>
 
-        <!-- Bag Button -->
+        <!-- Bag Button (Simple White Shopify-Style Bag Icon + Small Top-Left Badge when >= 1) -->
         <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-brand-ink hover:bg-brand-pinkDark text-white px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition">
-          <span>🛍️</span>
+          <span id="cartCountBadge" class="hidden absolute -top-1 -left-1 min-w-[18px] h-[18px] px-1 rounded-full bg-brand-pink text-white text-[10px] font-extrabold items-center justify-center shadow-xs leading-none"></span>
+          <svg class="w-4 h-4 text-white stroke-current fill-none shrink-0" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12l1 13H5L6 7z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7V5a3 3 0 0 1 6 0v2" />
+          </svg>
           <span class="hidden sm:inline">Your Bag</span>
-          <span id="cartCountBadge" class="bg-brand-pink text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
         </button>
 
         <!-- Mobile Three-Line Hamburger Menu Button -->
@@ -145,9 +147,9 @@
       <a href="#how-it-works" onclick="smoothScrollToSection(event, 'how-it-works', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
         💬 How to Order
       </a>
-      <button type="button" onclick="toggleMobileMenu(false); toggleBookmarkDrawer(true);" class="w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-pinkDark bg-brand-pinkLight/70 hover:bg-brand-pinkLight transition flex items-center justify-between">
-        <span>🔖 Saved Bookmarks</span>
-        <span id="mobileBookmarkCountBadge" class="px-2 py-0.5 rounded-full bg-brand-pink text-white text-xs font-bold">0</span>
+      <button type="button" onclick="toggleMobileMenu(false); toggleBookmarkDrawer(true);" class="relative w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-pinkDark bg-brand-pinkLight/70 hover:bg-brand-pinkLight transition flex items-center justify-between">
+        <span>🔖 Bookmarks</span>
+        <span id="mobileBookmarkCountBadge" class="hidden px-2 py-0.5 rounded-full bg-brand-pink text-white text-xs font-bold"></span>
       </button>
     </div>
   </header>
@@ -159,20 +161,20 @@
 
         <!-- Editorial Typography Column (Top on Mobile, Centered like Woojer Reference | Left-Aligned on Desktop) -->
         <div class="lg:col-span-6 px-5 sm:px-8 lg:pl-8 lg:pr-6 pt-10 pb-4 sm:pt-12 sm:pb-6 lg:py-20 flex flex-col items-center text-center lg:items-start lg:text-left justify-center relative z-20">
-          <!-- Subtle Pill Badge at Top (Matches Reference Layout) -->
+          <!-- Subtle Pill Badge at Top (Editable in Owner Studio) -->
           <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-pinkLight/90 border border-brand-pink/25 text-[11px] font-bold text-brand-pinkDark mb-4 shadow-2xs">
             <span>★</span>
-            <span>100% Handcrafted 8mm Chenille Bouquets</span>
+            <span id="heroBadgeTextEl">100% Handcrafted 8mm Chenille Bouquets</span>
           </div>
 
-          <!-- Headline -->
+          <!-- Headline (Editable in Owner Studio) -->
           <h1 class="font-heading text-4xl sm:text-5xl lg:text-[4rem] font-extrabold text-brand-ink tracking-tight leading-[1.03]">
-            Flowers that last.<br />
-            <span class="text-brand-pink italic font-bold">Feelings that stay.</span>
+            <span id="heroTitleLine1El">Flowers that last.</span><br />
+            <span id="heroTitleLine2El" class="text-brand-pink italic font-bold">Feelings that stay.</span>
           </h1>
 
-          <!-- Supporting Copy -->
-          <p class="mt-4 sm:mt-5 text-sm sm:text-lg text-brand-ink/75 max-w-md leading-relaxed font-medium">
+          <!-- Supporting Copy (Editable in Owner Studio) -->
+          <p id="heroSubtitleEl" class="mt-4 sm:mt-5 text-sm sm:text-lg text-brand-ink/75 max-w-md leading-relaxed font-medium">
             “Handcrafted fuzzy-wire bouquets, made with love and personalized just for you.”
           </p>
 
@@ -191,7 +193,7 @@
         <div class="lg:col-span-6 relative min-h-[320px] sm:min-h-[400px] lg:min-h-full -mt-2 lg:mt-0">
           <!-- Quick Admin Edit Button Overlaid on Hero (Hidden from Public) -->
           <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-6 right-4 z-30 items-center gap-1.5 px-4 py-2 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-lg hover:bg-brand-pinkDark transition">
-            📷 Change Hero Photo
+            📷 Edit Hero Photo & Text
           </button>
 
           <!-- Seamless Image Canvas -->
@@ -480,7 +482,7 @@
       <div class="flex items-center gap-2">
         <span class="text-lg">🔖</span>
         <div>
-          <h3 class="font-heading text-xl font-bold text-brand-ink">Saved Bookmarks</h3>
+          <h3 class="font-heading text-xl font-bold text-brand-ink">Bookmarks</h3>
           <p class="text-xs text-brand-ink/65">Your bookmarked Kaarupushpo bouquets</p>
         </div>
       </div>
@@ -494,7 +496,7 @@
         Clear All
       </button>
       <button type="button" onclick="addAllBookmarksToCart()" class="flex-1 py-2.5 px-4 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs shadow-sm transition">
-        🛍️ Add All Saved to Bag
+        Add All Bookmarked to Bag
       </button>
     </div>
   </aside>
@@ -577,20 +579,20 @@
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
             <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.8 — Seamless Mobile Hero</span>
           </div>
-          <p class="text-xs text-white/70 mt-0.5">Edit Brand Logo, Hero Photo, Ribbon Text, Categories, Product Serial & Multi-Photos, Custom Builder & GitHub Sync</p>
+          <p class="text-xs text-white/70 mt-0.5">Edit Brand Logo, Hero Photo & Texts, Ribbon, Categories, Product Serial & Multi-Photos, Custom Builder & GitHub Sync</p>
         </div>
-        <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
+        <button type="button" onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
 
       <!-- Admin Tabs -->
       <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
-        <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
-          1. Logo, Hero Photo, Ribbon, Categories & Products
+        <button type="button" onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
+          1. Logo, Hero Section, Categories & Products
         </button>
-        <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
+        <button type="button" onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           2. Custom Builder Items (Flowers, Wraps & Extras)
         </button>
-        <button onclick="switchAdminTab('github')" id="tabBtn-github" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
+        <button type="button" onclick="switchAdminTab('github')" id="tabBtn-github" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           3. WhatsApp & GitHub Live Sync
         </button>
       </div>
@@ -598,10 +600,10 @@
       <!-- Admin Tab Content -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
-        <!-- TAB 1: LOGO + HERO PHOTO + RIBBON + CATEGORIES + PRODUCTS -->
+        <!-- TAB 1: LOGO + HERO PHOTO & TEXTS + RIBBON + CATEGORIES + PRODUCTS -->
         <div id="adminTab-products" class="space-y-7">
 
-          <!-- 1A: Top-Left Brand Logo & Main Hero Section Photo Editor -->
+          <!-- 1A: Top-Left Brand Logo & Main Hero Section Editor -->
           <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-4">
 
             <!-- Brand Logo Uploader (Top-Left Corner beside Wordmark) -->
@@ -617,7 +619,7 @@
                     🗑️ Reset Logo
                   </button>
                 </div>
-                <input type="text" id="adminLogoImageInput" onchange="updateLogoFromInput()" placeholder="Paste logo image URL or upload below..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-paper" />
+                <input type="text" id="adminLogoImageInput" oninput="updateLogoFromInput()" placeholder="Paste logo image URL or upload below..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-paper" />
                 <label class="inline-block px-4 py-1.5 rounded-full bg-brand-ink text-white text-xs font-bold cursor-pointer hover:bg-brand-pinkDark transition">
                   📷 Upload Logo Image from Device
                   <input type="file" accept="image/*" class="hidden" onchange="handleLogoImageUpload(event)" />
@@ -625,6 +627,7 @@
               </div>
             </div>
 
+            <!-- Main Hero Photo Editor -->
             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-brand-pink/20">
               <div>
                 <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Hero Banner Photo</span>
@@ -640,11 +643,34 @@
               <div id="adminHeroThumbBox" class="w-32 aspect-[4/3] rounded-xl bg-brand-pinkLight border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center text-xs text-brand-ink/50 text-center p-2">No photo set</div>
               <div class="flex-1 w-full space-y-2">
                 <label class="block text-xs font-bold text-brand-ink">Hero Image URL (or upload file below)</label>
-                <input type="text" id="adminHeroImageInput" onchange="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-paper" />
+                <input type="text" id="adminHeroImageInput" oninput="updateHeroFieldsFromInputs()" placeholder="Paste image URL or upload..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-paper" />
                 <label class="inline-block px-4 py-2 rounded-full bg-brand-pink text-white text-xs font-bold cursor-pointer hover:bg-brand-pinkDark transition">
                   📷 Upload Hero Photo from Device
                   <input type="file" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)" />
                 </label>
+              </div>
+            </div>
+
+            <!-- Hero Texts Editor (Badge, Headline Line 1, Headline Line 2 & Subtitle) -->
+            <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 space-y-2.5">
+              <h5 class="font-heading font-bold text-xs sm:text-sm text-brand-ink">✏️ Hero Section Texts (Badge, Headline & Subtitle)</h5>
+              <div class="grid sm:grid-cols-2 gap-2.5">
+                <div class="sm:col-span-2">
+                  <label class="block text-[11px] font-bold text-brand-ink/70">Top Pill Badge Text</label>
+                  <input type="text" id="adminHeroBadgeInput" oninput="updateHeroTextsFromInputs()" placeholder="100% Handcrafted 8mm Chenille Bouquets" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-brand-paper" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70">Main Headline — Line 1 (Dark Text)</label>
+                  <input type="text" id="adminHeroTitle1Input" oninput="updateHeroTextsFromInputs()" placeholder="Flowers that last." class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold bg-brand-paper" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-brand-ink/70">Main Headline — Line 2 (Pink Italic Text)</label>
+                  <input type="text" id="adminHeroTitle2Input" oninput="updateHeroTextsFromInputs()" placeholder="Feelings that stay." class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-brand-paper" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-[11px] font-bold text-brand-ink/70">Hero Supporting Quote / Subtitle</label>
+                  <input type="text" id="adminHeroSubtitleInput" oninput="updateHeroTextsFromInputs()" placeholder="“Handcrafted fuzzy-wire bouquets, made with love and personalized just for you.”" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-brand-paper" />
+                </div>
               </div>
             </div>
 
@@ -790,7 +816,7 @@
               <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.8 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated logo, hero photo, ribbon, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated logo, hero photo, hero texts, ribbon, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
@@ -852,6 +878,10 @@
       adminPin: "2026",
       logoImage: "",
       heroImage: "",
+      heroBadgeText: "100% Handcrafted 8mm Chenille Bouquets",
+      heroTitleLine1: "Flowers that last.",
+      heroTitleLine2: "Feelings that stay.",
+      heroSubtitle: "“Handcrafted fuzzy-wire bouquets, made with love and personalized just for you.”",
       heroRibbonLabel: "SIGNATURE DROPS:",
       heroRibbonText1: "PASTEL TULIPS, SUNSHINE WRAPS, CHENILLE ROSES",
       heroRibbonText2: "100% HANDMADE 8MM FUZZY WIRE BOUQUETS THAT NEVER FADE",
@@ -938,6 +968,14 @@
     let footerClickCount = 0;
     let footerClickTimer = null;
 
+    function safeSetLocalStorage(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (err) {
+        console.warn("Browser localStorage quota reached; keeping data in memory for live session & GitHub sync.", err);
+      }
+    }
+
     // Smooth Scroll Helper & Mobile Menu Toggle
     function smoothScrollToSection(event, targetId, closeMobile = false) {
       if (event) event.preventDefault();
@@ -1009,6 +1047,10 @@
       if (typeof merged.heroImage !== "string") {
         merged.heroImage = "";
       }
+      if (typeof merged.heroBadgeText !== "string") merged.heroBadgeText = DEFAULT_STORE_DATA.heroBadgeText;
+      if (typeof merged.heroTitleLine1 !== "string") merged.heroTitleLine1 = DEFAULT_STORE_DATA.heroTitleLine1;
+      if (typeof merged.heroTitleLine2 !== "string") merged.heroTitleLine2 = DEFAULT_STORE_DATA.heroTitleLine2;
+      if (typeof merged.heroSubtitle !== "string") merged.heroSubtitle = DEFAULT_STORE_DATA.heroSubtitle;
       if (typeof merged.heroRibbonLabel !== "string") merged.heroRibbonLabel = DEFAULT_STORE_DATA.heroRibbonLabel;
       if (typeof merged.heroRibbonText1 !== "string") merged.heroRibbonText1 = DEFAULT_STORE_DATA.heroRibbonText1;
       if (typeof merged.heroRibbonText2 !== "string") merged.heroRibbonText2 = DEFAULT_STORE_DATA.heroRibbonText2;
@@ -1098,7 +1140,7 @@
           const remoteData = await res.json();
           if (!localData || Number(remoteData.lastUpdated || 0) >= Number(localData.lastUpdated || 0)) {
             storeData = normalizeStoreData(remoteData);
-            localStorage.setItem("kp_store_data", JSON.stringify(storeData));
+            safeSetLocalStorage("kp_store_data", JSON.stringify(storeData));
             applyStoreDataToUI();
           }
         } else if (!localData) {
@@ -1115,7 +1157,7 @@
     }
 
     // ==========================================
-    // 3. LOGO, CLEAN HERO, EDITABLE RIBBON & PRODUCT CATALOG RENDERING
+    // 3. LOGO, CLEAN HERO, EDITABLE TEXTS/RIBBON & PRODUCT CATALOG RENDERING
     // ==========================================
     function renderBrandLogo() {
       const logoUrl = (storeData.logoImage || "").trim();
@@ -1136,14 +1178,30 @@
         }
         if (footerFallback) footerFallback.classList.add("hidden");
       } else {
-        if (headerImg) headerImg.classList.add("hidden");
+        if (headerImg) {
+          headerImg.src = "";
+          headerImg.classList.add("hidden");
+        }
         if (headerFallback) headerFallback.classList.remove("hidden");
-        if (footerImg) footerImg.classList.add("hidden");
+        if (footerImg) {
+          footerImg.src = "";
+          footerImg.classList.add("hidden");
+        }
         if (footerFallback) footerFallback.classList.remove("hidden");
       }
     }
 
     function renderHeroShowcase() {
+      const badgeEl = document.getElementById("heroBadgeTextEl");
+      const title1El = document.getElementById("heroTitleLine1El");
+      const title2El = document.getElementById("heroTitleLine2El");
+      const subtitleEl = document.getElementById("heroSubtitleEl");
+
+      if (badgeEl) badgeEl.textContent = storeData.heroBadgeText ?? DEFAULT_STORE_DATA.heroBadgeText;
+      if (title1El) title1El.textContent = storeData.heroTitleLine1 ?? DEFAULT_STORE_DATA.heroTitleLine1;
+      if (title2El) title2El.textContent = storeData.heroTitleLine2 ?? DEFAULT_STORE_DATA.heroTitleLine2;
+      if (subtitleEl) subtitleEl.textContent = storeData.heroSubtitle ?? DEFAULT_STORE_DATA.heroSubtitle;
+
       const labelEl = document.getElementById("heroRibbonLabelEl");
       const text1El = document.getElementById("heroRibbonText1El");
       const text2El = document.getElementById("heroRibbonText2El");
@@ -1277,7 +1335,7 @@
                     onclick="toggleProductBookmark('${escapeAttr(p.id)}')"
                     class="px-3 py-2.5 rounded-full border text-xs font-bold transition ${isBookmarked ? 'bg-brand-pinkLight border-brand-pink text-brand-pinkDark' : 'bg-white border-[#EED9E2] text-brand-ink/75 hover:border-brand-pink'}"
                   >
-                    ${isBookmarked ? '🔖 Saved' : '🔖 Bookmark'}
+                    ${isBookmarked ? '🔖 Bookmarked' : '🔖 Bookmark'}
                   </button>
                   <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
                     + Add to Bag
@@ -1311,12 +1369,12 @@
       const idx = bookmarks.indexOf(prodId);
       if (idx > -1) {
         bookmarks.splice(idx, 1);
-        showToast("Removed from Saved Bookmarks.");
+        showToast("Removed from Bookmarks.");
       } else {
         bookmarks.push(prodId);
-        showToast("🔖 Saved to Bookmarks!");
+        showToast("🔖 Added to Bookmarks!");
       }
-      localStorage.setItem("kp_bookmarks", JSON.stringify(bookmarks));
+      safeSetLocalStorage("kp_bookmarks", JSON.stringify(bookmarks));
       renderCatalog();
       renderBookmarks();
     }
@@ -1339,8 +1397,30 @@
       const count = validProducts.length;
       const badge = document.getElementById("bookmarkCountBadge");
       const mobileBadge = document.getElementById("mobileBookmarkCountBadge");
-      if (badge) badge.textContent = count;
-      if (mobileBadge) mobileBadge.textContent = count;
+
+      if (badge) {
+        if (count > 0) {
+          badge.textContent = count;
+          badge.classList.remove("hidden");
+          badge.classList.add("flex");
+        } else {
+          badge.textContent = "";
+          badge.classList.add("hidden");
+          badge.classList.remove("flex");
+        }
+      }
+
+      if (mobileBadge) {
+        if (count > 0) {
+          mobileBadge.textContent = count;
+          mobileBadge.classList.remove("hidden");
+          mobileBadge.classList.add("inline-flex");
+        } else {
+          mobileBadge.textContent = "";
+          mobileBadge.classList.add("hidden");
+          mobileBadge.classList.remove("inline-flex");
+        }
+      }
 
       const listEl = document.getElementById("bookmarkItemsList");
       if (!listEl) return;
@@ -1385,16 +1465,16 @@
 
     function clearAllBookmarks() {
       bookmarks = [];
-      localStorage.setItem("kp_bookmarks", JSON.stringify(bookmarks));
+      safeSetLocalStorage("kp_bookmarks", JSON.stringify(bookmarks));
       renderCatalog();
       renderBookmarks();
-      showToast("Cleared all saved bookmarks.");
+      showToast("Cleared all bookmarks.");
     }
 
     function addAllBookmarksToCart() {
       const validProducts = storeData.products.filter(p => bookmarks.includes(p.id));
       if (!validProducts.length) {
-        showToast("No saved bouquets to add!");
+        showToast("No bookmarked bouquets to add!");
         return;
       }
       validProducts.forEach(prod => {
@@ -1415,7 +1495,7 @@
       saveAndRefreshCart();
       toggleBookmarkDrawer(false);
       toggleCartDrawer(true);
-      showToast("Added all saved bouquets to your bag!");
+      showToast("Added all bookmarked bouquets to your bag!");
     }
 
     // ==========================================
@@ -1831,7 +1911,7 @@
     }
 
     function saveAndRefreshCart() {
-      localStorage.setItem("kp_cart", JSON.stringify(cart));
+      safeSetLocalStorage("kp_cart", JSON.stringify(cart));
       renderCart();
     }
 
@@ -1849,7 +1929,18 @@
 
     function renderCart() {
       const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
-      document.getElementById("cartCountBadge").textContent = totalItems;
+      const cartBadge = document.getElementById("cartCountBadge");
+      if (cartBadge) {
+        if (totalItems > 0) {
+          cartBadge.textContent = totalItems;
+          cartBadge.classList.remove("hidden");
+          cartBadge.classList.add("flex");
+        } else {
+          cartBadge.textContent = "";
+          cartBadge.classList.add("hidden");
+          cartBadge.classList.remove("flex");
+        }
+      }
 
       const listEl = document.getElementById("cartItemsList");
       if (!cart.length) {
@@ -1975,9 +2066,16 @@
     }
 
     function closeAdminModal() {
-      saveAdminChangesLocally(false);
-      document.getElementById("adminModal").classList.add("hidden");
-      document.getElementById("adminModal").classList.remove("flex");
+      try {
+        saveAdminChangesLocally(false);
+      } catch (e) {
+        console.warn(e);
+      }
+      const modal = document.getElementById("adminModal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
     }
 
     function switchAdminTab(tab) {
@@ -1994,7 +2092,6 @@
 
     function persistAndRefreshLiveUI() {
       storeData.lastUpdated = Date.now();
-      localStorage.setItem("kp_store_data", JSON.stringify(storeData));
       renderBrandLogo();
       renderHeroShowcase();
       renderCatalog();
@@ -2002,36 +2099,57 @@
       renderCustomBuilder();
       renderBookmarks();
       renderCart();
+      safeSetLocalStorage("kp_store_data", JSON.stringify(storeData));
     }
 
     function syncStoreSettingsFromInputs() {
-      storeData.whatsappNumber = document.getElementById("adminWhatsapp").value.trim();
-      storeData.deliveryInsideDhaka = Number(document.getElementById("adminDeliveryInside").value) || 70;
-      storeData.deliveryOutsideDhaka = Number(document.getElementById("adminDeliveryOutside").value) || 130;
-      storeData.adminPin = document.getElementById("adminPinInput").value.trim() || "2026";
+      const waEl = document.getElementById("adminWhatsapp");
+      const inEl = document.getElementById("adminDeliveryInside");
+      const outEl = document.getElementById("adminDeliveryOutside");
+      const pinEl = document.getElementById("adminPinInput");
+
+      if (waEl) storeData.whatsappNumber = waEl.value.trim();
+      if (inEl) storeData.deliveryInsideDhaka = Number(inEl.value) || 70;
+      if (outEl) storeData.deliveryOutsideDhaka = Number(outEl.value) || 130;
+      if (pinEl) storeData.adminPin = pinEl.value.trim() || "2026";
       persistAndRefreshLiveUI();
     }
 
     // --- Logo Photo CRUD Helpers ---
     function handleLogoImageUpload(event) {
-      const file = event.target.files[0];
+      const file = event.target.files && event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement("canvas");
-          const maxDim = 240;
-          let w = img.width, h = img.height;
-          if (w > h && w > maxDim) { h *= maxDim / w; w = maxDim; }
-          else if (h > maxDim) { w *= maxDim / h; h = maxDim; }
+          const maxDim = 160;
+          let w = img.width || 160;
+          let h = img.height || 160;
+          if (w > h && w > maxDim) { h = Math.round(h * (maxDim / w)); w = maxDim; }
+          else if (h > maxDim) { w = Math.round(w * (maxDim / h)); h = maxDim; }
           canvas.width = w;
           canvas.height = h;
-          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          storeData.logoImage = canvas.toDataURL("image/png");
+          const ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+
+          let dataUrl = canvas.toDataURL("image/webp", 0.85);
+          if (!dataUrl || dataUrl.indexOf("data:image/webp") !== 0) {
+            dataUrl = canvas.toDataURL("image/png");
+            if (dataUrl.length > 90000) {
+              dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+            }
+          }
+
+          storeData.logoImage = dataUrl;
+          const inputEl = document.getElementById("adminLogoImageInput");
+          if (inputEl) inputEl.value = dataUrl;
+          renderAdminLogoThumb();
           persistAndRefreshLiveUI();
-          renderAdminInputs();
-          showToast("Top-left brand logo updated!");
+          event.target.value = "";
+          showToast("Top-left brand logo uploaded!");
         };
         img.src = e.target.result;
       };
@@ -2039,15 +2157,19 @@
     }
 
     function updateLogoFromInput() {
-      storeData.logoImage = document.getElementById("adminLogoImageInput").value.trim();
-      persistAndRefreshLiveUI();
+      const inputEl = document.getElementById("adminLogoImageInput");
+      if (!inputEl) return;
+      storeData.logoImage = inputEl.value.trim();
       renderAdminLogoThumb();
+      persistAndRefreshLiveUI();
     }
 
     function clearLogoPhoto() {
       storeData.logoImage = "";
+      const inputEl = document.getElementById("adminLogoImageInput");
+      if (inputEl) inputEl.value = "";
+      renderAdminLogoThumb();
       persistAndRefreshLiveUI();
-      renderAdminInputs();
       showToast("Logo reset to default icon!");
     }
 
@@ -2062,20 +2184,31 @@
       }
     }
 
-    // --- Hero Photo & Ribbon CRUD Helpers ---
+    // --- Hero Photo, Texts & Ribbon CRUD Helpers ---
     function handleHeroImageUpload(event) {
       compressAndAssignImage(event, dataUrl => {
         storeData.heroImage = dataUrl;
+        const heroInput = document.getElementById("adminHeroImageInput");
+        if (heroInput) heroInput.value = dataUrl;
+        renderAdminHeroThumb();
         persistAndRefreshLiveUI();
-        renderAdminInputs();
+        event.target.value = "";
         showToast("Hero photo updated!");
       }, 950);
     }
 
     function updateHeroFieldsFromInputs() {
       storeData.heroImage = document.getElementById("adminHeroImageInput").value.trim();
-      persistAndRefreshLiveUI();
       renderAdminHeroThumb();
+      persistAndRefreshLiveUI();
+    }
+
+    function updateHeroTextsFromInputs() {
+      storeData.heroBadgeText = document.getElementById("adminHeroBadgeInput").value;
+      storeData.heroTitleLine1 = document.getElementById("adminHeroTitle1Input").value;
+      storeData.heroTitleLine2 = document.getElementById("adminHeroTitle2Input").value;
+      storeData.heroSubtitle = document.getElementById("adminHeroSubtitleInput").value;
+      persistAndRefreshLiveUI();
     }
 
     function updateHeroRibbonFromInputs() {
@@ -2088,8 +2221,10 @@
 
     function clearHeroPhoto() {
       storeData.heroImage = "";
+      const heroInput = document.getElementById("adminHeroImageInput");
+      if (heroInput) heroInput.value = "";
+      renderAdminHeroThumb();
       persistAndRefreshLiveUI();
-      renderAdminInputs();
       showToast("Hero photo cleared!");
     }
 
@@ -2227,6 +2362,11 @@
       renderAdminLogoThumb();
 
       document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
+      document.getElementById("adminHeroBadgeInput").value = storeData.heroBadgeText ?? DEFAULT_STORE_DATA.heroBadgeText;
+      document.getElementById("adminHeroTitle1Input").value = storeData.heroTitleLine1 ?? DEFAULT_STORE_DATA.heroTitleLine1;
+      document.getElementById("adminHeroTitle2Input").value = storeData.heroTitleLine2 ?? DEFAULT_STORE_DATA.heroTitleLine2;
+      document.getElementById("adminHeroSubtitleInput").value = storeData.heroSubtitle ?? DEFAULT_STORE_DATA.heroSubtitle;
+
       document.getElementById("adminRibbonLabelInput").value = storeData.heroRibbonLabel ?? DEFAULT_STORE_DATA.heroRibbonLabel;
       document.getElementById("adminRibbonText1Input").value = storeData.heroRibbonText1 ?? DEFAULT_STORE_DATA.heroRibbonText1;
       document.getElementById("adminRibbonText2Input").value = storeData.heroRibbonText2 ?? DEFAULT_STORE_DATA.heroRibbonText2;
@@ -2480,6 +2620,7 @@
           if (processed === files.length) {
             persistAndRefreshLiveUI();
             renderAdminInputs();
+            event.target.value = "";
             showToast(`${files.length} photo(s) attached!`);
           }
         }, 650);
@@ -2515,6 +2656,7 @@
         storeData.stems[idx].image = dataUrl;
         persistAndRefreshLiveUI();
         renderAdminInputs();
+        event.target.value = "";
         showToast("Stem photo attached!");
       }, 300);
     }
@@ -2636,7 +2778,7 @@
         return;
       }
 
-      localStorage.setItem("kp_gh_config", JSON.stringify({ repo, branch, token }));
+      safeSetLocalStorage("kp_gh_config", JSON.stringify({ repo, branch, token }));
       statusEl.textContent = "⏳ Connecting to GitHub and publishing store-data.json...";
 
       const apiUrl = `https://api.github.com/repos/${repo}/contents/store-data.json`;
