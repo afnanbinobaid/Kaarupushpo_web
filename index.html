@@ -40,11 +40,14 @@
     };
   </script>
   <style>
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5rem;
+    }
     body {
       font-family: 'DM Sans', sans-serif;
       background-color: #FFFCFA;
       color: #2D2327;
-      scroll-behavior: smooth;
     }
     h1, h2, h3, h4, .font-heading {
       font-family: 'Fraunces', serif;
@@ -79,37 +82,78 @@
   <!-- Navigation Bar -->
   <header class="sticky top-0 z-40 glass-nav border-b border-brand-ink/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5">
-        <span class="w-9 h-9 rounded-full bg-brand-ink text-white flex items-center justify-center text-base font-bold shadow-xs">🌷</span>
+      <a href="#top" onclick="smoothScrollToSection(event, 'top')" class="flex items-center gap-2.5">
+        <span id="headerLogoFallback" class="w-9 h-9 rounded-full bg-brand-ink text-white flex items-center justify-center text-base font-bold shadow-xs overflow-hidden shrink-0">🌷</span>
+        <img id="headerLogoImg" src="" alt="Kaarupushpo Logo" class="hidden w-9 h-9 rounded-full object-cover shadow-xs shrink-0" />
         <div class="flex items-baseline gap-1.5">
           <span class="text-xl sm:text-2xl text-brand-ink" style="font-family: 'Kaushan Script', cursive; letter-spacing: 0.4px;">Kaarupushpo</span>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-brand-ink/80">
-        <a href="#catalog" class="hover:text-brand-pink transition">Shop Bouquets</a>
-        <a href="#customizer" class="hover:text-brand-pink transition">Custom Bouquet Builder</a>
-        <a href="#how-it-works" class="hover:text-brand-pink transition">How to Order</a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-brand-ink/80">
+        <a href="#catalog" onclick="smoothScrollToSection(event, 'catalog')" class="hover:text-brand-pink transition">Shop Bouquets</a>
+        <a href="#customizer" onclick="smoothScrollToSection(event, 'customizer')" class="hover:text-brand-pink transition">Custom Bouquet Builder</a>
+        <a href="#why-kaarupushpo" onclick="smoothScrollToSection(event, 'why-kaarupushpo')" class="hover:text-brand-pink transition">Why Kaarupushpo</a>
+        <a href="#how-it-works" onclick="smoothScrollToSection(event, 'how-it-works')" class="hover:text-brand-pink transition">How to Order</a>
       </nav>
 
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-2">
         <!-- Secret Admin Button (Hidden unless unlocked by Owner) -->
         <button id="adminNavBtn" onclick="openAdminModal('products')" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-terra text-white shadow-sm hover:opacity-95 transition">
           ⚙️ Owner Studio
         </button>
 
-        <!-- Cart Button -->
-        <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-brand-ink hover:bg-brand-pinkDark text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition">
-          <span>🛒</span>
+        <!-- Bookmarks Button -->
+        <button onclick="toggleBookmarkDrawer(true)" title="Saved Bookmarks" class="relative flex items-center gap-1.5 bg-white hover:bg-brand-pinkLight text-brand-ink border border-brand-pink/30 px-3 py-2 rounded-full text-sm font-semibold shadow-2xs transition">
+          <svg class="w-4 h-4 text-brand-pinkDark fill-current" viewBox="0 0 24 24">
+            <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2z"/>
+          </svg>
+          <span class="hidden lg:inline text-xs font-bold">Saved</span>
+          <span id="bookmarkCountBadge" class="bg-brand-pinkLight text-brand-pinkDark border border-brand-pink/30 text-xs font-bold px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+
+        <!-- Bag Button -->
+        <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-brand-ink hover:bg-brand-pinkDark text-white px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition">
+          <span>🛍️</span>
           <span class="hidden sm:inline">Your Bag</span>
           <span id="cartCountBadge" class="bg-brand-pink text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
         </button>
+
+        <!-- Mobile Three-Line Hamburger Menu Button -->
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open Menu" class="md:hidden w-10 h-10 rounded-full bg-white border border-brand-ink/15 flex items-center justify-center text-brand-ink hover:bg-brand-pinkLight transition">
+          <svg id="mobileMenuIconOpen" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="mobileMenuIconClose" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu (Opens when 3-line button is clicked) -->
+    <div id="mobileNavMenu" class="hidden md:hidden border-t border-brand-ink/10 bg-[#FFFCFA]/95 backdrop-blur-md px-4 pt-3 pb-4 space-y-2 shadow-lg">
+      <a href="#catalog" onclick="smoothScrollToSection(event, 'catalog', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
+        💐 Shop Bouquets
+      </a>
+      <a href="#customizer" onclick="smoothScrollToSection(event, 'customizer', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
+        ✨ Custom Bouquet Builder
+      </a>
+      <a href="#why-kaarupushpo" onclick="smoothScrollToSection(event, 'why-kaarupushpo', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
+        🌷 Why Choose Kaarupushpo
+      </a>
+      <a href="#how-it-works" onclick="smoothScrollToSection(event, 'how-it-works', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
+        💬 How to Order
+      </a>
+      <button type="button" onclick="toggleMobileMenu(false); toggleBookmarkDrawer(true);" class="w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-pinkDark bg-brand-pinkLight/70 hover:bg-brand-pinkLight transition flex items-center justify-between">
+        <span>🔖 Saved Bookmarks</span>
+        <span id="mobileBookmarkCountBadge" class="px-2 py-0.5 rounded-full bg-brand-pink text-white text-xs font-bold">0</span>
+      </button>
     </div>
   </header>
 
   <!-- SEAMLESS HERO SECTION (Mobile: Centered Text Top Melts Seamlessly Into Image Below | Desktop: Left Text, Right Diagonal Image) -->
-  <section class="relative bg-brand-cream overflow-hidden border-b border-brand-ink/10">
+  <section id="top" class="relative bg-brand-cream overflow-hidden border-b border-brand-ink/10">
     <div class="max-w-7xl mx-auto">
       <div class="grid lg:grid-cols-12 lg:min-h-[600px] items-stretch">
 
@@ -134,10 +178,10 @@
 
           <!-- CTA Pill Buttons -->
           <div class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3">
-            <a href="#catalog" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
+            <a href="#catalog" onclick="smoothScrollToSection(event, 'catalog')" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
               Shop Bouquets
             </a>
-            <a href="#customizer" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/90 hover:bg-brand-sageLight text-brand-ink border border-brand-ink/20 font-bold text-xs sm:text-sm uppercase tracking-wider transition">
+            <a href="#customizer" onclick="smoothScrollToSection(event, 'customizer')" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/90 hover:bg-brand-sageLight text-brand-ink border border-brand-ink/20 font-bold text-xs sm:text-sm uppercase tracking-wider transition">
               Customize Yours
             </a>
           </div>
@@ -305,6 +349,67 @@
     </div>
   </section>
 
+  <!-- Why Choose Kaarupushpo Section -->
+  <section id="why-kaarupushpo" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-brand-pink/15">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="px-3.5 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark text-xs font-bold uppercase tracking-widest border border-brand-pink/20">The Kaarupushpo Promise</span>
+      <h2 class="font-heading text-3xl sm:text-4xl font-bold text-[#382B32] mt-3">Why Choose Kaarupushpo?</h2>
+      <p class="text-sm sm:text-base text-brand-ink/75 mt-2.5 leading-relaxed">
+        Ordinary flowers wither in days. We sculpt everlasting keepsakes out of plush chenille stems—crafted to hold your warmest feelings forever.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Feature 1 -->
+      <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">♾️</div>
+          <h3 class="font-heading text-lg font-bold text-[#382B32]">Blooms That Never Fade</h3>
+          <p class="text-xs sm:text-sm text-brand-ink/75 mt-2 leading-relaxed">
+            No watering, no wilting, and no fallen petals. Every bouquet stays as vibrant and plush as the day it was gifted—a lasting memory for their desk or bedside.
+          </p>
+        </div>
+        <span class="mt-4 pt-3 border-t border-[#EED9E2] text-[11px] font-bold uppercase tracking-wider text-brand-pinkDark">100% Everlasting Keepsake</span>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">🧶</div>
+          <h3 class="font-heading text-lg font-bold text-[#382B32]">Plush 8mm Artisanal Craft</h3>
+          <p class="text-xs sm:text-sm text-brand-ink/75 mt-2 leading-relaxed">
+            Each petal and leaf is shaped by hand in Dhaka using premium, high-density 8mm fuzzy wire for a fuller, velvety texture that stands apart from mass-made gifts.
+          </p>
+        </div>
+        <span class="mt-4 pt-3 border-t border-[#EED9E2] text-[11px] font-bold uppercase tracking-wider text-brand-terra">Hand-Sculpted in Dhaka</span>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">🎨</div>
+          <h3 class="font-heading text-lg font-bold text-[#382B32]">Personalized to Every Stem</h3>
+          <p class="text-xs sm:text-sm text-brand-ink/75 mt-2 leading-relaxed">
+            Whether they adore pastel tulips, golden sunflowers, or blush roses, you choose the exact stem count, frosted Korean wrap, warm fairy lights, and card note.
+          </p>
+        </div>
+        <span class="mt-4 pt-3 border-t border-[#EED9E2] text-[11px] font-bold uppercase tracking-wider text-brand-sageDark">Bespoke Studio Experience</span>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">🎁</div>
+          <h3 class="font-heading text-lg font-bold text-[#382B32]">Gift-Ready Safe Delivery</h3>
+          <p class="text-xs sm:text-sm text-brand-ink/75 mt-2 leading-relaxed">
+            Packed with care so the wrapping and blooms arrive camera-ready right out of the box, with reliable delivery across Dhaka and all over Bangladesh.
+          </p>
+        </div>
+        <span class="mt-4 pt-3 border-t border-[#EED9E2] text-[11px] font-bold uppercase tracking-wider text-brand-pinkDark">Inside & Outside Dhaka</span>
+      </div>
+    </div>
+  </section>
+
   <!-- How It Works Section -->
   <section id="how-it-works" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-xl mx-auto mb-10">
@@ -334,7 +439,8 @@
   <footer class="bg-brand-ink text-white/85 py-10 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
       <div class="flex items-center gap-2.5">
-        <span class="text-xl">🌷</span>
+        <span id="footerLogoFallback" class="text-xl">🌷</span>
+        <img id="footerLogoImg" src="" alt="Kaarupushpo Logo" class="hidden w-7 h-7 rounded-full object-cover" />
         <span class="font-heading font-bold text-white text-lg">Kaarupushpo • কারুপুষ্প</span>
       </div>
       <p id="secretFooterTrigger" onclick="handleSecretFooterClick()" class="text-xs text-white/60 select-none cursor-pointer hover:text-white/80 transition" title="Click 5 times to open Owner Studio">
@@ -366,6 +472,32 @@
       <div id="lightboxThumbStrip" class="p-3 bg-brand-cream border-t border-brand-pink/15 flex items-center justify-center gap-2 overflow-x-auto"></div>
     </div>
   </div>
+
+  <!-- Bookmarked / Saved Bouquets Drawer -->
+  <div id="bookmarkDrawerBackdrop" onclick="toggleBookmarkDrawer(false)" class="fixed inset-0 bg-black/40 z-50 hidden backdrop-blur-xs"></div>
+  <aside id="bookmarkDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-5 border-b border-brand-pink/15 flex items-center justify-between bg-brand-pinkLight/50">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">🔖</span>
+        <div>
+          <h3 class="font-heading text-xl font-bold text-brand-ink">Saved Bookmarks</h3>
+          <p class="text-xs text-brand-ink/65">Your bookmarked Kaarupushpo bouquets</p>
+        </div>
+      </div>
+      <button onclick="toggleBookmarkDrawer(false)" class="w-8 h-8 rounded-full bg-white border border-brand-pink/20 flex items-center justify-center text-brand-ink hover:bg-brand-pink hover:text-white transition">✕</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-5 space-y-3 custom-scrollbar" id="bookmarkItemsList"></div>
+
+    <div class="p-4 border-t border-brand-pink/15 bg-brand-paper flex items-center justify-between gap-2">
+      <button type="button" onclick="clearAllBookmarks()" class="px-4 py-2 rounded-full bg-white border border-brand-pink/30 text-xs font-semibold text-brand-ink/75 hover:bg-brand-pinkLight transition">
+        Clear All
+      </button>
+      <button type="button" onclick="addAllBookmarksToCart()" class="flex-1 py-2.5 px-4 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs shadow-sm transition">
+        🛍️ Add All Saved to Bag
+      </button>
+    </div>
+  </aside>
 
   <!-- Shopping Bag & WhatsApp Checkout Drawer -->
   <div id="cartDrawerBackdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-black/40 z-50 hidden backdrop-blur-xs"></div>
@@ -445,7 +577,7 @@
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
             <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.8 — Seamless Mobile Hero</span>
           </div>
-          <p class="text-xs text-white/70 mt-0.5">Edit Hero Photo, Ribbon Text, Categories, Product Serial & Multi-Photos, Custom Builder & GitHub Sync</p>
+          <p class="text-xs text-white/70 mt-0.5">Edit Brand Logo, Hero Photo, Ribbon Text, Categories, Product Serial & Multi-Photos, Custom Builder & GitHub Sync</p>
         </div>
         <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-semibold shrink-0">Save & Close ✕</button>
       </div>
@@ -453,7 +585,7 @@
       <!-- Admin Tabs -->
       <div class="flex flex-wrap border-b border-brand-pink/20 bg-brand-pinkLight/40 px-4 pt-3 gap-2 text-xs font-bold">
         <button onclick="switchAdminTab('products')" id="tabBtn-products" class="px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20">
-          1. Hero Photo, Ribbon, Categories & Products
+          1. Logo, Hero Photo, Ribbon, Categories & Products
         </button>
         <button onclick="switchAdminTab('builder')" id="tabBtn-builder" class="px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink">
           2. Custom Builder Items (Flowers, Wraps & Extras)
@@ -466,12 +598,34 @@
       <!-- Admin Tab Content -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 custom-scrollbar">
 
-        <!-- TAB 1: HERO PHOTO + RIBBON + CATEGORIES + PRODUCTS -->
+        <!-- TAB 1: LOGO + HERO PHOTO + RIBBON + CATEGORIES + PRODUCTS -->
         <div id="adminTab-products" class="space-y-7">
 
-          <!-- 1A: Main Hero Section Photo Editor -->
-          <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-2">
+          <!-- 1A: Top-Left Brand Logo & Main Hero Section Photo Editor -->
+          <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-4">
+
+            <!-- Brand Logo Uploader (Top-Left Corner beside Wordmark) -->
+            <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 flex flex-col sm:flex-row gap-4 items-center">
+              <div id="adminLogoThumbBox" class="w-16 h-16 rounded-full bg-brand-ink text-white border border-brand-pink/30 overflow-hidden shrink-0 flex items-center justify-center text-xl font-bold">🌷</div>
+              <div class="flex-1 w-full space-y-2">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <span class="px-2 py-0.5 rounded-full bg-brand-ink text-white text-[10px] font-bold uppercase">Top-Left Logo</span>
+                    <h4 class="font-heading font-bold text-sm text-brand-ink mt-0.5">🌷 Logo Image Beside "Kaarupushpo" Wordmark</h4>
+                  </div>
+                  <button type="button" onclick="clearLogoPhoto()" class="px-3 py-1 rounded-full bg-brand-pinkLight border border-brand-pink/30 text-[11px] font-semibold text-brand-terra hover:bg-brand-pink hover:text-white transition">
+                    🗑️ Reset Logo
+                  </button>
+                </div>
+                <input type="text" id="adminLogoImageInput" onchange="updateLogoFromInput()" placeholder="Paste logo image URL or upload below..." class="w-full rounded-lg border border-brand-pink/30 px-3 py-1.5 text-xs bg-brand-paper" />
+                <label class="inline-block px-4 py-1.5 rounded-full bg-brand-ink text-white text-xs font-bold cursor-pointer hover:bg-brand-pinkDark transition">
+                  📷 Upload Logo Image from Device
+                  <input type="file" accept="image/*" class="hidden" onchange="handleLogoImageUpload(event)" />
+                </label>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-brand-pink/20">
               <div>
                 <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Hero Banner Photo</span>
                 <h4 class="font-heading font-bold text-sm sm:text-base text-brand-ink mt-1">🖼️ Main Hero Photo</h4>
@@ -636,7 +790,7 @@
               <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.8 Live Sync</span>
               <h4 class="font-heading text-lg font-bold text-brand-ink mt-1">1-Click Publish to GitHub Repository</h4>
               <p class="text-xs text-brand-ink/75">
-                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated hero photo, ribbon, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
+                Clicking <strong>"Publish Live to GitHub Now"</strong> automatically commits <code>store-data.json</code> straight to your repo so all visitors see your updated logo, hero photo, ribbon, categories, products, custom builder flowers, wraps, palettes, and prices immediately!
               </p>
             </div>
 
@@ -696,6 +850,7 @@
       deliveryInsideDhaka: 70,
       deliveryOutsideDhaka: 130,
       adminPin: "2026",
+      logoImage: "",
       heroImage: "",
       heroRibbonLabel: "SIGNATURE DROPS:",
       heroRibbonText1: "PASTEL TULIPS, SUNSHINE WRAPS, CHENILLE ROSES",
@@ -773,6 +928,7 @@
     let moreCustomOptionsExpanded = false;
     let lightboxState = { productId: null, images: [], index: 0, title: "" };
     let cart = [];
+    let bookmarks = [];
     let customSelection = {
       stems: {},
       palette: "",
@@ -781,6 +937,44 @@
     };
     let footerClickCount = 0;
     let footerClickTimer = null;
+
+    // Smooth Scroll Helper & Mobile Menu Toggle
+    function smoothScrollToSection(event, targetId, closeMobile = false) {
+      if (event) event.preventDefault();
+      if (closeMobile) toggleMobileMenu(false);
+      if (targetId === "top") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        const headerOffset = 72;
+        const elementPosition = targetEl.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    }
+
+    function toggleMobileMenu(forceState) {
+      const menu = document.getElementById("mobileNavMenu");
+      const openIcon = document.getElementById("mobileMenuIconOpen");
+      const closeIcon = document.getElementById("mobileMenuIconClose");
+      const isCurrentlyHidden = menu.classList.contains("hidden");
+      const shouldOpen = typeof forceState === "boolean" ? forceState : isCurrentlyHidden;
+
+      if (shouldOpen) {
+        menu.classList.remove("hidden");
+        openIcon.classList.add("hidden");
+        closeIcon.classList.remove("hidden");
+      } else {
+        menu.classList.add("hidden");
+        openIcon.classList.remove("hidden");
+        closeIcon.classList.add("hidden");
+      }
+    }
 
     function escapeAttr(str) {
       return String(str ?? "")
@@ -809,6 +1003,9 @@
 
     function normalizeStoreData(raw) {
       const merged = { ...DEFAULT_STORE_DATA, ...raw };
+      if (typeof merged.logoImage !== "string") {
+        merged.logoImage = "";
+      }
       if (typeof merged.heroImage !== "string") {
         merged.heroImage = "";
       }
@@ -857,10 +1054,12 @@
         customSelection.wrapId = storeData.wraps[0]?.id || "";
       }
 
+      renderBrandLogo();
       renderHeroShowcase();
       renderCatalog();
       initCustomBuilderUI();
       renderCustomBuilder();
+      renderBookmarks();
       renderCart();
     }
 
@@ -871,6 +1070,11 @@
       const savedCart = localStorage.getItem("kp_cart");
       if (savedCart) {
         try { cart = JSON.parse(savedCart); } catch (e) {}
+      }
+
+      const savedBookmarks = localStorage.getItem("kp_bookmarks");
+      if (savedBookmarks) {
+        try { bookmarks = JSON.parse(savedBookmarks); } catch (e) {}
       }
 
       const ghConfig = JSON.parse(localStorage.getItem("kp_gh_config") || "{}");
@@ -911,8 +1115,34 @@
     }
 
     // ==========================================
-    // 3. CLEAN HERO, EDITABLE RIBBON & PRODUCT CATALOG RENDERING
+    // 3. LOGO, CLEAN HERO, EDITABLE RIBBON & PRODUCT CATALOG RENDERING
     // ==========================================
+    function renderBrandLogo() {
+      const logoUrl = (storeData.logoImage || "").trim();
+      const headerImg = document.getElementById("headerLogoImg");
+      const headerFallback = document.getElementById("headerLogoFallback");
+      const footerImg = document.getElementById("footerLogoImg");
+      const footerFallback = document.getElementById("footerLogoFallback");
+
+      if (logoUrl) {
+        if (headerImg) {
+          headerImg.src = logoUrl;
+          headerImg.classList.remove("hidden");
+        }
+        if (headerFallback) headerFallback.classList.add("hidden");
+        if (footerImg) {
+          footerImg.src = logoUrl;
+          footerImg.classList.remove("hidden");
+        }
+        if (footerFallback) footerFallback.classList.add("hidden");
+      } else {
+        if (headerImg) headerImg.classList.add("hidden");
+        if (headerFallback) headerFallback.classList.remove("hidden");
+        if (footerImg) footerImg.classList.add("hidden");
+        if (footerFallback) footerFallback.classList.remove("hidden");
+      }
+    }
+
     function renderHeroShowcase() {
       const labelEl = document.getElementById("heroRibbonLabelEl");
       const text1El = document.getElementById("heroRibbonText1El");
@@ -1005,6 +1235,7 @@
         normalizeProductImages(p);
         const primaryImg = p.images[0] || "";
         const imgCount = p.images.length;
+        const isBookmarked = bookmarks.includes(p.id);
 
         return `
           <div class="bg-[#F8E8EF] rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition overflow-hidden flex flex-col group">
@@ -1017,7 +1248,17 @@
                 : `<span class="text-4xl">💐</span>`
               }
               ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${escapeAttr(p.badge)}</span>` : ""}
-              ${imgCount > 1 ? `<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-ink/80 text-white text-[11px] font-bold shadow-xs">📷 ${imgCount} Photos</span>` : (primaryImg ? `<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-ink/70 text-white text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition">🔍 View</span>` : "")}
+              ${imgCount > 1 ? `<span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-brand-ink/80 text-white text-[11px] font-bold shadow-xs">📷 ${imgCount} Photos</span>` : (primaryImg ? `<span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-brand-ink/70 text-white text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition">🔍 View</span>` : "")}
+              <button
+                type="button"
+                onclick="event.stopPropagation(); toggleProductBookmark('${escapeAttr(p.id)}')"
+                title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark this Bouquet'}"
+                class="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center shadow-sm transition ${isBookmarked ? 'bg-brand-pink text-white' : 'bg-white/95 text-brand-ink hover:bg-brand-pinkLight'}"
+              >
+                <svg class="w-4 h-4 ${isBookmarked ? 'fill-current' : 'fill-none stroke-current'}" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2z"/>
+                </svg>
+              </button>
               <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${escapeAttr(p.category)}</span>
             </div>
             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
@@ -1030,9 +1271,18 @@
                   <span class="text-xs text-brand-ink/60 block">Price</span>
                   <span class="font-heading text-xl font-bold text-brand-pinkDark">৳${Number(p.price).toLocaleString()}</span>
                 </div>
-                <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
-                  + Add to Bag
-                </button>
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onclick="toggleProductBookmark('${escapeAttr(p.id)}')"
+                    class="px-3 py-2.5 rounded-full border text-xs font-bold transition ${isBookmarked ? 'bg-brand-pinkLight border-brand-pink text-brand-pinkDark' : 'bg-white border-[#EED9E2] text-brand-ink/75 hover:border-brand-pink'}"
+                  >
+                    ${isBookmarked ? '🔖 Saved' : '🔖 Bookmark'}
+                  </button>
+                  <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
+                    + Add to Bag
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1055,7 +1305,121 @@
     }
 
     // ==========================================
-    // 3B. PRODUCT PHOTO LIGHTBOX VIEWER
+    // 3B. BOOKMARKS / SAVED BOUQUETS SYSTEM
+    // ==========================================
+    function toggleProductBookmark(prodId) {
+      const idx = bookmarks.indexOf(prodId);
+      if (idx > -1) {
+        bookmarks.splice(idx, 1);
+        showToast("Removed from Saved Bookmarks.");
+      } else {
+        bookmarks.push(prodId);
+        showToast("🔖 Saved to Bookmarks!");
+      }
+      localStorage.setItem("kp_bookmarks", JSON.stringify(bookmarks));
+      renderCatalog();
+      renderBookmarks();
+    }
+
+    function toggleBookmarkDrawer(open) {
+      const drawer = document.getElementById("bookmarkDrawer");
+      const backdrop = document.getElementById("bookmarkDrawerBackdrop");
+      if (open) {
+        renderBookmarks();
+        backdrop.classList.remove("hidden");
+        drawer.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.add("hidden");
+        drawer.classList.add("translate-x-full");
+      }
+    }
+
+    function renderBookmarks() {
+      const validProducts = storeData.products.filter(p => bookmarks.includes(p.id));
+      const count = validProducts.length;
+      const badge = document.getElementById("bookmarkCountBadge");
+      const mobileBadge = document.getElementById("mobileBookmarkCountBadge");
+      if (badge) badge.textContent = count;
+      if (mobileBadge) mobileBadge.textContent = count;
+
+      const listEl = document.getElementById("bookmarkItemsList");
+      if (!listEl) return;
+
+      if (!validProducts.length) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 space-y-2">
+            <div class="text-3xl">🔖</div>
+            <p class="font-heading font-bold text-sm text-brand-ink">No Bookmarked Bouquets Yet</p>
+            <p class="text-xs text-brand-ink/60 max-w-xs mx-auto">Tap the "Bookmark" button on any bouquet card to save your favorite creations here for quick comparison.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = validProducts.map(p => {
+        normalizeProductImages(p);
+        const thumb = p.images[0] || "";
+        return `
+          <div class="p-3.5 rounded-2xl bg-[#F8E8EF] border border-[#EED9E2] flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-14 h-14 rounded-xl bg-brand-pinkLight border border-[#EED9E2] overflow-hidden shrink-0 flex items-center justify-center">
+                ${thumb ? `<img src="${escapeAttr(thumb)}" class="w-full h-full object-cover" />` : `<span class="text-xl">💐</span>`}
+              </div>
+              <div class="min-w-0">
+                <p class="font-heading font-bold text-sm text-[#382B32] truncate">${escapeAttr(p.name)}</p>
+                <p class="text-xs font-bold text-brand-pinkDark mt-0.5">৳${Number(p.price).toLocaleString()}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-3 py-1.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold transition">
+                + Bag
+              </button>
+              <button onclick="toggleProductBookmark('${escapeAttr(p.id)}')" title="Remove Bookmark" class="w-7 h-7 rounded-full bg-white border border-[#EED9E2] text-brand-ink/70 hover:text-red-600 text-xs flex items-center justify-center">
+                ✕
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function clearAllBookmarks() {
+      bookmarks = [];
+      localStorage.setItem("kp_bookmarks", JSON.stringify(bookmarks));
+      renderCatalog();
+      renderBookmarks();
+      showToast("Cleared all saved bookmarks.");
+    }
+
+    function addAllBookmarksToCart() {
+      const validProducts = storeData.products.filter(p => bookmarks.includes(p.id));
+      if (!validProducts.length) {
+        showToast("No saved bouquets to add!");
+        return;
+      }
+      validProducts.forEach(prod => {
+        const existing = cart.find(item => item.productId === prod.id);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({
+            cartItemId: "item-" + Date.now() + "-" + prod.id,
+            productId: prod.id,
+            name: prod.name,
+            price: Number(prod.price),
+            qty: 1,
+            details: prod.category
+          });
+        }
+      });
+      saveAndRefreshCart();
+      toggleBookmarkDrawer(false);
+      toggleCartDrawer(true);
+      showToast("Added all saved bouquets to your bag!");
+    }
+
+    // ==========================================
+    // 3C. PRODUCT PHOTO LIGHTBOX VIEWER
     // ==========================================
     function openProductLightbox(prodId, startIdx = 0) {
       const prod = storeData.products.find(p => p.id === prodId);
@@ -1631,10 +1995,12 @@
     function persistAndRefreshLiveUI() {
       storeData.lastUpdated = Date.now();
       localStorage.setItem("kp_store_data", JSON.stringify(storeData));
+      renderBrandLogo();
       renderHeroShowcase();
       renderCatalog();
       initCustomBuilderUI();
       renderCustomBuilder();
+      renderBookmarks();
       renderCart();
     }
 
@@ -1644,6 +2010,56 @@
       storeData.deliveryOutsideDhaka = Number(document.getElementById("adminDeliveryOutside").value) || 130;
       storeData.adminPin = document.getElementById("adminPinInput").value.trim() || "2026";
       persistAndRefreshLiveUI();
+    }
+
+    // --- Logo Photo CRUD Helpers ---
+    function handleLogoImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxDim = 240;
+          let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h *= maxDim / w; w = maxDim; }
+          else if (h > maxDim) { w *= maxDim / h; h = maxDim; }
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          storeData.logoImage = canvas.toDataURL("image/png");
+          persistAndRefreshLiveUI();
+          renderAdminInputs();
+          showToast("Top-left brand logo updated!");
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateLogoFromInput() {
+      storeData.logoImage = document.getElementById("adminLogoImageInput").value.trim();
+      persistAndRefreshLiveUI();
+      renderAdminLogoThumb();
+    }
+
+    function clearLogoPhoto() {
+      storeData.logoImage = "";
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Logo reset to default icon!");
+    }
+
+    function renderAdminLogoThumb() {
+      const thumbBox = document.getElementById("adminLogoThumbBox");
+      if (!thumbBox) return;
+      const src = (storeData.logoImage || "").trim();
+      if (src) {
+        thumbBox.innerHTML = `<img src="${escapeAttr(src)}" class="w-full h-full object-cover" />`;
+      } else {
+        thumbBox.innerHTML = `🌷`;
+      }
     }
 
     // --- Hero Photo & Ribbon CRUD Helpers ---
@@ -1807,6 +2223,9 @@
     }
 
     function renderAdminInputs() {
+      document.getElementById("adminLogoImageInput").value = storeData.logoImage || "";
+      renderAdminLogoThumb();
+
       document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
       document.getElementById("adminRibbonLabelInput").value = storeData.heroRibbonLabel ?? DEFAULT_STORE_DATA.heroRibbonLabel;
       document.getElementById("adminRibbonText1Input").value = storeData.heroRibbonText1 ?? DEFAULT_STORE_DATA.heroRibbonText1;
