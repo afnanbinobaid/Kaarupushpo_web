@@ -1,5 +1,5 @@
 {
-  "lastUpdated": 1793188478931,
+  "lastUpdated": 1793191930864,
   "whatsappNumber": "8801784840845",
   "deliveryInsideDhaka": 80,
   "deliveryOutsideDhaka": 150,
@@ -325,7 +325,7 @@
       "id": "stem-1792948162210",
       "name": "Medium sunflower",
       "price": 250,
-      "emoji": "🌸",
+      "emoji": "🌻",
       "color": "#f5ed00",
       "image": ""
     },
@@ -333,7 +333,7 @@
       "id": "stem-1792948158130",
       "name": "Large sunflower",
       "price": 320,
-      "emoji": "🌸",
+      "emoji": "🌻",
       "color": "#fbf304",
       "image": ""
     },
@@ -341,7 +341,7 @@
       "id": "stem-1792948136342",
       "name": "Tulip",
       "price": 150,
-      "emoji": "🌸",
+      "emoji": "🌷",
       "color": "#D470A2",
       "image": ""
     },
@@ -349,7 +349,7 @@
       "id": "tulip",
       "name": " Medium lily",
       "price": 200,
-      "emoji": "🌷",
+      "emoji": "🌸",
       "color": "#D470A2",
       "image": ""
     },
@@ -364,7 +364,7 @@
       "id": "sunflower",
       "name": "Rose",
       "price": 280,
-      "emoji": "🌻",
+      "emoji": "🌹",
       "color": "#c60606"
     },
     {
@@ -378,14 +378,14 @@
       "id": "daisy",
       "name": " Large Hibiscus",
       "price": 380,
-      "emoji": "🌼",
+      "emoji": "🌺",
       "color": "#c40812"
     },
     {
       "id": "lavender",
       "name": "Daisy",
       "price": 100,
-      "emoji": "🪻",
+      "emoji": "🌼",
       "color": "#f8f7f7"
     },
     {
