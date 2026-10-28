@@ -531,7 +531,7 @@
     </div>
   </footer>
 
-  <!-- PRODUCT IMAGE LIGHTBOX MODAL (Viewable Image & Multi-Photo Gallery) -->
+  <!-- PRODUCT IMAGE LIGHTBOX MODAL (Viewable Image, Touch Swipe & Multi-Photo Gallery) -->
   <div id="productLightboxModal" onclick="handleLightboxBackdropClick(event)" class="fixed inset-0 bg-black/85 z-50 hidden items-center justify-center p-3 sm:p-6 backdrop-blur-xs">
     <div class="relative max-w-3xl w-full bg-brand-paper rounded-3xl overflow-hidden shadow-2xl border border-brand-pink/30 flex flex-col max-h-[92vh]">
       <!-- Top Bar -->
@@ -543,10 +543,15 @@
         <button type="button" onclick="closeProductLightbox()" class="w-8 h-8 rounded-full bg-white/15 hover:bg-brand-pink text-white flex items-center justify-center text-sm font-bold transition">✕</button>
       </div>
 
-      <!-- Main Image Viewer -->
-      <div class="relative flex-1 bg-black/95 flex items-center justify-center min-h-[280px] sm:min-h-[420px] max-h-[70vh] overflow-hidden">
+      <!-- Main Image Viewer (Supports Touch Swiping Left & Right on Mobile) -->
+      <div
+        id="lightboxTouchArea"
+        ontouchstart="handleLightboxTouchStart(event)"
+        ontouchend="handleLightboxTouchEnd(event)"
+        class="relative flex-1 bg-black/95 flex items-center justify-center min-h-[280px] sm:min-h-[420px] max-h-[70vh] overflow-hidden touch-pan-y"
+      >
         <button type="button" id="lightboxPrevBtn" onclick="stepLightboxImage(-1)" class="hidden absolute left-3 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-brand-pink hover:text-white text-brand-ink font-bold text-lg shadow-lg items-center justify-center transition">‹</button>
-        <img id="lightboxMainImg" src="" alt="Product View" class="max-w-full max-h-[68vh] object-contain select-none" />
+        <img id="lightboxMainImg" src="" alt="Product View" class="max-w-full max-h-[68vh] object-contain select-none transition-transform duration-200" />
         <button type="button" id="lightboxNextBtn" onclick="stepLightboxImage(1)" class="hidden absolute right-3 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-brand-pink hover:text-white text-brand-ink font-bold text-lg shadow-lg items-center justify-center transition">›</button>
       </div>
 
@@ -1037,6 +1042,9 @@
     let palettesExpanded = false;
     let moreCustomOptionsExpanded = false;
     let lightboxState = { productId: null, images: [], index: 0, title: "" };
+    let cardImageIndices = {};
+    let cardTouchTracker = { startX: 0, startY: 0, swiped: false };
+    let lightboxTouchTracker = { startX: 0, startY: 0 };
     let cart = [];
     let bookmarks = [];
     let customSelection = {
@@ -1355,6 +1363,50 @@
       bar.innerHTML = html;
     }
 
+    // Touch-Swipe & Click Handlers for Product Card Images
+    function handleCardTouchStart(event) {
+      if (!event.touches || !event.touches.length) return;
+      cardTouchTracker.startX = event.touches[0].clientX;
+      cardTouchTracker.startY = event.touches[0].clientY;
+      cardTouchTracker.swiped = false;
+    }
+
+    function handleCardTouchEnd(event, prodId) {
+      if (!event.changedTouches || !event.changedTouches.length) return;
+      const dx = event.changedTouches[0].clientX - cardTouchTracker.startX;
+      const dy = event.changedTouches[0].clientY - cardTouchTracker.startY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        cardTouchTracker.swiped = true;
+        stepCardImage(prodId, dx < 0 ? 1 : -1);
+      }
+    }
+
+    function stepCardImage(prodId, delta) {
+      const prod = storeData.products.find(p => p.id === prodId);
+      if (!prod) return;
+      normalizeProductImages(prod);
+      const len = prod.images.length;
+      if (len <= 1) return;
+
+      const currentIdx = cardImageIndices[prodId] || 0;
+      const nextIdx = (currentIdx + delta + len) % len;
+      cardImageIndices[prodId] = nextIdx;
+
+      const imgEl = document.getElementById(`cardImg-${prodId}`);
+      const badgeEl = document.getElementById(`cardRatio-${prodId}`);
+      if (imgEl) imgEl.src = prod.images[nextIdx];
+      if (badgeEl) badgeEl.textContent = `${nextIdx + 1}/${len}`;
+    }
+
+    function handleCardImageClick(prodId) {
+      if (cardTouchTracker.swiped) {
+        cardTouchTracker.swiped = false;
+        return;
+      }
+      const activeIdx = cardImageIndices[prodId] || 0;
+      openProductLightbox(prodId, activeIdx);
+    }
+
     function renderCatalog() {
       renderCategoryFilterBar();
       const grid = document.getElementById("productsGrid");
@@ -1374,22 +1426,24 @@
 
       grid.innerHTML = visibleProducts.map(p => {
         normalizeProductImages(p);
-        const primaryImg = p.images[0] || "";
         const imgCount = p.images.length;
+        const activeIdx = Math.min(cardImageIndices[p.id] || 0, Math.max(0, imgCount - 1));
+        cardImageIndices[p.id] = activeIdx;
+        const currentImg = p.images[activeIdx] || "";
         const isBookmarked = bookmarks.includes(p.id);
 
         return `
           <div class="bg-[#F8E8EF] rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition overflow-hidden flex flex-col group">
             <div
-              ${primaryImg ? `onclick="openProductLightbox('${escapeAttr(p.id)}', 0)" title="Click to view full photo"` : ""}
-              class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden flex items-center justify-center ${primaryImg ? 'cursor-pointer' : ''}"
+              ${currentImg ? `onclick="handleCardImageClick('${escapeAttr(p.id)}')" ontouchstart="handleCardTouchStart(event)" ontouchend="handleCardTouchEnd(event, '${escapeAttr(p.id)}')" title="Click to view full photo"` : ""}
+              class="relative aspect-[4/3] bg-brand-pinkLight overflow-hidden flex items-center justify-center touch-pan-y select-none ${currentImg ? 'cursor-pointer' : ''}"
             >
-              ${primaryImg
-                ? `<img src="${escapeAttr(primaryImg)}" alt="${escapeAttr(p.name)}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none'" />`
+              ${currentImg
+                ? `<img id="cardImg-${escapeAttr(p.id)}" src="${escapeAttr(currentImg)}" alt="${escapeAttr(p.name)}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none'" />`
                 : `<span class="text-4xl">💐</span>`
               }
               ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${escapeAttr(p.badge)}</span>` : ""}
-              ${imgCount > 1 ? `<span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-brand-ink/80 text-white text-[11px] font-bold shadow-xs">📷 ${imgCount} Photos</span>` : (primaryImg ? `<span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-brand-ink/70 text-white text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition">🔍 View</span>` : "")}
+              ${imgCount > 1 ? `<span id="cardRatio-${escapeAttr(p.id)}" class="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full bg-brand-ink/75 text-white text-[11px] font-bold tracking-wider shadow-xs">${activeIdx + 1}/${imgCount}</span>` : ""}
               <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${escapeAttr(p.category)}</span>
             </div>
             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
@@ -1581,7 +1635,7 @@
     }
 
     // ==========================================
-    // 3C. PRODUCT PHOTO LIGHTBOX VIEWER
+    // 3C. PRODUCT PHOTO LIGHTBOX VIEWER (With Mobile Touch Swipe)
     // ==========================================
     function openProductLightbox(prodId, startIdx = 0) {
       const prod = storeData.products.find(p => p.id === prodId);
@@ -1602,14 +1656,37 @@
       modal.classList.add("flex");
     }
 
+    function handleLightboxTouchStart(event) {
+      if (!event.touches || !event.touches.length) return;
+      lightboxTouchTracker.startX = event.touches[0].clientX;
+      lightboxTouchTracker.startY = event.touches[0].clientY;
+    }
+
+    function handleLightboxTouchEnd(event) {
+      if (!event.changedTouches || !event.changedTouches.length) return;
+      const dx = event.changedTouches[0].clientX - lightboxTouchTracker.startX;
+      const dy = event.changedTouches[0].clientY - lightboxTouchTracker.startY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        stepLightboxImage(dx < 0 ? 1 : -1);
+      }
+    }
+
     function updateLightboxModalUI() {
       const imgs = lightboxState.images || [];
       if (!imgs.length) return;
       const idx = lightboxState.index;
 
       document.getElementById("lightboxProdTitle").textContent = lightboxState.title || "Product Photo";
-      document.getElementById("lightboxCounter").textContent = `Photo ${idx + 1} of ${imgs.length}`;
+      document.getElementById("lightboxCounter").textContent = `${idx + 1} / ${imgs.length}`;
       document.getElementById("lightboxMainImg").src = imgs[idx];
+
+      if (lightboxState.productId) {
+        cardImageIndices[lightboxState.productId] = idx;
+        const cardImgEl = document.getElementById(`cardImg-${lightboxState.productId}`);
+        const cardBadgeEl = document.getElementById(`cardRatio-${lightboxState.productId}`);
+        if (cardImgEl) cardImgEl.src = imgs[idx];
+        if (cardBadgeEl) cardBadgeEl.textContent = `${idx + 1}/${imgs.length}`;
+      }
 
       const prevBtn = document.getElementById("lightboxPrevBtn");
       const nextBtn = document.getElementById("lightboxNextBtn");
