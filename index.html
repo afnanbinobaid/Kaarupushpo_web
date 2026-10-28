@@ -1,6 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTFQGFKX4P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VTFQGFKX4P');
+
+    // Helper function to safely send custom tracking events to GA4
+    function trackEvent(eventName, eventParams = {}) {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, eventParams);
+      }
+    }
+
+    // Automatic click listener for Facebook, Messenger, Instagram & WhatsApp links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = (link.getAttribute('href') || '').toLowerCase();
+
+      if (href.includes('m.me/') || href.includes('messenger.com')) {
+        trackEvent('messenger_click', {
+          social_platform: 'Messenger',
+          link_url: link.href,
+          link_text: (link.innerText || 'Messenger').trim()
+        });
+      } else if (href.includes('facebook.com') || href.includes('fb.com')) {
+        trackEvent('facebook_click', {
+          social_platform: 'Facebook',
+          link_url: link.href,
+          link_text: (link.innerText || 'Facebook').trim()
+        });
+      } else if (href.includes('instagram.com') || href.includes('instagr.am')) {
+        trackEvent('instagram_click', {
+          social_platform: 'Instagram',
+          link_url: link.href,
+          link_text: (link.innerText || 'Instagram').trim()
+        });
+      } else if (href.includes('wa.me/') || href.includes('whatsapp.com')) {
+        trackEvent('whatsapp_click', {
+          social_platform: 'WhatsApp',
+          link_url: link.href,
+          link_text: (link.innerText || 'WhatsApp').trim()
+        });
+      }
+    });
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kaarupushpo | কারুপুষ্প — Handmade Fuzzy Wire Flower Boutique</title>
@@ -180,10 +229,10 @@
 
           <!-- CTA Pill Buttons -->
           <div class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3">
-            <a href="#catalog" onclick="smoothScrollToSection(event, 'catalog')" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
+            <a href="#catalog" onclick="trackEvent('hero_cta_click', { button_text: 'Shop Bouquets' }); smoothScrollToSection(event, 'catalog')" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
               Shop Bouquets
             </a>
-            <a href="#customizer" onclick="smoothScrollToSection(event, 'customizer')" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/90 hover:bg-brand-sageLight text-brand-ink border border-brand-ink/20 font-bold text-xs sm:text-sm uppercase tracking-wider transition">
+            <a href="#customizer" onclick="trackEvent('hero_cta_click', { button_text: 'Customize Yours' }); smoothScrollToSection(event, 'customizer')" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/90 hover:bg-brand-sageLight text-brand-ink border border-brand-ink/20 font-bold text-xs sm:text-sm uppercase tracking-wider transition">
               Customize Yours
             </a>
           </div>
@@ -446,12 +495,13 @@
         <span class="font-heading font-bold text-white text-lg">Kaarupushpo • কারুপুষ্প</span>
       </div>
 
-      <!-- Social Links (Facebook & Instagram) -->
+      <!-- Social Links (Facebook & Instagram connected to GA4 tracker) -->
       <div class="flex items-center gap-3">
         <a
           href="https://www.facebook.com/profile.php?id=61587150009018"
           target="_blank"
           rel="noopener noreferrer"
+          onclick="trackEvent('facebook_click', { location: 'footer', link_url: this.href })"
           class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-brand-pink text-white text-xs font-semibold transition"
           aria-label="Kaarupushpo Facebook Page"
         >
@@ -464,6 +514,7 @@
           href="https://www.instagram.com/kaaru_pushpo?cplk=NTAzczJob3M1Z2Nz"
           target="_blank"
           rel="noopener noreferrer"
+          onclick="trackEvent('instagram_click', { location: 'footer', link_url: this.href })"
           class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-brand-pink text-white text-xs font-semibold transition"
           aria-label="Kaarupushpo Instagram Page"
         >
@@ -1008,6 +1059,7 @@
     // Smooth Scroll Helper & Mobile Menu Toggle
     function smoothScrollToSection(event, targetId, closeMobile = false) {
       if (event) event.preventDefault();
+      trackEvent("navigation_click", { section_id: targetId, is_mobile_menu: closeMobile });
       if (closeMobile) toggleMobileMenu(false);
       if (targetId === "top") {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1270,11 +1322,13 @@
         currentCategory = storeData.categories[idx] || "All";
       }
       catalogExpanded = false;
+      trackEvent("category_filter_click", { category: currentCategory });
       renderCatalog();
     }
 
     function toggleCatalogSeeMore() {
       catalogExpanded = !catalogExpanded;
+      trackEvent("catalog_see_more", { expanded: catalogExpanded });
       renderCatalog();
     }
 
@@ -1389,12 +1443,15 @@
     // 3B. BOOKMARKS / SAVED BOUQUETS SYSTEM
     // ==========================================
     function toggleProductBookmark(prodId) {
+      const prod = storeData.products.find(p => p.id === prodId);
       const idx = bookmarks.indexOf(prodId);
       if (idx > -1) {
         bookmarks.splice(idx, 1);
+        trackEvent("bookmark_remove", { item_id: prodId, item_name: prod?.name || prodId });
         showToast("Removed from Bookmarks.");
       } else {
         bookmarks.push(prodId);
+        trackEvent("bookmark_add", { item_id: prodId, item_name: prod?.name || prodId, price: Number(prod?.price || 0) });
         showToast("🔖 Added to Bookmarks!");
       }
       safeSetLocalStorage("kp_bookmarks", JSON.stringify(bookmarks));
@@ -1406,6 +1463,7 @@
       const drawer = document.getElementById("bookmarkDrawer");
       const backdrop = document.getElementById("bookmarkDrawerBackdrop");
       if (open) {
+        trackEvent("open_bookmarks", { bookmarked_count: bookmarks.length });
         renderBookmarks();
         backdrop.classList.remove("hidden");
         drawer.classList.remove("translate-x-full");
@@ -1515,6 +1573,7 @@
           });
         }
       });
+      trackEvent("add_all_bookmarks_to_cart", { count: validProducts.length });
       saveAndRefreshCart();
       toggleBookmarkDrawer(false);
       toggleCartDrawer(true);
@@ -1529,6 +1588,8 @@
       if (!prod) return;
       normalizeProductImages(prod);
       if (!prod.images.length) return;
+
+      trackEvent("view_item_photo", { item_id: prod.id, item_name: prod.name, photo_count: prod.images.length });
 
       lightboxState.productId = prod.id;
       lightboxState.images = prod.images;
@@ -1615,16 +1676,19 @@
     // ==========================================
     function toggleMoreStems() {
       stemsExpanded = !stemsExpanded;
+      trackEvent("custom_builder_see_more", { section: "stems", expanded: stemsExpanded });
       renderCustomBuilder();
     }
 
     function toggleMorePalettes() {
       palettesExpanded = !palettesExpanded;
+      trackEvent("custom_builder_see_more", { section: "palettes", expanded: palettesExpanded });
       initCustomBuilderUI();
     }
 
     function toggleMoreCustomOptions() {
       moreCustomOptionsExpanded = !moreCustomOptionsExpanded;
+      trackEvent("custom_builder_see_more", { section: "extras", expanded: moreCustomOptionsExpanded });
       const wrap = document.getElementById("moreCustomOptionsWrap");
       const btn = document.getElementById("toggleMoreCustomOptionsBtn");
       if (moreCustomOptionsExpanded) {
@@ -1888,12 +1952,21 @@
       if (chosenAddonNames.length) extrasArr.push(chosenAddonNames.join(", "));
       if (note) extrasArr.push(`Note: "${note}"`);
 
+      const customDetails = `${stemParts.join(", ")} | ${extrasArr.join(" • ")}`;
+
       cart.push({
         cartItemId: "custom-" + Date.now(),
         name: "Custom 8mm Fuzzy Wire Bouquet",
         price: unitPrice,
         qty: 1,
-        details: `${stemParts.join(", ")} | ${extrasArr.join(" • ")}`
+        details: customDetails
+      });
+
+      trackEvent("add_custom_bouquet_to_cart", {
+        currency: "BDT",
+        value: unitPrice,
+        stems_count: totalStemsCount,
+        bouquet_details: customDetails
       });
 
       saveAndRefreshCart();
@@ -1921,6 +1994,15 @@
           details: prod.category
         });
       }
+
+      trackEvent("add_to_cart", {
+        currency: "BDT",
+        value: Number(prod.price),
+        item_id: prod.id,
+        item_name: prod.name,
+        item_category: prod.category
+      });
+
       saveAndRefreshCart();
       showToast(`Added "${prod.name}" to bag!`);
     }
@@ -1942,6 +2024,7 @@
       const drawer = document.getElementById("cartDrawer");
       const backdrop = document.getElementById("cartDrawerBackdrop");
       if (open) {
+        trackEvent("open_bag", { items_count: cart.reduce((acc, item) => acc + item.qty, 0) });
         backdrop.classList.remove("hidden");
         drawer.classList.remove("translate-x-full");
       } else {
@@ -2041,6 +2124,18 @@
     function sendOrderViaWhatsApp() {
       const invoice = buildWhatsAppInvoice();
       if (!invoice) return;
+
+      const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+      const zone = document.getElementById("custZone").value;
+      const delivery = zone === "inside" ? Number(storeData.deliveryInsideDhaka) : Number(storeData.deliveryOutsideDhaka);
+
+      trackEvent("whatsapp_order_click", {
+        currency: "BDT",
+        value: subtotal + delivery,
+        delivery_area: zone === "inside" ? "Inside Dhaka" : "Outside Dhaka",
+        items_count: cart.reduce((acc, item) => acc + item.qty, 0)
+      });
+
       const cleanNumber = (storeData.whatsappNumber || "").replace(/[^0-9]/g, "");
       const waUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(invoice)}`;
       window.open(waUrl, "_blank");
@@ -2049,6 +2144,9 @@
     function copyInvoiceText() {
       const invoice = buildWhatsAppInvoice();
       if (!invoice) return;
+      trackEvent("copy_invoice", {
+        items_count: cart.reduce((acc, item) => acc + item.qty, 0)
+      });
       navigator.clipboard.writeText(invoice);
       showToast("Order invoice copied to clipboard!");
     }
