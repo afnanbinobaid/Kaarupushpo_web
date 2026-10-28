@@ -124,6 +124,60 @@
         mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 14%, rgba(0,0,0,1) 32%, rgba(0,0,0,1) 100%);
       }
     }
+
+    /* ==========================================
+       BESPOKE CURTAIN REVEAL ANIMATION STYLES
+       ========================================== */
+    .curtain-stage {
+      max-height: 430px;
+      transition: max-height 0.95s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    .curtain-stage.is-open {
+      max-height: 2800px;
+    }
+    .curtain-panel-left,
+    .curtain-panel-right {
+      transition: transform 0.95s cubic-bezier(0.77, 0, 0.175, 1), box-shadow 0.95s ease;
+      will-change: transform;
+      /* Soft pleated velvet drapery texture */
+      background-color: #36252D;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.04) 0px,
+          rgba(255, 255, 255, 0.12) 18px,
+          rgba(0, 0, 0, 0.22) 36px,
+          rgba(212, 112, 162, 0.08) 54px
+        ),
+        linear-gradient(180deg, #3D2832 0%, #261A20 100%);
+    }
+    .curtain-stage.is-open .curtain-panel-left {
+      transform: translateX(-102%);
+    }
+    .curtain-stage.is-open .curtain-panel-right {
+      transform: translateX(102%);
+    }
+    .curtain-center-card {
+      transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .curtain-stage.is-open .curtain-center-card {
+      opacity: 0;
+      transform: scale(0.88);
+      pointer-events: none;
+    }
+    .customizer-inner-content {
+      opacity: 0;
+      transform: translateY(24px) scale(0.985);
+      filter: blur(4px);
+      pointer-events: none;
+      transition: opacity 0.7s ease 0.25s, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.25s, filter 0.6s ease 0.25s;
+    }
+    .curtain-stage.is-open .customizer-inner-content {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-brand-pink selection:text-white">
@@ -300,102 +354,168 @@
     <div id="catalogSeeMoreWrap" class="mt-8 text-center hidden"></div>
   </section>
 
-  <!-- Interactive Custom Bouquet Builder -->
-  <section id="customizer" class="py-16 bg-gradient-to-b from-brand-pinkLight/60 to-brand-sageLight/50 border-y border-brand-pink/15">
+  <!-- Interactive Custom Bouquet Builder (Behind Boutique Curtain to Separate Shopping Experiences) -->
+  <section id="customizer" class="py-12 sm:py-16 bg-gradient-to-b from-brand-pinkLight/60 to-brand-sageLight/50 border-y border-brand-pink/15">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="px-3 py-1 rounded-full bg-brand-sage/20 text-brand-sageDark text-xs font-bold uppercase tracking-wider">Bespoke Studio</span>
-        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-brand-ink mt-2">Build Your Own Custom Bouquet</h2>
-        <p class="text-sm sm:text-base text-brand-ink/75 mt-2">
-          Mix and match your favorite handmade 8mm fuzzy wire flowers, choose your color palette and wrapping style, and add it directly to your WhatsApp order.
-        </p>
-        <!-- Quick Owner Shortcut Button (Visible when Admin is unlocked) -->
-        <button id="adminBuilderShortcutBtn" onclick="openAdminModal('builder')" class="hidden mt-4 mx-auto items-center gap-2 px-4 py-2 rounded-full bg-brand-terra text-white text-xs font-bold shadow-sm hover:opacity-95 transition">
-          ✏️ Add / Edit / Delete Custom Builder Flowers, Wraps & Extras
-        </button>
-      </div>
 
-      <div class="grid lg:grid-cols-12 gap-8 items-start">
-        <!-- Left Column: Live Bouquet Visualizer & Summary -->
-        <div class="lg:col-span-5 lg:sticky lg:top-24 bg-white rounded-3xl p-6 shadow-lg border border-brand-pink/20">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold uppercase tracking-wider text-brand-terra">Live Bouquet Preview</span>
-            <span id="customStemCounter" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark">0 Stems Selected</span>
+      <!-- Curtain Stage Container -->
+      <div id="customizerStage" class="curtain-stage relative rounded-3xl overflow-hidden border border-brand-pink/25 bg-white/50 shadow-xl">
+
+        <!-- ==========================================
+             THE BOUTIQUE CURTAIN OVERLAY (Default Closed)
+             ========================================== -->
+        <div id="curtainOverlay" class="absolute inset-0 z-30 flex items-center justify-center overflow-hidden">
+          <!-- Left Pleated Curtain Panel -->
+          <div class="curtain-panel-left absolute inset-y-0 left-0 w-1/2 border-r border-brand-pink/30 shadow-2xl flex flex-col justify-between p-6">
+            <div class="w-full h-1.5 rounded-full bg-gradient-to-r from-brand-pink/20 via-brand-pink/60 to-brand-pink/30"></div>
+            <div class="hidden sm:flex items-center gap-2 text-white/25 text-[11px] uppercase tracking-[0.25em] font-bold">
+              <span>✦ Bespoke Chenille Studio</span>
+            </div>
+            <div class="w-full h-1 rounded-full bg-gradient-to-r from-brand-pink/20 via-brand-pink/50 to-transparent"></div>
           </div>
 
-          <!-- Dynamic SVG Preview -->
-          <div id="bouquetPreviewBox" class="aspect-square rounded-2xl bg-brand-paper border border-brand-pink/15 flex items-center justify-center p-4 relative overflow-hidden">
-            <svg id="bouquetSvg" viewBox="0 0 300 320" class="w-full h-full max-h-72"></svg>
+          <!-- Right Pleated Curtain Panel -->
+          <div class="curtain-panel-right absolute inset-y-0 right-0 w-1/2 border-l border-brand-pink/30 shadow-2xl flex flex-col justify-between items-end p-6">
+            <div class="w-full h-1.5 rounded-full bg-gradient-to-l from-brand-pink/20 via-brand-pink/60 to-brand-pink/30"></div>
+            <div class="hidden sm:flex items-center gap-2 text-white/25 text-[11px] uppercase tracking-[0.25em] font-bold">
+              <span>Handcrafted to Order ✦</span>
+            </div>
+            <div class="w-full h-1 rounded-full bg-gradient-to-l from-brand-pink/20 via-brand-pink/50 to-transparent"></div>
           </div>
 
-          <!-- Price Breakdown -->
-          <div class="mt-5 pt-4 border-t border-brand-pink/15 space-y-2 text-sm">
-            <div class="flex justify-between text-brand-ink/75">
-              <span>Selected Stems</span>
-              <span id="customStemsSubtotal" class="font-semibold">৳0</span>
-            </div>
-            <div class="flex justify-between text-brand-ink/75">
-              <span>Wrapping & Add-ons</span>
-              <span id="customExtrasSubtotal" class="font-semibold">৳0</span>
-            </div>
-            <div class="flex justify-between text-lg font-heading font-bold text-brand-ink pt-2 border-t border-brand-pink/15">
-              <span>Estimated Bouquet Total</span>
-              <span id="customTotalDisplay" class="text-brand-pinkDark">৳0</span>
-            </div>
+          <!-- Center Floating Invitation Card Over the Curtain Seam -->
+          <div class="curtain-center-card relative z-10 max-w-lg mx-4 bg-[#FFFCFA]/95 backdrop-blur-md p-6 sm:p-9 rounded-3xl border-2 border-brand-pink/40 shadow-2xl text-center">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark text-[11px] font-bold uppercase tracking-widest border border-brand-pink/25">
+              ✨ Separate Custom Experience
+            </span>
+            <h2 class="font-heading text-2xl sm:text-4xl font-bold text-brand-ink mt-3 leading-tight">
+              Want to Craft Your Own Bouquet?
+            </h2>
+            <p class="text-xs sm:text-sm text-brand-ink/75 mt-2.5 leading-relaxed">
+              Looking for something different from our ready-made collection above? Step behind the curtain to handpick your own 8mm fuzzy wire flower stems, color palette, wrapping paper, and gift notes.
+            </p>
+            <button
+              type="button"
+              onclick="openCustomizerCurtain()"
+              class="mt-6 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.99] transition duration-200 inline-flex items-center gap-2.5"
+            >
+              <span>🌷 Customize Your Bouquet</span>
+            </button>
           </div>
-
-          <button onclick="addCustomBouquetToCart()" class="mt-5 w-full py-3.5 px-5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-semibold text-sm shadow-md transition flex items-center justify-center gap-2">
-            <span>💐 Add Custom Bouquet to Bag</span>
-          </button>
         </div>
 
-        <!-- Right Column: Step-by-Step Builder Controls -->
-        <div class="lg:col-span-7 space-y-6">
-          <!-- Step 1: Pick Stems -->
-          <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-heading text-xl font-bold text-brand-ink">1. Choose Your Fuzzy Wire Stems</h3>
-              <button onclick="resetCustomBuilder()" class="text-xs text-brand-terra underline hover:text-brand-pink">Reset Stems</button>
+        <!-- ==========================================
+             REVEALED CUSTOMIZER CONTENT (No Visual Preview)
+             ========================================== -->
+        <div id="customizerContent" class="customizer-inner-content p-5 sm:p-8 lg:p-10">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-brand-pink/15">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-brand-sage/20 text-brand-sageDark text-xs font-bold uppercase tracking-wider">Bespoke Studio</span>
+              <h2 class="font-heading text-2xl sm:text-4xl font-bold text-brand-ink mt-2">Build Your Own Custom Bouquet</h2>
+              <p class="text-xs sm:text-sm text-brand-ink/75 mt-1">
+                Mix and match your favorite handmade 8mm fuzzy wire flowers, choose your color palette and wrapping style, and add it directly to your order bag.
+              </p>
+              <!-- Quick Owner Shortcut Button (Visible when Admin is unlocked) -->
+              <button id="adminBuilderShortcutBtn" onclick="openAdminModal('builder')" class="hidden mt-3 items-center gap-2 px-4 py-2 rounded-full bg-brand-terra text-white text-xs font-bold shadow-sm hover:opacity-95 transition">
+                ✏️ Add / Edit / Delete Custom Builder Flowers, Wraps & Extras
+              </button>
             </div>
-            <div id="stemPickerList" class="grid sm:grid-cols-2 gap-3.5"></div>
-            <div id="stemSeeMoreWrap" class="mt-4 text-center hidden"></div>
+
+            <button
+              type="button"
+              onclick="closeCustomizerCurtain()"
+              class="self-start sm:self-center shrink-0 px-4 py-2 rounded-full bg-brand-paper hover:bg-brand-pinkLight text-brand-ink/80 hover:text-brand-pinkDark border border-brand-pink/30 text-xs font-bold transition flex items-center gap-1.5"
+            >
+              <span>🎭 Close Curtain</span>
+            </button>
           </div>
 
-          <!-- Step 2: Color Palette, Wrapping & Add-ons -->
-          <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15 space-y-5">
-            <h3 class="font-heading text-xl font-bold text-brand-ink">2. Color Theme, Wrapping & Extras</h3>
-
-            <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Petal Color Palette</label>
-              <div id="paletteOptions" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
-              <div id="paletteSeeMoreWrap" class="mt-2.5 text-center hidden"></div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Wrapping Style</label>
-              <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink"></select>
-            </div>
-
-            <!-- Collapsible Extra Customization Options (Ribbon/Add-ons & Custom Card Note) -->
-            <div id="moreCustomOptionsWrap" class="hidden space-y-5 pt-2 border-t border-brand-pink/15">
-              <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Ribbon & Add-ons</label>
-                <div id="addonsChecklist" class="space-y-2 text-sm"></div>
+          <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <!-- Left Column: Step-by-Step Builder Controls -->
+            <div class="lg:col-span-7 space-y-6">
+              <!-- Step 1: Pick Stems -->
+              <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="font-heading text-xl font-bold text-brand-ink">1. Choose Your Fuzzy Wire Stems</h3>
+                  <button onclick="resetCustomBuilder()" class="text-xs text-brand-terra underline hover:text-brand-pink">Reset Stems</button>
+                </div>
+                <div id="stemPickerList" class="grid sm:grid-cols-2 gap-3.5"></div>
+                <div id="stemSeeMoreWrap" class="mt-4 text-center hidden"></div>
               </div>
 
-              <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-1.5">Custom Note on Card / Special Instructions (Optional)</label>
-                <input type="text" id="customBouquetNote" maxlength="120" placeholder="e.g. 'Happy Anniversary!' or 'Use pastel pink & cream tulips'" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink" />
+              <!-- Step 2: Color Palette, Wrapping & Add-ons -->
+              <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15 space-y-5">
+                <h3 class="font-heading text-xl font-bold text-brand-ink">2. Color Theme, Wrapping & Extras</h3>
+
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Petal Color Palette</label>
+                  <div id="paletteOptions" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
+                  <div id="paletteSeeMoreWrap" class="mt-2.5 text-center hidden"></div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Wrapping Style</label>
+                  <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink"></select>
+                </div>
+
+                <!-- Collapsible Extra Customization Options (Ribbon/Add-ons & Custom Card Note) -->
+                <div id="moreCustomOptionsWrap" class="hidden space-y-5 pt-2 border-t border-brand-pink/15">
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Ribbon & Add-ons</label>
+                    <div id="addonsChecklist" class="space-y-2 text-sm"></div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-1.5">Custom Note on Card / Special Instructions (Optional)</label>
+                    <input type="text" id="customBouquetNote" maxlength="120" placeholder="e.g. 'Happy Anniversary!' or 'Use pastel pink & cream tulips'" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink" />
+                  </div>
+                </div>
+
+                <div class="pt-1 text-center">
+                  <button type="button" id="toggleMoreCustomOptionsBtn" onclick="toggleMoreCustomOptions()" class="px-5 py-2 rounded-full bg-brand-pinkLight hover:bg-brand-pink hover:text-white text-brand-pinkDark text-xs font-bold border border-brand-pink/25 transition">
+                    See More ↓
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div class="pt-1 text-center">
-              <button type="button" id="toggleMoreCustomOptionsBtn" onclick="toggleMoreCustomOptions()" class="px-5 py-2 rounded-full bg-brand-pinkLight hover:bg-brand-pink hover:text-white text-brand-pinkDark text-xs font-bold border border-brand-pink/25 transition">
-                See More ↓
+            <!-- Right Column: Custom Order Summary & Price Breakdown (No Visual Preview) -->
+            <div class="lg:col-span-5 lg:sticky lg:top-24 bg-white rounded-3xl p-6 shadow-lg border border-brand-pink/20">
+              <div class="flex items-center justify-between pb-3 border-b border-brand-pink/15">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-brand-terra block">Custom Order Summary</span>
+                  <h4 class="font-heading text-lg font-bold text-brand-ink mt-0.5">Your Handpicked Recipe</h4>
+                </div>
+                <span id="customStemCounter" class="text-xs font-semibold px-3 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark">0 Stems Selected</span>
+              </div>
+
+              <!-- Selected Items Text Breakdown (Replaces Visual Preview) -->
+              <div id="customSelectedListSummary" class="mt-4 p-4 rounded-2xl bg-brand-paper border border-brand-pink/15 space-y-2 text-xs text-brand-ink/80">
+              </div>
+
+              <!-- Price Breakdown -->
+              <div class="mt-5 pt-4 border-t border-brand-pink/15 space-y-2 text-sm">
+                <div class="flex justify-between text-brand-ink/75">
+                  <span>Selected Stems</span>
+                  <span id="customStemsSubtotal" class="font-semibold">৳0</span>
+                </div>
+                <div class="flex justify-between text-brand-ink/75">
+                  <span>Wrapping & Add-ons</span>
+                  <span id="customExtrasSubtotal" class="font-semibold">৳0</span>
+                </div>
+                <div class="flex justify-between text-lg font-heading font-bold text-brand-ink pt-2 border-t border-brand-pink/15">
+                  <span>Estimated Bouquet Total</span>
+                  <span id="customTotalDisplay" class="text-brand-pinkDark">৳0</span>
+                </div>
+              </div>
+
+              <button onclick="addCustomBouquetToCart()" class="mt-5 w-full py-3.5 px-5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-semibold text-sm shadow-md transition flex items-center justify-center gap-2">
+                <span>💐 Add Custom Bouquet to Bag</span>
               </button>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -641,7 +761,7 @@
         <div class="flex justify-between text-base font-heading font-bold text-brand-ink pt-1.5 border-t border-brand-pink/15">
           <span>Total Payable</span>
           <span id="cartGrandTotal" class="text-brand-pinkDark">৳0</span>
-          </div>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 gap-2">
@@ -662,7 +782,7 @@
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-heading text-lg sm:text-xl font-bold">⚙️ Kaarupushpo Owner Studio</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.8 — Seamless Mobile Hero</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-brand-ink text-[11px] font-extrabold">v2.8 — Curtain Studio</span>
           </div>
           <p class="text-xs text-white/70 mt-0.5">Edit Brand Logo, Hero Photo & Texts, Ribbon, Categories, Product Serial & Multi-Photos, Custom Builder & GitHub Sync</p>
         </div>
@@ -834,7 +954,7 @@
             <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight/70 p-4 rounded-2xl border border-brand-sage/30">
               <div>
                 <h4 class="font-heading font-bold text-sm text-brand-ink">🎀 2. Wrapping Paper Styles</h4>
-                <p class="text-xs text-brand-ink/70">Add, edit, or delete wrapping paper options and their preview colors.</p>
+                <p class="text-xs text-brand-ink/70">Add, edit, or delete wrapping paper options and their prices.</p>
               </div>
               <button type="button" onclick="addNewWrapRow()" class="px-4 py-2 rounded-full bg-brand-sageDark text-white text-xs font-bold shadow-xs hover:opacity-90 transition">
                 + Add Wrapping Style
@@ -939,7 +1059,7 @@
         <span class="text-xs text-brand-ink/65">All edits auto-save on this device immediately. Click "Publish Live to GitHub Now" in Tab 3 to update for all customers.</span>
         <div class="flex items-center gap-2">
           <button type="button" onclick="saveAdminChangesLocally(true)" class="px-5 py-2 rounded-full bg-brand-pink text-white text-xs font-bold hover:bg-brand-pinkDark transition">
-            💾 Save & Refresh Preview
+            💾 Save & Refresh
           </button>
         </div>
       </div>
@@ -1041,6 +1161,7 @@
     let stemsExpanded = false;
     let palettesExpanded = false;
     let moreCustomOptionsExpanded = false;
+    let curtainTimer = null;
     let lightboxState = { productId: null, images: [], index: 0, title: "" };
     let cardImageIndices = {};
     let cardTouchTracker = { startX: 0, startY: 0, swiped: false };
@@ -1062,6 +1183,46 @@
       } catch (err) {
         console.warn("Browser localStorage quota reached; keeping data in memory for live session & GitHub sync.", err);
       }
+    }
+
+    // ==========================================
+    // CURTAIN REVEAL ANIMATION HANDLERS
+    // ==========================================
+    function openCustomizerCurtain() {
+      const stage = document.getElementById("customizerStage");
+      const overlay = document.getElementById("curtainOverlay");
+      if (!stage || !overlay) return;
+
+      clearTimeout(curtainTimer);
+      stage.classList.add("is-open");
+      trackEvent("customizer_curtain_open", { button_text: "Customize Your Bouquet" });
+
+      // Disable pointer events on overlay once curtains part completely
+      curtainTimer = setTimeout(() => {
+        overlay.classList.add("pointer-events-none");
+        stage.style.maxHeight = "none";
+      }, 950);
+    }
+
+    function closeCustomizerCurtain() {
+      const stage = document.getElementById("customizerStage");
+      const overlay = document.getElementById("curtainOverlay");
+      if (!stage || !overlay) return;
+
+      clearTimeout(curtainTimer);
+      // Set explicit height before transitioning back to collapsed height
+      stage.style.maxHeight = stage.scrollHeight + "px";
+      overlay.classList.remove("pointer-events-none");
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          stage.style.maxHeight = "";
+          stage.classList.remove("is-open");
+        });
+      });
+
+      trackEvent("customizer_curtain_close");
+      smoothScrollToSection(null, "customizer");
     }
 
     // Smooth Scroll Helper & Mobile Menu Toggle
@@ -1397,7 +1558,6 @@
       if (imgEl) imgEl.src = prod.images[nextIdx];
       if (badgeEl) badgeEl.textContent = `${nextIdx + 1}/${len}`;
 
-      // Track when a user swipes through a product's photos on the card
       trackEvent("product_photo_browse", {
         product_id: String(prod.id),
         product_name: prod.name,
@@ -1651,7 +1811,6 @@
       normalizeProductImages(prod);
       if (!prod.images.length) return;
 
-      // 1. Standard GA4 Ecommerce Event (Populates Monetization -> Ecommerce -> Items report automatically!)
       trackEvent("view_item", {
         currency: "BDT",
         value: Number(prod.price || 0),
@@ -1666,7 +1825,6 @@
         ]
       });
 
-      // 2. Custom Event with flat parameters (Easy to view in Reports -> Engagement -> Events)
       trackEvent("product_opened", {
         product_id: String(prod.id),
         product_name: prod.name,
@@ -1795,7 +1953,7 @@
     });
 
     // ==========================================
-    // 4. INTERACTIVE CUSTOM BOUQUET BUILDER
+    // 4. INTERACTIVE CUSTOM BOUQUET BUILDER (NO PREVIEW)
     // ==========================================
     function toggleMoreStems() {
       stemsExpanded = !stemsExpanded;
@@ -1950,13 +2108,20 @@
 
       let totalStemsCount = 0;
       let stemsCost = 0;
-      const activeFlowers = [];
+      const chosenStemBadges = [];
 
       storeData.stems.forEach(s => {
         const q = customSelection.stems[s.id] || 0;
-        totalStemsCount += q;
-        stemsCost += q * Number(s.price);
-        for (let i = 0; i < q; i++) activeFlowers.push(s);
+        if (q > 0) {
+          totalStemsCount += q;
+          stemsCost += q * Number(s.price);
+          chosenStemBadges.push(`
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-brand-pink/25 text-xs font-semibold text-brand-ink">
+              <span>${escapeAttr(s.emoji || '🌸')}</span>
+              <span>${q}x ${escapeAttr(s.name)}</span>
+            </span>
+          `);
+        }
       });
 
       const wrapSelect = document.getElementById("wrapStyleSelect");
@@ -1966,11 +2131,11 @@
       const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0] || { price: 0, color: "#F9DCE8", name: "Standard Wrap" };
 
       let addonsCost = 0;
-      let hasLights = false;
+      const chosenAddonList = [];
       storeData.addons.forEach(a => {
         if (customSelection.addons[a.id]) {
           addonsCost += Number(a.price);
-          if (a.isLights || a.name.toLowerCase().includes("light")) hasLights = true;
+          chosenAddonList.push(escapeAttr(a.name));
         }
       });
 
@@ -1982,57 +2147,25 @@
       document.getElementById("customExtrasSubtotal").textContent = totalStemsCount > 0 ? `৳${extrasCost}` : `৳0`;
       document.getElementById("customTotalDisplay").textContent = `৳${totalCost}`;
 
-      drawBouquetSvg(activeFlowers, selectedWrap, hasLights);
-    }
-
-    function drawBouquetSvg(flowers, wrap, hasLights) {
-      const svg = document.getElementById("bouquetSvg");
-      if (!flowers.length) {
-        svg.innerHTML = `
-          <text x="150" y="155" text-anchor="middle" fill="#9E5B54" font-size="13" font-family="DM Sans">
-            Select stems on the right to preview your bouquet 🌸
-          </text>
-        `;
-        return;
-      }
-
-      const wrapColor = wrap ? wrap.color : "#F9DCE8";
-      let stemsLines = "";
-      let flowerHeads = "";
-
-      const count = Math.min(flowers.length, 18);
-      for (let i = 0; i < count; i++) {
-        const f = flowers[i];
-        const spread = count === 1 ? 0 : (i / (count - 1)) - 0.5;
-        const x = 150 + spread * 130;
-        const y = 95 + Math.abs(spread) * 35 + (i % 3) * 14;
-        stemsLines += `<line x1="150" y1="250" x2="${x}" y2="${y}" stroke="#81B29A" stroke-width="4" stroke-linecap="round" />`;
-        flowerHeads += `
-          <g transform="translate(${x}, ${y})">
-            <circle r="18" fill="${escapeAttr(f.color || '#D470A2')}" opacity="0.28" />
-            <text x="0" y="7" text-anchor="middle" font-size="24">${escapeAttr(f.emoji || '🌸')}</text>
-          </g>
-        `;
-      }
-
-      let lightsDots = "";
-      if (hasLights) {
-        for (let j = 0; j < 12; j++) {
-          const lx = 95 + (j * 11) % 115;
-          const ly = 75 + (j * 23) % 95;
-          lightsDots += `<circle cx="${lx}" cy="${ly}" r="3.5" fill="#FFD166"><animate attributeName="opacity" values="0.3;1;0.3" dur="${1 + (j % 3) * 0.5}s" repeatCount="indefinite"/></circle>`;
+      // Update Text Summary Box (Replacing the old SVG Preview)
+      const summaryBox = document.getElementById("customSelectedListSummary");
+      if (summaryBox) {
+        if (totalStemsCount === 0) {
+          summaryBox.innerHTML = `<p class="text-brand-ink/60 text-center py-3">No stems selected yet. Pick your favorite 8mm fuzzy wire stems on the left to build your bouquet.</p>`;
+        } else {
+          summaryBox.innerHTML = `
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-brand-ink/55 block mb-1.5">Selected Stems:</span>
+              <div class="flex flex-wrap gap-1.5">${chosenStemBadges.join("")}</div>
+            </div>
+            <div class="pt-2 border-t border-brand-pink/10 flex flex-col gap-1 text-xs">
+              <div><strong class="text-brand-ink">Color Theme:</strong> ${escapeAttr(customSelection.palette)}</div>
+              <div><strong class="text-brand-ink">Wrapping:</strong> ${escapeAttr(selectedWrap.name)}</div>
+              ${chosenAddonList.length ? `<div><strong class="text-brand-ink">Extras:</strong> ${chosenAddonList.join(", ")}</div>` : ""}
+            </div>
+          `;
         }
       }
-
-      svg.innerHTML = `
-        <polygon points="55,115 245,115 180,285 120,285" fill="${escapeAttr(wrapColor)}" stroke="#D470A2" stroke-width="1.5" opacity="0.85" />
-        ${stemsLines}
-        ${flowerHeads}
-        <polygon points="85,185 215,185 175,295 125,295" fill="${escapeAttr(wrapColor)}" stroke="#D470A2" stroke-width="1.5" />
-        <rect x="122" y="232" width="56" height="12" rx="6" fill="#D470A2" />
-        <circle cx="150" cy="238" r="8" fill="#9E5B54" />
-        ${lightsDots}
-      `;
     }
 
     function addCustomBouquetToCart() {
@@ -2121,7 +2254,7 @@
       trackEvent("add_to_cart", {
         currency: "BDT",
         value: Number(prod.price),
-        product_name: prod.name, // flat parameter for custom reports
+        product_name: prod.name,
         items: [
           {
             item_id: String(prod.id),
@@ -2240,7 +2373,7 @@
       msg += `\n*Ordered Items:*\n`;
       cart.forEach((item, i) => {
         msg += `${i + 1}. *${item.name}* (x${item.qty}) — ৳${item.price * item.qty}\n`;
-        if (item.details) msg += `    _${item.details}_\n`;
+        if (item.details) msg += `   _${item.details}_\n`;
       });
 
       msg += `\n*Payment Summary:*\n`;
@@ -2784,7 +2917,7 @@
               <input type="number" value="${Number(w.price)}" oninput="storeData.wraps[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold text-brand-pinkDark bg-white" />
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-brand-ink/70">Paper Preview Color</label>
+              <label class="block text-[10px] font-bold text-brand-ink/70">Paper Accent Color</label>
               <input type="color" value="${escapeAttr(w.color || '#F9DCE8')}" oninput="storeData.wraps[${idx}].color = this.value; persistAndRefreshLiveUI()" class="w-full h-7 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5" />
             </div>
           </div>
@@ -2816,10 +2949,6 @@
                 <label class="block text-[10px] font-bold text-brand-ink/70">Add-on Price (৳)</label>
                 <input type="number" value="${Number(a.price)}" oninput="storeData.addons[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold text-brand-pinkDark bg-white" />
               </div>
-              <label class="flex items-center gap-1.5 text-[11px] font-semibold text-brand-ink/75 mt-3 cursor-pointer">
-                <input type="checkbox" ${a.isLights ? 'checked' : ''} onchange="storeData.addons[${idx}].isLights = this.checked; persistAndRefreshLiveUI()" class="rounded text-brand-pink" />
-                <span>Glow effect</span>
-              </label>
             </div>
           </div>
           <button type="button" onclick="deleteAddonRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete</button>
