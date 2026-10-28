@@ -133,22 +133,22 @@
       </div>
     </div>
 
-    <!-- Mobile Dropdown Menu (Opens when 3-line button is clicked) -->
+    <!-- Mobile Dropdown Menu (Opens when 3-line button is clicked, no icons beside section names) -->
     <div id="mobileNavMenu" class="hidden md:hidden border-t border-brand-ink/10 bg-[#FFFCFA]/95 backdrop-blur-md px-4 pt-3 pb-4 space-y-2 shadow-lg">
       <a href="#catalog" onclick="smoothScrollToSection(event, 'catalog', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
-        💐 Shop Bouquets
+        Shop Bouquets
       </a>
       <a href="#customizer" onclick="smoothScrollToSection(event, 'customizer', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
-        ✨ Custom Bouquet Builder
+        Custom Bouquet Builder
       </a>
       <a href="#why-kaarupushpo" onclick="smoothScrollToSection(event, 'why-kaarupushpo', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
-        🌷 Why Choose Kaarupushpo
+        Why Choose Kaarupushpo
       </a>
       <a href="#how-it-works" onclick="smoothScrollToSection(event, 'how-it-works', true)" class="block w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-ink hover:bg-brand-pinkLight hover:text-brand-pinkDark transition">
-        💬 How to Order
+        How to Order
       </a>
       <button type="button" onclick="toggleMobileMenu(false); toggleBookmarkDrawer(true);" class="relative w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold text-brand-pinkDark bg-brand-pinkLight/70 hover:bg-brand-pinkLight transition flex items-center justify-between">
-        <span>🔖 Bookmarks</span>
+        <span>Bookmarks</span>
         <span id="mobileBookmarkCountBadge" class="hidden px-2 py-0.5 rounded-full bg-brand-pink text-white text-xs font-bold"></span>
       </button>
     </div>
@@ -445,6 +445,35 @@
         <img id="footerLogoImg" src="" alt="Kaarupushpo Logo" class="hidden w-7 h-7 rounded-full object-cover" />
         <span class="font-heading font-bold text-white text-lg">Kaarupushpo • কারুপুষ্প</span>
       </div>
+
+      <!-- Social Links (Facebook & Instagram) -->
+      <div class="flex items-center gap-3">
+        <a
+          href="https://www.facebook.com/profile.php?id=61587150009018"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-brand-pink text-white text-xs font-semibold transition"
+          aria-label="Kaarupushpo Facebook Page"
+        >
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+          </svg>
+          <span>Facebook</span>
+        </a>
+        <a
+          href="https://www.instagram.com/kaaru_pushpo?cplk=NTAzczJob3M1Z2Nz"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-brand-pink text-white text-xs font-semibold transition"
+          aria-label="Kaarupushpo Instagram Page"
+        >
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
+      </div>
+
       <p id="secretFooterTrigger" onclick="handleSecretFooterClick()" class="text-xs text-white/60 select-none cursor-pointer hover:text-white/80 transition" title="Click 5 times to open Owner Studio">
         © 2026 Kaarupushpo. Handcrafted with love in Dhaka, Bangladesh.
       </p>
@@ -1307,16 +1336,6 @@
               }
               ${p.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 text-brand-pinkDark text-xs font-bold shadow-xs">${escapeAttr(p.badge)}</span>` : ""}
               ${imgCount > 1 ? `<span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-brand-ink/80 text-white text-[11px] font-bold shadow-xs">📷 ${imgCount} Photos</span>` : (primaryImg ? `<span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-brand-ink/70 text-white text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition">🔍 View</span>` : "")}
-              <button
-                type="button"
-                onclick="event.stopPropagation(); toggleProductBookmark('${escapeAttr(p.id)}')"
-                title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark this Bouquet'}"
-                class="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center shadow-sm transition ${isBookmarked ? 'bg-brand-pink text-white' : 'bg-white/95 text-brand-ink hover:bg-brand-pinkLight'}"
-              >
-                <svg class="w-4 h-4 ${isBookmarked ? 'fill-current' : 'fill-none stroke-current'}" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2z"/>
-                </svg>
-              </button>
               <span class="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-ink/85 text-white text-xs font-semibold">${escapeAttr(p.category)}</span>
             </div>
             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
@@ -1333,9 +1352,13 @@
                   <button
                     type="button"
                     onclick="toggleProductBookmark('${escapeAttr(p.id)}')"
-                    class="px-3 py-2.5 rounded-full border text-xs font-bold transition ${isBookmarked ? 'bg-brand-pinkLight border-brand-pink text-brand-pinkDark' : 'bg-white border-[#EED9E2] text-brand-ink/75 hover:border-brand-pink'}"
+                    title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark this Bouquet'}"
+                    aria-label="Bookmark"
+                    class="w-10 h-10 rounded-full border flex items-center justify-center transition ${isBookmarked ? 'bg-brand-pink border-brand-pink text-white shadow-xs' : 'bg-white border-brand-pink/30 text-brand-pinkDark hover:bg-brand-pinkLight'}"
                   >
-                    ${isBookmarked ? '🔖 Bookmarked' : '🔖 Bookmark'}
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2z"/>
+                    </svg>
                   </button>
                   <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-4 py-2.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold shadow-xs transition">
                     + Add to Bag
@@ -1430,7 +1453,7 @@
           <div class="text-center py-12 space-y-2">
             <div class="text-3xl">🔖</div>
             <p class="font-heading font-bold text-sm text-brand-ink">No Bookmarked Bouquets Yet</p>
-            <p class="text-xs text-brand-ink/60 max-w-xs mx-auto">Tap the "Bookmark" button on any bouquet card to save your favorite creations here for quick comparison.</p>
+            <p class="text-xs text-brand-ink/60 max-w-xs mx-auto">Tap the bookmark icon on any bouquet card to save your favorite creations here for quick comparison.</p>
           </div>
         `;
         return;
