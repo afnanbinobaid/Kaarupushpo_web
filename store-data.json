@@ -1,5 +1,5 @@
 {
-  "lastUpdated": 1793185984105,
+  "lastUpdated": 1793188478931,
   "whatsappNumber": "8801784840845",
   "deliveryInsideDhaka": 80,
   "deliveryOutsideDhaka": 150,
@@ -88,7 +88,7 @@
     },
     {
       "id": "kp-1793035469614",
-      "name": "New Handmade Bouquet",
+      "name": "Blossom Hues",
       "category": "Bouquets",
       "price": 2800,
       "badge": "New",
@@ -102,8 +102,8 @@
     },
     {
       "id": "kp-1793035670249",
-      "name": "New Handmade Bouquet",
-      "category": "Bouquets",
+      "name": "Pocketful of Sunshine",
+      "category": "Home decor",
       "price": 1850,
       "badge": "New",
       "description": "Handcrafted 8mm fuzzy wire arrangement.",
@@ -115,7 +115,7 @@
     },
     {
       "id": "kp-1792949469540",
-      "name": "New Handmade Bouquet",
+      "name": "Blue Ocean",
       "category": "Bouquets",
       "price": 1350,
       "badge": "New",
@@ -127,7 +127,7 @@
     },
     {
       "id": "kp-1793035538785",
-      "name": "New Handmade Bouquet",
+      "name": "The Starry Night",
       "category": "Bouquets",
       "price": 1850,
       "badge": "New",
@@ -188,7 +188,7 @@
     },
     {
       "id": "kp-1792949591831",
-      "name": "New Handmade Bouquet",
+      "name": "Soft Whispers",
       "category": "Bouquets",
       "price": 1550,
       "badge": "New",
@@ -200,7 +200,7 @@
     },
     {
       "id": "kp-1792949453238",
-      "name": "New Handmade Bouquet",
+      "name": "Forever Bloom",
       "category": "Home decor",
       "price": 2150,
       "badge": "New",
@@ -212,7 +212,7 @@
     },
     {
       "id": "kp-1792949536827",
-      "name": "New Handmade Bouquet",
+      "name": "Pink Daydream",
       "category": "Bouquets",
       "price": 1350,
       "badge": "New",
