@@ -1396,6 +1396,14 @@
       const badgeEl = document.getElementById(`cardRatio-${prodId}`);
       if (imgEl) imgEl.src = prod.images[nextIdx];
       if (badgeEl) badgeEl.textContent = `${nextIdx + 1}/${len}`;
+
+      // Track when a user swipes through a product's photos on the card
+      trackEvent("product_photo_browse", {
+        product_id: String(prod.id),
+        product_name: prod.name,
+        photo_index: nextIdx + 1,
+        browse_method: "card_swipe"
+      });
     }
 
     function handleCardImageClick(prodId) {
@@ -1448,7 +1456,7 @@
             </div>
             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <h3 class="font-heading text-lg font-bold text-[#382B32]">${escapeAttr(p.name)}</h3>
+                <h3 onclick="handleCardImageClick('${escapeAttr(p.id)}')" class="font-heading text-lg font-bold text-[#382B32] hover:text-brand-pinkDark cursor-pointer transition">${escapeAttr(p.name)}</h3>
                 <p class="text-xs text-brand-ink/70 mt-1 line-clamp-2">${escapeAttr(p.description || "")}</p>
               </div>
               <div class="flex items-center justify-between pt-3 border-t border-[#EED9E2]">
@@ -1635,7 +1643,7 @@
     }
 
     // ==========================================
-    // 3C. PRODUCT PHOTO LIGHTBOX VIEWER (With Mobile Touch Swipe)
+    // 3C. PRODUCT PHOTO LIGHTBOX VIEWER (With GA4 Product Tracking)
     // ==========================================
     function openProductLightbox(prodId, startIdx = 0) {
       const prod = storeData.products.find(p => p.id === prodId);
@@ -1643,7 +1651,29 @@
       normalizeProductImages(prod);
       if (!prod.images.length) return;
 
-      trackEvent("view_item_photo", { item_id: prod.id, item_name: prod.name, photo_count: prod.images.length });
+      // 1. Standard GA4 Ecommerce Event (Populates Monetization -> Ecommerce -> Items report automatically!)
+      trackEvent("view_item", {
+        currency: "BDT",
+        value: Number(prod.price || 0),
+        items: [
+          {
+            item_id: String(prod.id),
+            item_name: prod.name,
+            item_category: prod.category || "Bouquets",
+            price: Number(prod.price || 0),
+            quantity: 1
+          }
+        ]
+      });
+
+      // 2. Custom Event with flat parameters (Easy to view in Reports -> Engagement -> Events)
+      trackEvent("product_opened", {
+        product_id: String(prod.id),
+        product_name: prod.name,
+        product_category: prod.category || "Bouquets",
+        product_price: Number(prod.price || 0),
+        photo_count: prod.images.length
+      });
 
       lightboxState.productId = prod.id;
       lightboxState.images = prod.images;
@@ -1720,11 +1750,27 @@
       const len = lightboxState.images.length;
       if (len <= 1) return;
       lightboxState.index = (lightboxState.index + delta + len) % len;
+
+      trackEvent("product_photo_browse", {
+        product_id: String(lightboxState.productId),
+        product_name: lightboxState.title,
+        photo_index: lightboxState.index + 1,
+        browse_method: "lightbox_arrow_or_swipe"
+      });
+
       updateLightboxModalUI();
     }
 
     function selectLightboxImage(idx) {
       lightboxState.index = idx;
+
+      trackEvent("product_photo_browse", {
+        product_id: String(lightboxState.productId),
+        product_name: lightboxState.title,
+        photo_index: idx + 1,
+        browse_method: "lightbox_thumbnail"
+      });
+
       updateLightboxModalUI();
     }
 
@@ -2075,9 +2121,16 @@
       trackEvent("add_to_cart", {
         currency: "BDT",
         value: Number(prod.price),
-        item_id: prod.id,
-        item_name: prod.name,
-        item_category: prod.category
+        product_name: prod.name, // flat parameter for custom reports
+        items: [
+          {
+            item_id: String(prod.id),
+            item_name: prod.name,
+            item_category: prod.category || "Bouquets",
+            price: Number(prod.price),
+            quantity: 1
+          }
+        ]
       });
 
       saveAndRefreshCart();
@@ -2187,7 +2240,7 @@
       msg += `\n*Ordered Items:*\n`;
       cart.forEach((item, i) => {
         msg += `${i + 1}. *${item.name}* (x${item.qty}) — ৳${item.price * item.qty}\n`;
-        if (item.details) msg += `   _${item.details}_\n`;
+        if (item.details) msg += `    _${item.details}_\n`;
       });
 
       msg += `\n*Payment Summary:*\n`;
