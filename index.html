@@ -112,7 +112,6 @@
       background: #D470A2;
       border-radius: 9999px;
     }
-    /* Hide scrollbar for horizontal snap carousel */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -120,7 +119,6 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    /* Desktop: Diagonal cut on right | Mobile: Seamless vertical melt from top text into image */
     @media (min-width: 1024px) {
       .hero-diagonal-clip {
         clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
@@ -132,10 +130,7 @@
         mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 14%, rgba(0,0,0,1) 32%, rgba(0,0,0,1) 100%);
       }
     }
-
-    /* ==========================================
-       BESPOKE CURTAIN REVEAL ANIMATION STYLES
-       ========================================== */
+    /* Bespoke Curtain Reveal Styles */
     .curtain-stage {
       max-height: 430px;
       transition: max-height 0.95s cubic-bezier(0.65, 0, 0.35, 1);
@@ -209,12 +204,12 @@
       </nav>
 
       <div class="flex items-center gap-2.5">
-        <!-- Secret Admin Button (Hidden unless unlocked by Owner) -->
+        <!-- Secret Admin Button -->
         <button id="adminNavBtn" onclick="openAdminModal('products')" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-terra text-white shadow-sm hover:opacity-95 transition">
           ⚙️ Owner Studio
         </button>
 
-        <!-- Bookmarks Button (Icon Only + Small Top-Left Badge when >= 1) -->
+        <!-- Bookmarks Button -->
         <button onclick="toggleBookmarkDrawer(true)" title="Saved Bookmarks" class="relative w-10 h-10 flex items-center justify-center bg-white hover:bg-brand-pinkLight text-brand-ink border border-brand-pink/30 rounded-full shadow-2xs transition">
           <span id="bookmarkCountBadge" class="hidden absolute -top-1 -left-1 min-w-[18px] h-[18px] px-1 rounded-full bg-brand-pink text-white text-[10px] font-extrabold items-center justify-center shadow-xs leading-none"></span>
           <svg class="w-4 h-4 text-brand-pinkDark fill-current" viewBox="0 0 24 24">
@@ -222,7 +217,7 @@
           </svg>
         </button>
 
-        <!-- Bag Button (Simple White Shopify-Style Bag Icon + Small Top-Left Badge when >= 1) -->
+        <!-- Bag Button -->
         <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-brand-ink hover:bg-brand-pinkDark text-white px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition">
           <span id="cartCountBadge" class="hidden absolute -top-1 -left-1 min-w-[18px] h-[18px] px-1 rounded-full bg-brand-pink text-white text-[10px] font-extrabold items-center justify-center shadow-xs leading-none"></span>
           <svg class="w-4 h-4 text-white stroke-current fill-none shrink-0" stroke-width="2" viewBox="0 0 24 24">
@@ -232,7 +227,7 @@
           <span class="hidden sm:inline">Your Bag</span>
         </button>
 
-        <!-- Mobile Three-Line Hamburger Menu Button -->
+        <!-- Mobile Menu Button -->
         <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open Menu" class="md:hidden w-10 h-10 rounded-full bg-white border border-brand-ink/15 flex items-center justify-center text-brand-ink hover:bg-brand-pinkLight transition">
           <svg id="mobileMenuIconOpen" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -275,24 +270,20 @@
 
         <!-- Editorial Typography Column -->
         <div class="lg:col-span-6 px-5 sm:px-8 lg:pl-8 lg:pr-6 pt-10 pb-4 sm:pt-12 sm:pb-6 lg:py-20 flex flex-col items-center text-center lg:items-start lg:text-left justify-center relative z-20">
-          <!-- Subtle Pill Badge at Top (Editable in Owner Studio) -->
           <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-pinkLight/90 border border-brand-pink/25 text-[11px] font-bold text-brand-pinkDark mb-4 shadow-2xs">
             <span>★</span>
             <span id="heroBadgeTextEl">100% Handcrafted 8mm Chenille Bouquets</span>
           </div>
 
-          <!-- Headline (Editable in Owner Studio) -->
           <h1 class="font-heading text-4xl sm:text-5xl lg:text-[4rem] font-extrabold text-brand-ink tracking-tight leading-[1.03]">
             <span id="heroTitleLine1El">Flowers that last.</span><br />
             <span id="heroTitleLine2El" class="text-brand-pink italic font-bold">Feelings that stay.</span>
           </h1>
 
-          <!-- Supporting Copy (Editable in Owner Studio) -->
           <p id="heroSubtitleEl" class="mt-4 sm:mt-5 text-sm sm:text-lg text-brand-ink/75 max-w-md leading-relaxed font-medium">
             “Handcrafted fuzzy-wire bouquets, made with love and personalized just for you.”
           </p>
 
-          <!-- CTA Pill Buttons -->
           <div class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3">
             <a href="#catalog" onclick="trackEvent('hero_cta_click', { button_text: 'Shop Bouquets' }); smoothScrollToSection(event, 'catalog')" class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition">
               Shop Bouquets
@@ -305,12 +296,10 @@
 
         <!-- Seamless Image Container -->
         <div class="lg:col-span-6 relative min-h-[320px] sm:min-h-[400px] lg:min-h-full -mt-2 lg:mt-0">
-          <!-- Quick Admin Edit Button Overlaid on Hero (Hidden from Public) -->
           <button id="adminHeroShortcutBtn" onclick="openAdminModal('products')" class="hidden absolute top-6 right-4 z-30 items-center gap-1.5 px-4 py-2 rounded-full bg-brand-ink/90 text-white text-xs font-bold shadow-lg hover:bg-brand-pinkDark transition">
             📷 Edit Hero Photo & Text
           </button>
 
-          <!-- Seamless Image Canvas -->
           <div class="w-full h-full absolute inset-0 hero-diagonal-clip mobile-seamless-mask overflow-hidden bg-gradient-to-b from-brand-cream via-brand-pinkLight/50 to-brand-sageLight/60">
             <img
               id="heroMainImgEl"
@@ -326,7 +315,7 @@
       </div>
     </div>
 
-    <!-- Bottom Dark Editorial Strip (Editable in Owner Studio) -->
+    <!-- Bottom Dark Editorial Strip -->
     <div class="bg-brand-ink text-white py-3 px-4 border-t border-white/10 overflow-x-auto relative z-20">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] whitespace-nowrap">
         <div>
@@ -354,27 +343,21 @@
         <span class="text-xs uppercase tracking-widest text-brand-terra font-bold">Ready-to-Order Collection</span>
         <h2 class="font-heading text-3xl sm:text-4xl font-bold text-brand-ink mt-1">Signature Fuzzy Wire Creations</h2>
       </div>
-      <!-- Dynamic Category Filters -->
       <div id="categoryFilterBar" class="flex flex-wrap gap-2"></div>
     </div>
 
-    <!-- Dynamic Products Grid -->
     <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-
-    <!-- See More / Show Less Button Container -->
     <div id="catalogSeeMoreWrap" class="mt-8 text-center hidden"></div>
   </section>
 
-  <!-- Interactive Custom Bouquet Builder (Behind Boutique Curtain to Separate Shopping Experiences) -->
+  <!-- Interactive Custom Bouquet Builder (Behind Boutique Curtain) -->
   <section id="customizer" class="py-12 sm:py-16 bg-gradient-to-b from-brand-pinkLight/60 to-brand-sageLight/50 border-y border-brand-pink/15">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- Curtain Stage Container -->
       <div id="customizerStage" class="curtain-stage relative rounded-3xl overflow-hidden border border-brand-pink/25 bg-white/50 shadow-xl">
 
-        <!-- THE BOUTIQUE CURTAIN OVERLAY (Default Closed) -->
+        <!-- THE BOUTIQUE CURTAIN OVERLAY -->
         <div id="curtainOverlay" class="absolute inset-0 z-30 flex items-center justify-center overflow-hidden">
-          <!-- Left Pleated Curtain Panel -->
           <div class="curtain-panel-left absolute inset-y-0 left-0 w-1/2 border-r border-brand-pink/30 shadow-2xl flex flex-col justify-between p-6">
             <div class="w-full h-1.5 rounded-full bg-gradient-to-r from-brand-pink/20 via-brand-pink/60 to-brand-pink/30"></div>
             <div class="hidden sm:flex items-center gap-2 text-white/25 text-[11px] uppercase tracking-[0.25em] font-bold">
@@ -383,7 +366,6 @@
             <div class="w-full h-1 rounded-full bg-gradient-to-r from-brand-pink/20 via-brand-pink/50 to-transparent"></div>
           </div>
 
-          <!-- Right Pleated Curtain Panel -->
           <div class="curtain-panel-right absolute inset-y-0 right-0 w-1/2 border-l border-brand-pink/30 shadow-2xl flex flex-col justify-between items-end p-6">
             <div class="w-full h-1.5 rounded-full bg-gradient-to-l from-brand-pink/20 via-brand-pink/60 to-brand-pink/30"></div>
             <div class="hidden sm:flex items-center gap-2 text-white/25 text-[11px] uppercase tracking-[0.25em] font-bold">
@@ -392,7 +374,6 @@
             <div class="w-full h-1 rounded-full bg-gradient-to-l from-brand-pink/20 via-brand-pink/50 to-transparent"></div>
           </div>
 
-          <!-- Center Floating Invitation Card Over the Curtain Seam -->
           <div class="curtain-center-card relative z-10 max-w-lg mx-4 bg-[#FFFCFA]/95 backdrop-blur-md p-6 sm:p-9 rounded-3xl border-2 border-brand-pink/40 shadow-2xl text-center">
             <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark text-[11px] font-bold uppercase tracking-widest border border-brand-pink/25">
               ✨ Separate Custom Experience
@@ -422,7 +403,6 @@
               <p class="text-xs sm:text-sm text-brand-ink/75 mt-1">
                 Mix and match your favorite handmade 8mm fuzzy wire flowers, choose your color palette and wrapping style, and add it directly to your order bag.
               </p>
-              <!-- Quick Owner Shortcut Button (Visible when Admin is unlocked) -->
               <button id="adminBuilderShortcutBtn" onclick="openAdminModal('builder')" class="hidden mt-3 items-center gap-2 px-4 py-2 rounded-full bg-brand-terra text-white text-xs font-bold shadow-sm hover:opacity-95 transition">
                 ✏️ Add / Edit / Delete Custom Builder Flowers, Wraps & Extras
               </button>
@@ -438,9 +418,7 @@
           </div>
 
           <div class="grid lg:grid-cols-12 gap-8 items-start">
-            <!-- Left Column: Step-by-Step Builder Controls -->
             <div class="lg:col-span-7 space-y-6">
-              <!-- Step 1: Pick Stems -->
               <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15">
                 <div class="flex items-center justify-between mb-4">
                   <h3 class="font-heading text-xl font-bold text-brand-ink">1. Choose Your Fuzzy Wire Stems</h3>
@@ -450,7 +428,6 @@
                 <div id="stemSeeMoreWrap" class="mt-4 text-center hidden"></div>
               </div>
 
-              <!-- Step 2: Color Palette, Wrapping & Add-ons -->
               <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-pink/15 space-y-5">
                 <h3 class="font-heading text-xl font-bold text-brand-ink">2. Color Theme, Wrapping & Extras</h3>
 
@@ -465,7 +442,6 @@
                   <select id="wrapStyleSelect" onchange="renderCustomBuilder()" class="w-full rounded-xl border border-brand-pink/30 px-3.5 py-2.5 text-sm bg-brand-paper focus:outline-none focus:border-brand-pink"></select>
                 </div>
 
-                <!-- Collapsible Extra Customization Options (Ribbon/Add-ons & Custom Card Note) -->
                 <div id="moreCustomOptionsWrap" class="hidden space-y-5 pt-2 border-t border-brand-pink/15">
                   <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-brand-ink/70 mb-2">Ribbon & Add-ons</label>
@@ -486,7 +462,6 @@
               </div>
             </div>
 
-            <!-- Right Column: Custom Order Summary & Price Breakdown (No Visual Preview) -->
             <div class="lg:col-span-5 lg:sticky lg:top-24 bg-white rounded-3xl p-6 shadow-lg border border-brand-pink/20">
               <div class="flex items-center justify-between pb-3 border-b border-brand-pink/15">
                 <div>
@@ -496,11 +471,8 @@
                 <span id="customStemCounter" class="text-xs font-semibold px-3 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark">0 Stems Selected</span>
               </div>
 
-              <!-- Selected Items Text Breakdown -->
-              <div id="customSelectedListSummary" class="mt-4 p-4 rounded-2xl bg-brand-paper border border-brand-pink/15 space-y-2 text-xs text-brand-ink/80">
-              </div>
+              <div id="customSelectedListSummary" class="mt-4 p-4 rounded-2xl bg-brand-paper border border-brand-pink/15 space-y-2 text-xs text-brand-ink/80"></div>
 
-              <!-- Price Breakdown -->
               <div class="mt-5 pt-4 border-t border-brand-pink/15 space-y-2 text-sm">
                 <div class="flex justify-between text-brand-ink/75">
                   <span>Selected Stems</span>
@@ -538,7 +510,6 @@
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Feature 1 -->
       <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
         <div>
           <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">♾️</div>
@@ -550,7 +521,6 @@
         <span class="mt-4 pt-3 border-t border-[#EED9E2] text-[11px] font-bold uppercase tracking-wider text-brand-pinkDark">100% Everlasting Keepsake</span>
       </div>
 
-      <!-- Feature 2 -->
       <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
         <div>
           <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">🧶</div>
@@ -562,7 +532,6 @@
         <span class="mt-4 pt-3 border-t border-[#EED9E2] text-[11px] font-bold uppercase tracking-wider text-brand-terra">Hand-Sculpted in Dhaka</span>
       </div>
 
-      <!-- Feature 3 -->
       <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
         <div>
           <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">🎨</div>
@@ -574,7 +543,6 @@
         <span class="mt-4 pt-3 border-t border-[#EED9E2] text-[11px] font-bold uppercase tracking-wider text-brand-sageDark">Bespoke Studio Experience</span>
       </div>
 
-      <!-- Feature 4 -->
       <div class="bg-[#F8E8EF] p-6 rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between">
         <div>
           <div class="w-12 h-12 rounded-2xl bg-white text-brand-pinkDark flex items-center justify-center text-2xl shadow-2xs border border-[#EED9E2] mb-4">🎁</div>
@@ -588,13 +556,11 @@
     </div>
   </section>
 
-  <!-- ==========================================
-       CUSTOMERS' WORDS TESTIMONIAL SECTION
-       ========================================== -->
+  <!-- CUSTOMERS' WORDS TESTIMONIAL SECTION -->
   <section id="customers-words" class="py-16 bg-gradient-to-b from-brand-paper via-brand-pinkLight/35 to-brand-paper border-b border-brand-pink/15">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- Section Header + Desktop Prev/Next Circular Arrow Buttons -->
+      <!-- Section Header + Desktop Circular Prev/Next Buttons -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-9">
         <div>
           <span class="inline-block px-3.5 py-1 rounded-full bg-brand-pinkLight text-brand-pinkDark text-xs font-bold uppercase tracking-widest border border-brand-pink/20">
@@ -606,13 +572,11 @@
           <p class="text-sm sm:text-base text-brand-ink/75 mt-1.5">
             Real messages and reactions from our customers.
           </p>
-          <!-- Quick Owner Shortcut Button (Visible when Admin is unlocked) -->
           <button id="adminTestimonialsShortcutBtn" onclick="openAdminModal('products')" class="hidden mt-3 items-center gap-2 px-4 py-1.5 rounded-full bg-brand-terra text-white text-xs font-bold shadow-xs hover:opacity-95 transition">
             💬 Add / Edit Customer Screenshot Reviews
           </button>
         </div>
 
-        <!-- Desktop Circular Prev / Next Navigation Buttons -->
         <div class="hidden md:flex items-center gap-2.5 shrink-0">
           <button
             type="button"
@@ -637,7 +601,7 @@
         </div>
       </div>
 
-      <!-- Horizontal Snap Carousel Track (Mobile: ~85vw peek cards | Desktop: 3 cards per row) -->
+      <!-- Horizontal Snap Carousel Track -->
       <div
         id="testimonialsCarousel"
         class="flex gap-5 lg:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-2 -mx-4 px-4 sm:mx-0 sm:px-0"
@@ -679,7 +643,6 @@
         <span class="font-heading font-bold text-white text-lg">Kaarupushpo • কারুপুষ্প</span>
       </div>
 
-      <!-- Social Links (Facebook & Instagram connected to GA4 tracker) -->
       <div class="flex items-center gap-3">
         <a
           href="https://www.facebook.com/profile.php?id=61587150009018"
@@ -718,7 +681,6 @@
   <!-- PRODUCT IMAGE LIGHTBOX MODAL -->
   <div id="productLightboxModal" onclick="handleLightboxBackdropClick(event)" class="fixed inset-0 bg-black/85 z-50 hidden items-center justify-center p-3 sm:p-6 backdrop-blur-xs">
     <div class="relative max-w-3xl w-full bg-brand-paper rounded-3xl overflow-hidden shadow-2xl border border-brand-pink/30 flex flex-col max-h-[92vh]">
-      <!-- Top Bar -->
       <div class="p-3.5 sm:px-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div>
           <h4 id="lightboxProdTitle" class="font-heading text-base sm:text-lg font-bold">Product Photo</h4>
@@ -727,7 +689,6 @@
         <button type="button" onclick="closeProductLightbox()" class="w-8 h-8 rounded-full bg-white/15 hover:bg-brand-pink text-white flex items-center justify-center text-sm font-bold transition">✕</button>
       </div>
 
-      <!-- Main Image Viewer -->
       <div
         id="lightboxTouchArea"
         ontouchstart="handleLightboxTouchStart(event)"
@@ -739,15 +700,13 @@
         <button type="button" id="lightboxNextBtn" onclick="stepLightboxImage(1)" class="hidden absolute right-3 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-brand-pink hover:text-white text-brand-ink font-bold text-lg shadow-lg items-center justify-center transition">›</button>
       </div>
 
-      <!-- Thumbnails Strip -->
       <div id="lightboxThumbStrip" class="p-3 bg-brand-cream border-t border-brand-pink/15 flex items-center justify-center gap-2 overflow-x-auto"></div>
     </div>
   </div>
 
-  <!-- TESTIMONIAL SCREENSHOT LIGHTBOX MODAL (Zoom & Read Chat Clearly) -->
+  <!-- TESTIMONIAL SCREENSHOT LIGHTBOX MODAL -->
   <div id="testimonialLightboxModal" onclick="handleTestimonialLightboxBackdrop(event)" class="fixed inset-0 bg-black/85 z-50 hidden items-center justify-center p-3 sm:p-6 backdrop-blur-xs">
     <div class="relative max-w-2xl w-full bg-brand-paper rounded-3xl overflow-hidden shadow-2xl border border-brand-pink/30 flex flex-col max-h-[92vh]">
-      <!-- Top Bar -->
       <div class="p-3.5 sm:px-5 bg-brand-ink text-white flex items-center justify-between gap-3">
         <div class="flex items-center gap-2.5 min-w-0">
           <h4 id="testiLightboxCustomer" class="font-heading text-base sm:text-lg font-bold truncate">Customer Review</h4>
@@ -756,20 +715,21 @@
         <button type="button" onclick="closeTestimonialLightbox()" class="w-8 h-8 rounded-full bg-white/15 hover:bg-brand-pink text-white flex items-center justify-center text-sm font-bold shrink-0 transition">✕</button>
       </div>
 
-      <!-- Screenshot Image Container -->
       <div class="relative flex-1 bg-[#1E171A] flex items-center justify-center p-4 min-h-[280px] sm:min-h-[380px] max-h-[72vh] overflow-auto">
         <button type="button" onclick="stepTestimonialLightbox(-1)" class="absolute left-3 z-20 w-9 h-9 rounded-full bg-white/90 hover:bg-brand-pink hover:text-white text-brand-ink font-bold text-lg shadow-lg flex items-center justify-center transition">‹</button>
         <img id="testiLightboxImg" src="" alt="Customer Chat Screenshot" class="max-w-full max-h-[66vh] object-contain rounded-xl shadow-md select-none" />
+        <div id="testiLightboxFallbackBox" class="hidden max-w-md w-full bg-white p-6 rounded-2xl border border-brand-pink/30 text-center space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-terra">Verified Customer Message</span>
+          <p id="testiLightboxFallbackText" class="text-sm text-brand-ink italic leading-relaxed"></p>
+        </div>
         <button type="button" onclick="stepTestimonialLightbox(1)" class="absolute right-3 z-20 w-9 h-9 rounded-full bg-white/90 hover:bg-brand-pink hover:text-white text-brand-ink font-bold text-lg shadow-lg flex items-center justify-center transition">›</button>
       </div>
 
-      <!-- Bottom Product Link Bar -->
       <div class="p-3.5 sm:px-5 bg-brand-cream border-t border-brand-pink/15 flex items-center justify-between gap-3 text-xs">
         <span class="text-brand-ink/70 font-medium" id="testiLightboxCounter">1 / 1</span>
         <button
           type="button"
           id="testiLightboxOrderBtn"
-          onclick=""
           class="font-bold text-brand-pinkDark hover:text-brand-pink transition flex items-center gap-1"
         >
           <span>Ordered Bouquet →</span>
@@ -873,7 +833,7 @@
     </div>
   </aside>
 
-  <!-- HIDDEN OWNER STUDIO MODAL (v2.9 — Includes Testimonials Manager) -->
+  <!-- HIDDEN OWNER STUDIO MODAL (v2.9) -->
   <div id="adminModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-3 sm:p-4 backdrop-blur-xs">
     <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-brand-pink/30 overflow-hidden">
       <div class="p-4 sm:p-5 bg-brand-ink text-white flex items-center justify-between gap-3">
@@ -909,7 +869,6 @@
           <!-- 1A: Top-Left Brand Logo & Main Hero Section Editor -->
           <div class="bg-gradient-to-r from-brand-pinkLight/70 to-brand-sageLight/70 p-4 sm:p-5 rounded-2xl border border-brand-pink/30 space-y-4">
 
-            <!-- Brand Logo Uploader -->
             <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 flex flex-col sm:flex-row gap-4 items-center">
               <div id="adminLogoThumbBox" class="w-16 h-16 rounded-full bg-brand-ink text-white border border-brand-pink/30 overflow-hidden shrink-0 flex items-center justify-center text-xl font-bold">🌷</div>
               <div class="flex-1 w-full space-y-2">
@@ -930,7 +889,6 @@
               </div>
             </div>
 
-            <!-- Main Hero Photo Editor -->
             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-brand-pink/20">
               <div>
                 <span class="px-2.5 py-0.5 rounded-full bg-brand-pink text-white text-[10px] font-bold uppercase">Hero Banner Photo</span>
@@ -954,7 +912,6 @@
               </div>
             </div>
 
-            <!-- Hero Texts Editor -->
             <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 space-y-2.5">
               <h5 class="font-heading font-bold text-xs sm:text-sm text-brand-ink">✏️ Hero Section Texts (Badge, Headline & Subtitle)</h5>
               <div class="grid sm:grid-cols-2 gap-2.5">
@@ -977,7 +934,6 @@
               </div>
             </div>
 
-            <!-- Hero Bottom Ribbon Text Editor -->
             <div class="bg-white p-3.5 rounded-2xl border border-brand-pink/20 space-y-2.5">
               <h5 class="font-heading font-bold text-xs sm:text-sm text-brand-ink">🎗️ Hero Bottom Ribbon Text (Dark Strip Below Hero)</h5>
               <div class="grid sm:grid-cols-2 gap-2.5">
@@ -1045,10 +1001,8 @@
 
         </div>
 
-        <!-- TAB 2: FULL CUSTOM BUILDER MANAGER (STEMS, WRAPS, PALETTES, ADDONS) -->
+        <!-- TAB 2: FULL CUSTOM BUILDER MANAGER -->
         <div id="adminTab-builder" class="hidden space-y-8">
-
-          <!-- 2A: Flowers / Stems Manager -->
           <div class="space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-pinkLight/70 p-4 rounded-2xl border border-brand-pink/30">
               <div>
@@ -1062,7 +1016,6 @@
             <div id="adminStemsList" class="space-y-3"></div>
           </div>
 
-          <!-- 2B: Wrapping Papers Manager -->
           <div class="space-y-3 pt-4 border-t border-brand-pink/20">
             <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-sageLight/70 p-4 rounded-2xl border border-brand-sage/30">
               <div>
@@ -1076,7 +1029,6 @@
             <div id="adminWrapsList" class="grid sm:grid-cols-2 gap-3"></div>
           </div>
 
-          <!-- 2C: Petal Color Palettes Manager -->
           <div class="space-y-3 pt-4 border-t border-brand-pink/20">
             <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-paper p-4 rounded-2xl border border-brand-pink/25">
               <div>
@@ -1090,7 +1042,6 @@
             <div id="adminPalettesList" class="grid sm:grid-cols-2 gap-3"></div>
           </div>
 
-          <!-- 2D: Bouquet Add-ons / Extras Manager -->
           <div class="space-y-3 pt-4 border-t border-brand-pink/20">
             <div class="flex flex-wrap items-center justify-between gap-3 bg-brand-pinkLight/40 p-4 rounded-2xl border border-brand-pink/20">
               <div>
@@ -1103,7 +1054,6 @@
             </div>
             <div id="adminAddonsList" class="grid sm:grid-cols-2 gap-3"></div>
           </div>
-
         </div>
 
         <!-- TAB 3: WHATSAPP & GITHUB DIRECT SYNC -->
@@ -1128,7 +1078,6 @@
             </div>
           </div>
 
-          <!-- GitHub Direct Push Box -->
           <div class="bg-brand-sageLight/70 p-5 rounded-2xl border border-brand-sage/40 space-y-4">
             <div>
               <span class="px-2.5 py-0.5 rounded-full bg-brand-sage text-white text-[11px] font-bold uppercase">v2.9 Live Sync</span>
@@ -1371,7 +1320,6 @@
       smoothScrollToSection(null, "customizer");
     }
 
-    // Smooth Scroll Helper & Mobile Menu Toggle
     function smoothScrollToSection(event, targetId, closeMobile = false) {
       if (event) event.preventDefault();
       trackEvent("navigation_click", { section_id: targetId, is_mobile_menu: closeMobile });
@@ -1502,7 +1450,7 @@
     }
 
     // ==========================================
-    // 2. FAST INITIALIZATION (0ms Cache Paint + Background Fetch)
+    // 2. FAST INITIALIZATION
     // ==========================================
     async function initStore() {
       const savedCart = localStorage.getItem("kp_cart");
@@ -1670,7 +1618,6 @@
       bar.innerHTML = html;
     }
 
-    // Touch-Swipe & Click Handlers for Product Card Images
     function handleCardTouchStart(event) {
       if (!event.touches || !event.touches.length) return;
       cardTouchTracker.startX = event.touches[0].clientX;
@@ -1832,7 +1779,6 @@
           </span>
         `;
       }
-      // Default: Instagram DM
       return `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${isDarkBg ? 'bg-white/15 text-white' : 'bg-white text-brand-pinkDark border border-brand-pink/30'} text-[11px] font-bold shadow-2xs shrink-0">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -1856,10 +1802,11 @@
       track.innerHTML = list.map((t, idx) => {
         const hasImg = typeof t.image === "string" && t.image.trim() !== "";
         const fallbackQuote = t.fallbackQuote || "Thank you so much for the lovely handmade bouquet! Everyone loved it 🌸";
+        const orderedName = t.productName || "Custom Fuzzy Wire Bouquet";
 
         return `
           <article class="snap-start shrink-0 w-[85vw] sm:w-[350px] lg:w-[calc((100%-3rem)/3)] bg-[#F8E8EF] rounded-3xl border border-[#EED9E2] shadow-xs hover:shadow-md transition flex flex-col justify-between overflow-hidden">
-            <!-- Card Header: Customer Name Left + Platform Pill Right -->
+            <!-- Card Header -->
             <div class="px-5 pt-4 pb-3 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0">
                 <span class="w-7 h-7 rounded-full bg-brand-pink/20 text-brand-pinkDark font-heading font-bold text-xs flex items-center justify-center shrink-0">
@@ -1872,7 +1819,7 @@
               ${getPlatformBadgeHtml(t.platform)}
             </div>
 
-            <!-- Middle Padded Screenshot Frame (Uniform 260px height + Graceful Fallback) -->
+            <!-- Padded Screenshot Frame (Middle) -->
             <div class="px-4">
               <div
                 onclick="openTestimonialLightbox(${idx})"
@@ -1891,7 +1838,7 @@
                   />
                 ` : ""}
 
-                <!-- Graceful Fallback Chat Bubble UI (Shown when image file is not yet added or fails to load) -->
+                <!-- Graceful Fallback Style -->
                 <div class="${hasImg ? 'hidden' : ''} w-full h-full flex flex-col justify-between p-3.5 rounded-xl bg-gradient-to-b from-brand-pinkLight/45 to-white border border-dashed border-brand-pink/30 text-left">
                   <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-brand-terra/80">
                     <span>💬 Inbox Message Preview</span>
@@ -1908,5 +1855,1806 @@
                   </div>
                 </div>
 
-                <!-- Hover Zoom Pill -->
-                <span class="
+                <span class="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-full bg-brand-ink/75 text-white text-[10px] font-bold opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                  🔍 Tap to Zoom
+                </span>
+              </div>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="px-5 py-3.5 mt-3 bg-white/65 border-t border-[#EED9E2] flex items-center justify-between">
+              <button
+                type="button"
+                onclick="handleTestimonialProductClick(${idx})"
+                class="w-full text-left text-xs font-bold text-brand-ink/80 hover:text-brand-pinkDark transition flex items-center justify-between gap-2 group"
+              >
+                <span class="truncate">Ordered: <span class="text-brand-pinkDark underline decoration-brand-pink/40">${escapeAttr(orderedName)}</span></span>
+                <span class="shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function scrollTestimonialsCarousel(direction) {
+      const track = document.getElementById("testimonialsCarousel");
+      if (!track) return;
+      const firstCard = track.querySelector("article");
+      const scrollStep = firstCard ? firstCard.offsetWidth + 24 : 380;
+      track.scrollBy({ left: direction * scrollStep, behavior: "smooth" });
+      trackEvent("testimonial_carousel_nav", { direction: direction > 0 ? "next" : "prev" });
+    }
+
+    function openTestimonialLightbox(idx) {
+      const list = Array.isArray(storeData.testimonials) ? storeData.testimonials : [];
+      if (!list.length) return;
+      testiLightboxIndex = Math.max(0, Math.min(idx, list.length - 1));
+      updateTestimonialLightboxUI();
+
+      const modal = document.getElementById("testimonialLightboxModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      const item = list[testiLightboxIndex];
+      trackEvent("testimonial_opened", {
+        customer_name: item?.customerName || "",
+        platform: item?.platform || "",
+        product_name: item?.productName || ""
+      });
+    }
+
+    function updateTestimonialLightboxUI() {
+      const list = Array.isArray(storeData.testimonials) ? storeData.testimonials : [];
+      if (!list.length) return;
+      const item = list[testiLightboxIndex];
+
+      document.getElementById("testiLightboxCustomer").textContent = item.customerName || "Customer Review";
+      document.getElementById("testiLightboxPlatformBadge").innerHTML = getPlatformBadgeHtml(item.platform, true);
+      document.getElementById("testiLightboxCounter").textContent = `${testiLightboxIndex + 1} / ${list.length}`;
+
+      const imgEl = document.getElementById("testiLightboxImg");
+      const fallbackBox = document.getElementById("testiLightboxFallbackBox");
+      const fallbackText = document.getElementById("testiLightboxFallbackText");
+
+      if (item.image && item.image.trim() !== "") {
+        imgEl.style.display = "block";
+        fallbackBox.classList.add("hidden");
+        imgEl.onload = () => {
+          imgEl.style.display = "block";
+          fallbackBox.classList.add("hidden");
+        };
+        imgEl.onerror = () => {
+          imgEl.style.display = "none";
+          fallbackBox.classList.remove("hidden");
+          fallbackText.textContent = `“${item.fallbackQuote || "Loved the handcrafted bouquet from Kaarupushpo!"}”`;
+        };
+        imgEl.src = item.image;
+      } else {
+        imgEl.style.display = "none";
+        fallbackBox.classList.remove("hidden");
+        fallbackText.textContent = `“${item.fallbackQuote || "Loved the handcrafted bouquet from Kaarupushpo!"}”`;
+      }
+
+      const orderBtn = document.getElementById("testiLightboxOrderBtn");
+      orderBtn.innerHTML = `<span>Ordered: ${escapeAttr(item.productName || "Custom Bouquet")} →</span>`;
+      orderBtn.onclick = () => {
+        closeTestimonialLightbox();
+        handleTestimonialProductClick(testiLightboxIndex);
+      };
+    }
+
+    function stepTestimonialLightbox(delta) {
+      const list = Array.isArray(storeData.testimonials) ? storeData.testimonials : [];
+      if (list.length <= 1) return;
+      testiLightboxIndex = (testiLightboxIndex + delta + list.length) % list.length;
+      updateTestimonialLightboxUI();
+    }
+
+    function closeTestimonialLightbox() {
+      const modal = document.getElementById("testimonialLightboxModal");
+      if (!modal) return;
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function handleTestimonialLightboxBackdrop(event) {
+      if (event.target.id === "testimonialLightboxModal") {
+        closeTestimonialLightbox();
+      }
+    }
+
+    function handleTestimonialProductClick(testiIdx) {
+      const item = storeData.testimonials?.[testiIdx];
+      const targetName = (item?.productName || "").trim();
+      trackEvent("testimonial_product_click", { product_name: targetName });
+
+      if (!targetName) {
+        smoothScrollToSection(null, "catalog");
+        return;
+      }
+
+      const matchedProd = storeData.products.find(
+        p => p.name.toLowerCase() === targetName.toLowerCase() ||
+             p.name.toLowerCase().includes(targetName.toLowerCase()) ||
+             targetName.toLowerCase().includes(p.name.toLowerCase())
+      );
+
+      if (!matchedProd) {
+        if (targetName.toLowerCase().includes("custom")) {
+          smoothScrollToSection(null, "customizer");
+          openCustomizerCurtain();
+        } else {
+          smoothScrollToSection(null, "catalog");
+        }
+        return;
+      }
+
+      currentCategory = "All";
+      catalogExpanded = true;
+      renderCatalog();
+
+      setTimeout(() => {
+        const cardEl = document.getElementById(`prodCard-${matchedProd.id}`);
+        if (cardEl) {
+          const headerOffset = 90;
+          const pos = cardEl.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: pos, behavior: "smooth" });
+          cardEl.classList.add("ring-4", "ring-brand-pink");
+          setTimeout(() => cardEl.classList.remove("ring-4", "ring-brand-pink"), 2400);
+        }
+        normalizeProductImages(matchedProd);
+        if (matchedProd.images && matchedProd.images.length > 0) {
+          openProductLightbox(matchedProd.id, 0);
+        }
+      }, 100);
+    }
+
+    // ==========================================
+    // 3B. BOOKMARKS / SAVED BOUQUETS SYSTEM
+    // ==========================================
+    function toggleProductBookmark(prodId) {
+      const prod = storeData.products.find(p => p.id === prodId);
+      const idx = bookmarks.indexOf(prodId);
+      if (idx > -1) {
+        bookmarks.splice(idx, 1);
+        trackEvent("bookmark_remove", { item_id: prodId, item_name: prod?.name || prodId });
+        showToast("Removed from Bookmarks.");
+      } else {
+        bookmarks.push(prodId);
+        trackEvent("bookmark_add", { item_id: prodId, item_name: prod?.name || prodId, price: Number(prod?.price || 0) });
+        showToast("🔖 Added to Bookmarks!");
+      }
+      safeSetLocalStorage("kp_bookmarks", JSON.stringify(bookmarks));
+      renderCatalog();
+      renderBookmarks();
+    }
+
+    function toggleBookmarkDrawer(open) {
+      const drawer = document.getElementById("bookmarkDrawer");
+      const backdrop = document.getElementById("bookmarkDrawerBackdrop");
+      if (open) {
+        trackEvent("open_bookmarks", { bookmarked_count: bookmarks.length });
+        renderBookmarks();
+        backdrop.classList.remove("hidden");
+        drawer.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.add("hidden");
+        drawer.classList.add("translate-x-full");
+      }
+    }
+
+    function renderBookmarks() {
+      const validProducts = storeData.products.filter(p => bookmarks.includes(p.id));
+      const count = validProducts.length;
+      const badge = document.getElementById("bookmarkCountBadge");
+      const mobileBadge = document.getElementById("mobileBookmarkCountBadge");
+
+      if (badge) {
+        if (count > 0) {
+          badge.textContent = count;
+          badge.classList.remove("hidden");
+          badge.classList.add("flex");
+        } else {
+          badge.textContent = "";
+          badge.classList.add("hidden");
+          badge.classList.remove("flex");
+        }
+      }
+
+      if (mobileBadge) {
+        if (count > 0) {
+          mobileBadge.textContent = count;
+          mobileBadge.classList.remove("hidden");
+          mobileBadge.classList.add("inline-flex");
+        } else {
+          mobileBadge.textContent = "";
+          mobileBadge.classList.add("hidden");
+          mobileBadge.classList.remove("inline-flex");
+        }
+      }
+
+      const listEl = document.getElementById("bookmarkItemsList");
+      if (!listEl) return;
+
+      if (!validProducts.length) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 space-y-2">
+            <div class="text-3xl">🔖</div>
+            <p class="font-heading font-bold text-sm text-brand-ink">No Bookmarked Bouquets Yet</p>
+            <p class="text-xs text-brand-ink/60 max-w-xs mx-auto">Tap the bookmark icon on any bouquet card to save your favorite creations here for quick comparison.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = validProducts.map(p => {
+        normalizeProductImages(p);
+        const thumb = p.images[0] || "";
+        return `
+          <div class="p-3.5 rounded-2xl bg-[#F8E8EF] border border-[#EED9E2] flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-14 h-14 rounded-xl bg-brand-pinkLight border border-[#EED9E2] overflow-hidden shrink-0 flex items-center justify-center">
+                ${thumb ? `<img src="${escapeAttr(thumb)}" class="w-full h-full object-cover" />` : `<span class="text-xl">💐</span>`}
+              </div>
+              <div class="min-w-0">
+                <p class="font-heading font-bold text-sm text-[#382B32] truncate">${escapeAttr(p.name)}</p>
+                <p class="text-xs font-bold text-brand-pinkDark mt-0.5">৳${Number(p.price).toLocaleString()}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button onclick="addProductToCart('${escapeAttr(p.id)}')" class="px-3 py-1.5 rounded-full bg-brand-pink hover:bg-brand-pinkDark text-white text-xs font-bold transition">
+                + Bag
+              </button>
+              <button onclick="toggleProductBookmark('${escapeAttr(p.id)}')" title="Remove Bookmark" class="w-7 h-7 rounded-full bg-white border border-[#EED9E2] text-brand-ink/70 hover:text-red-600 text-xs flex items-center justify-center">
+                ✕
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function clearAllBookmarks() {
+      bookmarks = [];
+      safeSetLocalStorage("kp_bookmarks", JSON.stringify(bookmarks));
+      renderCatalog();
+      renderBookmarks();
+      showToast("Cleared all bookmarks.");
+    }
+
+    function addAllBookmarksToCart() {
+      const validProducts = storeData.products.filter(p => bookmarks.includes(p.id));
+      if (!validProducts.length) {
+        showToast("No bookmarked bouquets to add!");
+        return;
+      }
+      validProducts.forEach(prod => {
+        const existing = cart.find(item => item.productId === prod.id);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({
+            cartItemId: "item-" + Date.now() + "-" + prod.id,
+            productId: prod.id,
+            name: prod.name,
+            price: Number(prod.price),
+            qty: 1,
+            details: prod.category
+          });
+        }
+      });
+      trackEvent("add_all_bookmarks_to_cart", { count: validProducts.length });
+      saveAndRefreshCart();
+      toggleBookmarkDrawer(false);
+      toggleCartDrawer(true);
+      showToast("Added all bookmarked bouquets to your bag!");
+    }
+
+    // ==========================================
+    // 3C. PRODUCT PHOTO LIGHTBOX VIEWER
+    // ==========================================
+    function openProductLightbox(prodId, startIdx = 0) {
+      const prod = storeData.products.find(p => p.id === prodId);
+      if (!prod) return;
+      normalizeProductImages(prod);
+      if (!prod.images.length) return;
+
+      trackEvent("view_item", {
+        currency: "BDT",
+        value: Number(prod.price || 0),
+        items: [
+          {
+            item_id: String(prod.id),
+            item_name: prod.name,
+            item_category: prod.category || "Bouquets",
+            price: Number(prod.price || 0),
+            quantity: 1
+          }
+        ]
+      });
+
+      trackEvent("product_opened", {
+        product_id: String(prod.id),
+        product_name: prod.name,
+        product_category: prod.category || "Bouquets",
+        product_price: Number(prod.price || 0),
+        photo_count: prod.images.length
+      });
+
+      lightboxState.productId = prod.id;
+      lightboxState.images = prod.images;
+      lightboxState.index = Math.max(0, Math.min(startIdx, prod.images.length - 1));
+      lightboxState.title = prod.name;
+
+      updateLightboxModalUI();
+      const modal = document.getElementById("productLightboxModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function handleLightboxTouchStart(event) {
+      if (!event.touches || !event.touches.length) return;
+      lightboxTouchTracker.startX = event.touches[0].clientX;
+      lightboxTouchTracker.startY = event.touches[0].clientY;
+    }
+
+    function handleLightboxTouchEnd(event) {
+      if (!event.changedTouches || !event.changedTouches.length) return;
+      const dx = event.changedTouches[0].clientX - lightboxTouchTracker.startX;
+      const dy = event.changedTouches[0].clientY - lightboxTouchTracker.startY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        stepLightboxImage(dx < 0 ? 1 : -1);
+      }
+    }
+
+    function updateLightboxModalUI() {
+      const imgs = lightboxState.images || [];
+      if (!imgs.length) return;
+      const idx = lightboxState.index;
+
+      document.getElementById("lightboxProdTitle").textContent = lightboxState.title || "Product Photo";
+      document.getElementById("lightboxCounter").textContent = `${idx + 1} / ${imgs.length}`;
+      document.getElementById("lightboxMainImg").src = imgs[idx];
+
+      if (lightboxState.productId) {
+        cardImageIndices[lightboxState.productId] = idx;
+        const cardImgEl = document.getElementById(`cardImg-${lightboxState.productId}`);
+        const cardBadgeEl = document.getElementById(`cardRatio-${lightboxState.productId}`);
+        if (cardImgEl) cardImgEl.src = imgs[idx];
+        if (cardBadgeEl) cardBadgeEl.textContent = `${idx + 1}/${imgs.length}`;
+      }
+
+      const prevBtn = document.getElementById("lightboxPrevBtn");
+      const nextBtn = document.getElementById("lightboxNextBtn");
+      if (imgs.length > 1) {
+        prevBtn.classList.remove("hidden");
+        prevBtn.classList.add("flex");
+        nextBtn.classList.remove("hidden");
+        nextBtn.classList.add("flex");
+      } else {
+        prevBtn.classList.add("hidden");
+        prevBtn.classList.remove("flex");
+        nextBtn.classList.add("hidden");
+        nextBtn.classList.remove("flex");
+      }
+
+      const strip = document.getElementById("lightboxThumbStrip");
+      if (imgs.length > 1) {
+        strip.classList.remove("hidden");
+        strip.innerHTML = imgs.map((imgUrl, i) => `
+          <button type="button" onclick="selectLightboxImage(${i})" class="w-14 h-14 rounded-xl overflow-hidden border-2 transition shrink-0 ${i === idx ? 'border-brand-pink scale-105 shadow-sm' : 'border-transparent opacity-65 hover:opacity-100'}">
+            <img src="${escapeAttr(imgUrl)}" class="w-full h-full object-cover" />
+          </button>
+        `).join("");
+      } else {
+        strip.classList.add("hidden");
+        strip.innerHTML = "";
+      }
+    }
+
+    function stepLightboxImage(delta) {
+      const len = lightboxState.images.length;
+      if (len <= 1) return;
+      lightboxState.index = (lightboxState.index + delta + len) % len;
+
+      trackEvent("product_photo_browse", {
+        product_id: String(lightboxState.productId),
+        product_name: lightboxState.title,
+        photo_index: lightboxState.index + 1,
+        browse_method: "lightbox_arrow_or_swipe"
+      });
+
+      updateLightboxModalUI();
+    }
+
+    function selectLightboxImage(idx) {
+      lightboxState.index = idx;
+
+      trackEvent("product_photo_browse", {
+        product_id: String(lightboxState.productId),
+        product_name: lightboxState.title,
+        photo_index: idx + 1,
+        browse_method: "lightbox_thumbnail"
+      });
+
+      updateLightboxModalUI();
+    }
+
+    function closeProductLightbox() {
+      const modal = document.getElementById("productLightboxModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function handleLightboxBackdropClick(event) {
+      if (event.target.id === "productLightboxModal") {
+        closeProductLightbox();
+      }
+    }
+
+    window.addEventListener("keydown", (e) => {
+      const prodModal = document.getElementById("productLightboxModal");
+      if (prodModal && !prodModal.classList.contains("hidden")) {
+        if (e.key === "Escape") closeProductLightbox();
+        if (e.key === "ArrowLeft") stepLightboxImage(-1);
+        if (e.key === "ArrowRight") stepLightboxImage(1);
+      }
+      const testiModal = document.getElementById("testimonialLightboxModal");
+      if (testiModal && !testiModal.classList.contains("hidden")) {
+        if (e.key === "Escape") closeTestimonialLightbox();
+        if (e.key === "ArrowLeft") stepTestimonialLightbox(-1);
+        if (e.key === "ArrowRight") stepTestimonialLightbox(1);
+      }
+    });
+
+    // ==========================================
+    // 4. INTERACTIVE CUSTOM BOUQUET BUILDER (NO PREVIEW)
+    // ==========================================
+    function toggleMoreStems() {
+      stemsExpanded = !stemsExpanded;
+      trackEvent("custom_builder_see_more", { section: "stems", expanded: stemsExpanded });
+      renderCustomBuilder();
+    }
+
+    function toggleMorePalettes() {
+      palettesExpanded = !palettesExpanded;
+      trackEvent("custom_builder_see_more", { section: "palettes", expanded: palettesExpanded });
+      initCustomBuilderUI();
+    }
+
+    function toggleMoreCustomOptions() {
+      moreCustomOptionsExpanded = !moreCustomOptionsExpanded;
+      trackEvent("custom_builder_see_more", { section: "extras", expanded: moreCustomOptionsExpanded });
+      const wrap = document.getElementById("moreCustomOptionsWrap");
+      const btn = document.getElementById("toggleMoreCustomOptionsBtn");
+      if (moreCustomOptionsExpanded) {
+        wrap.classList.remove("hidden");
+        btn.textContent = "Show Less ↑";
+      } else {
+        wrap.classList.add("hidden");
+        btn.textContent = "See More ↓";
+      }
+    }
+
+    function initCustomBuilderUI() {
+      if (!storeData.palettes.some(p => p.name === customSelection.palette)) {
+        customSelection.palette = storeData.palettes[0]?.name || "Custom Palette";
+      }
+      if (!storeData.wraps.some(w => w.id === customSelection.wrapId)) {
+        customSelection.wrapId = storeData.wraps[0]?.id || "";
+      }
+
+      const palContainer = document.getElementById("paletteOptions");
+      const palSeeMoreWrap = document.getElementById("paletteSeeMoreWrap");
+      const visiblePalettes = palettesExpanded ? storeData.palettes : storeData.palettes.slice(0, 4);
+
+      palContainer.innerHTML = visiblePalettes.map((pal, idx) => `
+        <button type="button" onclick="selectPaletteIndex(${idx})" class="palette-btn p-2.5 rounded-xl border text-left transition flex items-center gap-2 ${customSelection.palette === pal.name ? 'border-brand-pink bg-brand-pinkLight font-bold' : 'border-brand-pink/20 bg-white'}">
+          <span class="w-4 h-4 rounded-full shrink-0 border border-black/10" style="background:${escapeAttr(pal.hex)}"></span>
+          <span class="text-xs leading-tight">${escapeAttr(pal.name)}</span>
+        </button>
+      `).join("");
+
+      if (palSeeMoreWrap) {
+        if (storeData.palettes.length > 4) {
+          palSeeMoreWrap.classList.remove("hidden");
+          palSeeMoreWrap.innerHTML = `
+            <button type="button" onclick="toggleMorePalettes()" class="text-xs font-bold text-brand-pinkDark underline hover:text-brand-pink">
+              ${palettesExpanded ? "Show Less ↑" : "See More ↓"}
+            </button>
+          `;
+        } else {
+          palSeeMoreWrap.classList.add("hidden");
+          palSeeMoreWrap.innerHTML = "";
+        }
+      }
+
+      const wrapSelect = document.getElementById("wrapStyleSelect");
+      wrapSelect.innerHTML = storeData.wraps.map(w => `
+        <option value="${escapeAttr(w.id)}" ${customSelection.wrapId === w.id ? 'selected' : ''}>${escapeAttr(w.name)} (+৳${Number(w.price)})</option>
+      `).join("");
+
+      const addonsEl = document.getElementById("addonsChecklist");
+      if (!storeData.addons.length) {
+        addonsEl.innerHTML = `<p class="text-xs text-brand-ink/50">No extra add-ons configured.</p>`;
+      } else {
+        addonsEl.innerHTML = storeData.addons.map(a => `
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" ${customSelection.addons[a.id] ? 'checked' : ''} onchange="toggleCustomAddon('${escapeAttr(a.id)}', this.checked)" class="rounded text-brand-pink focus:ring-brand-pink" />
+            <span>${escapeAttr(a.name)} (<span class="font-semibold text-brand-pinkDark">+৳${Number(a.price)}</span>)</span>
+          </label>
+        `).join("");
+      }
+    }
+
+    function selectPaletteIndex(idx) {
+      if (storeData.palettes[idx]) {
+        customSelection.palette = storeData.palettes[idx].name;
+        initCustomBuilderUI();
+        renderCustomBuilder();
+      }
+    }
+
+    function toggleCustomAddon(addonId, checked) {
+      customSelection.addons[addonId] = checked;
+      renderCustomBuilder();
+    }
+
+    function adjustStemQty(stemId, delta) {
+      const current = customSelection.stems[stemId] || 0;
+      const next = Math.max(0, Math.min(30, current + delta));
+      customSelection.stems[stemId] = next;
+      renderCustomBuilder();
+    }
+
+    function resetCustomBuilder() {
+      customSelection.stems = {};
+      customSelection.addons = {};
+      initCustomBuilderUI();
+      renderCustomBuilder();
+    }
+
+    function renderCustomBuilder() {
+      const stemList = document.getElementById("stemPickerList");
+      const stemSeeMoreWrap = document.getElementById("stemSeeMoreWrap");
+
+      if (!storeData.stems.length) {
+        stemList.innerHTML = `<div class="col-span-full text-xs text-brand-ink/60 py-4">No stems configured yet. Add flowers in the Owner Studio!</div>`;
+        if (stemSeeMoreWrap) stemSeeMoreWrap.classList.add("hidden");
+      } else {
+        const visibleStems = stemsExpanded ? storeData.stems : storeData.stems.slice(0, 4);
+        stemList.innerHTML = visibleStems.map(s => {
+          const qty = customSelection.stems[s.id] || 0;
+          const visualThumb = s.image
+            ? `<img src="${escapeAttr(s.image)}" loading="lazy" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/20 shrink-0" />`
+            : `<span class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:${escapeAttr(s.color || '#D470A2')}22">${escapeAttr(s.emoji || '🌸')}</span>`;
+          return `
+            <div class="flex items-center justify-between p-3 rounded-2xl border ${qty > 0 ? 'border-brand-pink bg-brand-pinkLight/40' : 'border-brand-pink/15 bg-brand-paper'}">
+              <div class="flex items-center gap-2.5">
+                ${visualThumb}
+                <div>
+                  <p class="text-xs font-bold text-brand-ink">${escapeAttr(s.name)}</p>
+                  <p class="text-xs text-brand-pinkDark font-semibold">৳${Number(s.price)} / stem</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="adjustStemQty('${escapeAttr(s.id)}', -1)" class="w-7 h-7 rounded-full bg-white border border-brand-pink/30 font-bold text-sm flex items-center justify-center hover:bg-brand-pink hover:text-white transition">−</button>
+                <span class="w-5 text-center text-xs font-bold">${qty}</span>
+                <button type="button" onclick="adjustStemQty('${escapeAttr(s.id)}', 1)" class="w-7 h-7 rounded-full bg-brand-pink text-white font-bold text-sm flex items-center justify-center hover:bg-brand-pinkDark transition">+</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        if (stemSeeMoreWrap) {
+          if (storeData.stems.length > 4) {
+            stemSeeMoreWrap.classList.remove("hidden");
+            stemSeeMoreWrap.innerHTML = `
+              <button type="button" onclick="toggleMoreStems()" class="px-5 py-2 rounded-full bg-brand-pinkLight hover:bg-brand-pink hover:text-white text-brand-pinkDark text-xs font-bold border border-brand-pink/25 transition">
+                ${stemsExpanded ? "Show Less ↑" : "See More ↓"}
+              </button>
+            `;
+          } else {
+            stemSeeMoreWrap.classList.add("hidden");
+            stemSeeMoreWrap.innerHTML = "";
+          }
+        }
+      }
+
+      let totalStemsCount = 0;
+      let stemsCost = 0;
+      const chosenStemBadges = [];
+
+      storeData.stems.forEach(s => {
+        const q = customSelection.stems[s.id] || 0;
+        if (q > 0) {
+          totalStemsCount += q;
+          stemsCost += q * Number(s.price);
+          chosenStemBadges.push(`
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-brand-pink/25 text-xs font-semibold text-brand-ink">
+              <span>${escapeAttr(s.emoji || '🌸')}</span>
+              <span>${q}x ${escapeAttr(s.name)}</span>
+            </span>
+          `);
+        }
+      });
+
+      const wrapSelect = document.getElementById("wrapStyleSelect");
+      if (wrapSelect && wrapSelect.value) {
+        customSelection.wrapId = wrapSelect.value;
+      }
+      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0] || { price: 0, color: "#F9DCE8", name: "Standard Wrap" };
+
+      let addonsCost = 0;
+      const chosenAddonList = [];
+      storeData.addons.forEach(a => {
+        if (customSelection.addons[a.id]) {
+          addonsCost += Number(a.price);
+          chosenAddonList.push(escapeAttr(a.name));
+        }
+      });
+
+      const extrasCost = Number(selectedWrap.price || 0) + addonsCost;
+      const totalCost = totalStemsCount > 0 ? (stemsCost + extrasCost) : 0;
+
+      document.getElementById("customStemCounter").textContent = `${totalStemsCount} Stem${totalStemsCount === 1 ? '' : 's'} Selected`;
+      document.getElementById("customStemsSubtotal").textContent = `৳${stemsCost}`;
+      document.getElementById("customExtrasSubtotal").textContent = totalStemsCount > 0 ? `৳${extrasCost}` : `৳0`;
+      document.getElementById("customTotalDisplay").textContent = `৳${totalCost}`;
+
+      const summaryBox = document.getElementById("customSelectedListSummary");
+      if (summaryBox) {
+        if (totalStemsCount === 0) {
+          summaryBox.innerHTML = `<p class="text-brand-ink/60 text-center py-3">No stems selected yet. Pick your favorite 8mm fuzzy wire stems on the left to build your bouquet.</p>`;
+        } else {
+          summaryBox.innerHTML = `
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-brand-ink/55 block mb-1.5">Selected Stems:</span>
+              <div class="flex flex-wrap gap-1.5">${chosenStemBadges.join("")}</div>
+            </div>
+            <div class="pt-2 border-t border-brand-pink/10 flex flex-col gap-1 text-xs">
+              <div><strong class="text-brand-ink">Color Theme:</strong> ${escapeAttr(customSelection.palette)}</div>
+              <div><strong class="text-brand-ink">Wrapping:</strong> ${escapeAttr(selectedWrap.name)}</div>
+              ${chosenAddonList.length ? `<div><strong class="text-brand-ink">Extras:</strong> ${chosenAddonList.join(", ")}</div>` : ""}
+            </div>
+          `;
+        }
+      }
+    }
+
+    function addCustomBouquetToCart() {
+      let totalStemsCount = 0;
+      let stemsCost = 0;
+      const stemParts = [];
+
+      storeData.stems.forEach(s => {
+        const q = customSelection.stems[s.id] || 0;
+        if (q > 0) {
+          totalStemsCount += q;
+          stemsCost += q * Number(s.price);
+          stemParts.push(`${q}x ${s.name}`);
+        }
+      });
+
+      if (totalStemsCount === 0) {
+        showToast("Please select at least 1 fuzzy wire stem first!");
+        return;
+      }
+
+      const selectedWrap = storeData.wraps.find(w => w.id === customSelection.wrapId) || storeData.wraps[0] || { name: "Standard Wrap", price: 0 };
+      const note = document.getElementById("customBouquetNote").value.trim();
+
+      let addonsCost = 0;
+      const chosenAddonNames = [];
+      storeData.addons.forEach(a => {
+        if (customSelection.addons[a.id]) {
+          addonsCost += Number(a.price);
+          chosenAddonNames.push(a.name);
+        }
+      });
+
+      const unitPrice = stemsCost + Number(selectedWrap.price || 0) + addonsCost;
+
+      const extrasArr = [
+        `Palette: ${customSelection.palette}`,
+        `Wrap: ${selectedWrap.name}`
+      ];
+      if (chosenAddonNames.length) extrasArr.push(chosenAddonNames.join(", "));
+      if (note) extrasArr.push(`Note: "${note}"`);
+
+      const customDetails = `${stemParts.join(", ")} | ${extrasArr.join(" • ")}`;
+
+      cart.push({
+        cartItemId: "custom-" + Date.now(),
+        name: "Custom 8mm Fuzzy Wire Bouquet",
+        price: unitPrice,
+        qty: 1,
+        details: customDetails
+      });
+
+      trackEvent("add_custom_bouquet_to_cart", {
+        currency: "BDT",
+        value: unitPrice,
+        stems_count: totalStemsCount,
+        bouquet_details: customDetails
+      });
+
+      saveAndRefreshCart();
+      toggleCartDrawer(true);
+      showToast("Custom bouquet added to your bag!");
+    }
+
+    // ==========================================
+    // 5. CART & WHATSAPP CHECKOUT
+    // ==========================================
+    function addProductToCart(prodId) {
+      const prod = storeData.products.find(p => p.id === prodId);
+      if (!prod) return;
+
+      const existing = cart.find(item => item.productId === prodId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          cartItemId: "item-" + Date.now(),
+          productId: prod.id,
+          name: prod.name,
+          price: Number(prod.price),
+          qty: 1,
+          details: prod.category
+        });
+      }
+
+      trackEvent("add_to_cart", {
+        currency: "BDT",
+        value: Number(prod.price),
+        product_name: prod.name,
+        items: [
+          {
+            item_id: String(prod.id),
+            item_name: prod.name,
+            item_category: prod.category || "Bouquets",
+            price: Number(prod.price),
+            quantity: 1
+          }
+        ]
+      });
+
+      saveAndRefreshCart();
+      showToast(`Added "${prod.name}" to bag!`);
+    }
+
+    function updateCartQty(cartItemId, delta) {
+      const idx = cart.findIndex(c => c.cartItemId === cartItemId);
+      if (idx === -1) return;
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      saveAndRefreshCart();
+    }
+
+    function saveAndRefreshCart() {
+      safeSetLocalStorage("kp_cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById("cartDrawer");
+      const backdrop = document.getElementById("cartDrawerBackdrop");
+      if (open) {
+        trackEvent("open_bag", { items_count: cart.reduce((acc, item) => acc + item.qty, 0) });
+        backdrop.classList.remove("hidden");
+        drawer.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.add("hidden");
+        drawer.classList.add("translate-x-full");
+      }
+    }
+
+    function renderCart() {
+      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+      const cartBadge = document.getElementById("cartCountBadge");
+      if (cartBadge) {
+        if (totalItems > 0) {
+          cartBadge.textContent = totalItems;
+          cartBadge.classList.remove("hidden");
+          cartBadge.classList.add("flex");
+        } else {
+          cartBadge.textContent = "";
+          cartBadge.classList.add("hidden");
+          cartBadge.classList.remove("flex");
+        }
+      }
+
+      const listEl = document.getElementById("cartItemsList");
+      if (!cart.length) {
+        listEl.innerHTML = `<div class="text-center py-8 text-brand-ink/60 text-sm">Your flower bag is empty 🌸</div>`;
+      } else {
+        listEl.innerHTML = cart.map(item => `
+          <div class="p-3.5 rounded-2xl bg-brand-paper border border-brand-pink/20 flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <p class="font-heading font-bold text-sm text-brand-ink">${escapeAttr(item.name)}</p>
+              <p class="text-xs text-brand-ink/70 leading-relaxed">${escapeAttr(item.details || "")}</p>
+              <p class="text-xs font-bold text-brand-pinkDark">৳${(item.price * item.qty).toLocaleString()} (৳${item.price} each)</p>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button onclick="updateCartQty('${escapeAttr(item.cartItemId)}', -1)" class="w-6 h-6 rounded-full bg-white border border-brand-pink/30 text-xs font-bold">−</button>
+              <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+              <button onclick="updateCartQty('${escapeAttr(item.cartItemId)}', 1)" class="w-6 h-6 rounded-full bg-brand-pink text-white text-xs font-bold">+</button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+      const zone = document.getElementById("custZone").value;
+      const delivery = cart.length ? (zone === "inside" ? Number(storeData.deliveryInsideDhaka) : Number(storeData.deliveryOutsideDhaka)) : 0;
+
+      document.getElementById("cartSubtotal").textContent = `৳${subtotal.toLocaleString()}`;
+      document.getElementById("cartDeliveryFee").textContent = `৳${delivery.toLocaleString()}`;
+      document.getElementById("cartGrandTotal").textContent = `৳${(subtotal + delivery).toLocaleString()}`;
+    }
+
+    function buildWhatsAppInvoice() {
+      if (!cart.length) {
+        showToast("Your bag is empty!");
+        return null;
+      }
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const zone = document.getElementById("custZone").value;
+      const note = document.getElementById("custNote").value.trim();
+
+      if (!name || !phone || !address) {
+        showToast("Please fill in your Name, Phone & Delivery Address!");
+        return null;
+      }
+
+      const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+      const delivery = zone === "inside" ? Number(storeData.deliveryInsideDhaka) : Number(storeData.deliveryOutsideDhaka);
+      const grandTotal = subtotal + delivery;
+      const orderRef = "KP-" + Date.now().toString().slice(-5);
+
+      let msg = `🌷 *NEW ORDER — KAARUPUSHPO (কারুপুষ্প)*\n`;
+      msg += `Order Ref: *#${orderRef}*\n\n`;
+      msg += `*Customer Details:*\n`;
+      msg += `• Name: ${name}\n`;
+      msg += `• Phone: ${phone}\n`;
+      msg += `• Area: ${zone === "inside" ? "Inside Dhaka" : "Outside Dhaka"}\n`;
+      msg += `• Address: ${address}\n`;
+      if (note) msg += `• Note: ${note}\n`;
+
+      msg += `\n*Ordered Items:*\n`;
+      cart.forEach((item, i) => {
+        msg += `${i + 1}. *${item.name}* (x${item.qty}) — ৳${item.price * item.qty}\n`;
+        if (item.details) msg += `   _${item.details}_\n`;
+      });
+
+      msg += `\n*Payment Summary:*\n`;
+      msg += `• Subtotal: ৳${subtotal}\n`;
+      msg += `• Delivery Fee: ৳${delivery}\n`;
+      msg += `• *Total Payable: ৳${grandTotal}*\n\n`;
+      msg += `Please confirm my order! 🌸`;
+      return msg;
+    }
+
+    function sendOrderViaWhatsApp() {
+      const invoice = buildWhatsAppInvoice();
+      if (!invoice) return;
+
+      const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+      const zone = document.getElementById("custZone").value;
+      const delivery = zone === "inside" ? Number(storeData.deliveryInsideDhaka) : Number(storeData.deliveryOutsideDhaka);
+
+      trackEvent("whatsapp_order_click", {
+        currency: "BDT",
+        value: subtotal + delivery,
+        delivery_area: zone === "inside" ? "Inside Dhaka" : "Outside Dhaka",
+        items_count: cart.reduce((acc, item) => acc + item.qty, 0)
+      });
+
+      const cleanNumber = (storeData.whatsappNumber || "").replace(/[^0-9]/g, "");
+      const waUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(invoice)}`;
+      window.open(waUrl, "_blank");
+    }
+
+    function copyInvoiceText() {
+      const invoice = buildWhatsAppInvoice();
+      if (!invoice) return;
+      trackEvent("copy_invoice", {
+        items_count: cart.reduce((acc, item) => acc + item.qty, 0)
+      });
+      navigator.clipboard.writeText(invoice);
+      showToast("Order invoice copied to clipboard!");
+    }
+
+    // ==========================================
+    // 6. SECRET OWNER STUDIO & FULL CRUD
+    // ==========================================
+    function handleSecretFooterClick() {
+      footerClickCount++;
+      clearTimeout(footerClickTimer);
+      footerClickTimer = setTimeout(() => { footerClickCount = 0; }, 2000);
+      if (footerClickCount >= 5) {
+        footerClickCount = 0;
+        promptAdminUnlock();
+      }
+    }
+
+    function promptAdminUnlock() {
+      const entered = prompt("Enter Kaarupushpo Owner PIN (Default: 2026):");
+      if (entered === String(storeData.adminPin || "2026")) {
+        document.getElementById("adminNavBtn").classList.remove("hidden");
+        document.getElementById("adminNavBtn").classList.add("inline-flex");
+        document.getElementById("adminBuilderShortcutBtn").classList.remove("hidden");
+        document.getElementById("adminBuilderShortcutBtn").classList.add("inline-flex");
+        document.getElementById("adminHeroShortcutBtn").classList.remove("hidden");
+        document.getElementById("adminHeroShortcutBtn").classList.add("inline-flex");
+        const testiBtn = document.getElementById("adminTestimonialsShortcutBtn");
+        if (testiBtn) {
+          testiBtn.classList.remove("hidden");
+          testiBtn.classList.add("inline-flex");
+        }
+        openAdminModal('products');
+      } else if (entered !== null) {
+        alert("Incorrect PIN.");
+      }
+    }
+
+    function openAdminModal(defaultTab) {
+      renderAdminInputs();
+      if (defaultTab) switchAdminTab(defaultTab);
+      document.getElementById("adminModal").classList.remove("hidden");
+      document.getElementById("adminModal").classList.add("flex");
+    }
+
+    function closeAdminModal() {
+      try {
+        saveAdminChangesLocally(false);
+      } catch (e) {
+        console.warn(e);
+      }
+      const modal = document.getElementById("adminModal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function switchAdminTab(tab) {
+      ["products", "builder", "github"].forEach(t => {
+        document.getElementById("adminTab-" + t).classList.toggle("hidden", t !== tab);
+        const btn = document.getElementById("tabBtn-" + t);
+        if (t === tab) {
+          btn.className = "px-4 py-2.5 rounded-t-xl bg-white text-brand-pinkDark border-t border-x border-brand-pink/20";
+        } else {
+          btn.className = "px-4 py-2.5 rounded-t-xl text-brand-ink/70 hover:text-brand-ink";
+        }
+      });
+    }
+
+    function persistAndRefreshLiveUI() {
+      storeData.lastUpdated = Date.now();
+      renderBrandLogo();
+      renderHeroShowcase();
+      renderCatalog();
+      renderTestimonials();
+      initCustomBuilderUI();
+      renderCustomBuilder();
+      renderBookmarks();
+      renderCart();
+      safeSetLocalStorage("kp_store_data", JSON.stringify(storeData));
+    }
+
+    function syncStoreSettingsFromInputs() {
+      const waEl = document.getElementById("adminWhatsapp");
+      const inEl = document.getElementById("adminDeliveryInside");
+      const outEl = document.getElementById("adminDeliveryOutside");
+      const pinEl = document.getElementById("adminPinInput");
+
+      if (waEl) storeData.whatsappNumber = waEl.value.trim();
+      if (inEl) storeData.deliveryInsideDhaka = Number(inEl.value) || 70;
+      if (outEl) storeData.deliveryOutsideDhaka = Number(outEl.value) || 130;
+      if (pinEl) storeData.adminPin = pinEl.value.trim() || "2026";
+      persistAndRefreshLiveUI();
+    }
+
+    // --- Logo Photo CRUD Helpers ---
+    function handleLogoImageUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxDim = 160;
+          let w = img.width || 160;
+          let h = img.height || 160;
+          if (w > h && w > maxDim) { h = Math.round(h * (maxDim / w)); w = maxDim; }
+          else if (h > maxDim) { w = Math.round(w * (maxDim / h)); h = maxDim; }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+
+          let dataUrl = canvas.toDataURL("image/webp", 0.85);
+          if (!dataUrl || dataUrl.indexOf("data:image/webp") !== 0) {
+            dataUrl = canvas.toDataURL("image/png");
+            if (dataUrl.length > 90000) {
+              dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+            }
+          }
+
+          storeData.logoImage = dataUrl;
+          const inputEl = document.getElementById("adminLogoImageInput");
+          if (inputEl) inputEl.value = dataUrl;
+          renderAdminLogoThumb();
+          persistAndRefreshLiveUI();
+          event.target.value = "";
+          showToast("Top-left brand logo uploaded!");
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateLogoFromInput() {
+      const inputEl = document.getElementById("adminLogoImageInput");
+      if (!inputEl) return;
+      storeData.logoImage = inputEl.value.trim();
+      renderAdminLogoThumb();
+      persistAndRefreshLiveUI();
+    }
+
+    function clearLogoPhoto() {
+      storeData.logoImage = "";
+      const inputEl = document.getElementById("adminLogoImageInput");
+      if (inputEl) inputEl.value = "";
+      renderAdminLogoThumb();
+      persistAndRefreshLiveUI();
+      showToast("Logo reset to default icon!");
+    }
+
+    function renderAdminLogoThumb() {
+      const thumbBox = document.getElementById("adminLogoThumbBox");
+      if (!thumbBox) return;
+      const src = (storeData.logoImage || "").trim();
+      if (src) {
+        thumbBox.innerHTML = `<img src="${escapeAttr(src)}" class="w-full h-full object-cover" />`;
+      } else {
+        thumbBox.innerHTML = `🌷`;
+      }
+    }
+
+    // --- Hero Photo, Texts & Ribbon CRUD Helpers ---
+    function handleHeroImageUpload(event) {
+      compressAndAssignImage(event, dataUrl => {
+        storeData.heroImage = dataUrl;
+        const heroInput = document.getElementById("adminHeroImageInput");
+        if (heroInput) heroInput.value = dataUrl;
+        renderAdminHeroThumb();
+        persistAndRefreshLiveUI();
+        event.target.value = "";
+        showToast("Hero photo updated!");
+      }, 950);
+    }
+
+    function updateHeroFieldsFromInputs() {
+      storeData.heroImage = document.getElementById("adminHeroImageInput").value.trim();
+      renderAdminHeroThumb();
+      persistAndRefreshLiveUI();
+    }
+
+    function updateHeroTextsFromInputs() {
+      storeData.heroBadgeText = document.getElementById("adminHeroBadgeInput").value;
+      storeData.heroTitleLine1 = document.getElementById("adminHeroTitle1Input").value;
+      storeData.heroTitleLine2 = document.getElementById("adminHeroTitle2Input").value;
+      storeData.heroSubtitle = document.getElementById("adminHeroSubtitleInput").value;
+      persistAndRefreshLiveUI();
+    }
+
+    function updateHeroRibbonFromInputs() {
+      storeData.heroRibbonLabel = document.getElementById("adminRibbonLabelInput").value;
+      storeData.heroRibbonText1 = document.getElementById("adminRibbonText1Input").value;
+      storeData.heroRibbonText2 = document.getElementById("adminRibbonText2Input").value;
+      storeData.heroRibbonText3 = document.getElementById("adminRibbonText3Input").value;
+      persistAndRefreshLiveUI();
+    }
+
+    function clearHeroPhoto() {
+      storeData.heroImage = "";
+      const heroInput = document.getElementById("adminHeroImageInput");
+      if (heroInput) heroInput.value = "";
+      renderAdminHeroThumb();
+      persistAndRefreshLiveUI();
+      showToast("Hero photo cleared!");
+    }
+
+    function renderAdminHeroThumb() {
+      const thumbBox = document.getElementById("adminHeroThumbBox");
+      if (!thumbBox) return;
+      const src = (storeData.heroImage && storeData.heroImage.trim() !== "")
+        ? storeData.heroImage
+        : (storeData.products[0]?.images?.[0] || storeData.products[0]?.image || "");
+      if (src) {
+        thumbBox.innerHTML = `<img src="${escapeAttr(src)}" class="w-full h-full object-cover" />`;
+      } else {
+        thumbBox.innerHTML = `<span class="text-xs text-brand-ink/50">No photo set</span>`;
+      }
+    }
+
+    // --- Dynamic Category CRUD Helpers ---
+    function renameCategoryInline(idx, rawNewName) {
+      const newName = rawNewName.trim();
+      if (!newName) return;
+      const oldName = storeData.categories[idx];
+      if (oldName === newName) return;
+
+      storeData.categories[idx] = newName;
+      storeData.products.forEach(p => {
+        if (p.category === oldName) p.category = newName;
+      });
+      if (currentCategory === oldName) currentCategory = newName;
+
+      persistAndRefreshLiveUI();
+      refreshAdminProductCategoryDropdowns();
+    }
+
+    function addNewCategory() {
+      let baseName = "New Category";
+      let count = 1;
+      let candidate = baseName;
+      while (storeData.categories.includes(candidate)) {
+        count++;
+        candidate = `${baseName} ${count}`;
+      }
+      storeData.categories.push(candidate);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast(`Category "${candidate}" added!`);
+    }
+
+    function deleteCategory(idx) {
+      if (storeData.categories.length <= 1) {
+        showToast("Please keep at least 1 category.");
+        return;
+      }
+      const removedCat = storeData.categories[idx];
+      storeData.categories.splice(idx, 1);
+      const fallbackCat = storeData.categories[0];
+
+      storeData.products.forEach(p => {
+        if (p.category === removedCat) p.category = fallbackCat;
+      });
+      if (currentCategory === removedCat) currentCategory = "All";
+
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast(`Category "${removedCat}" deleted!`);
+    }
+
+    function refreshAdminProductCategoryDropdowns() {
+      const selects = document.querySelectorAll(".admin-prod-cat-select");
+      selects.forEach(sel => {
+        const prodIdx = Number(sel.dataset.prodIdx);
+        const prod = storeData.products[prodIdx];
+        if (!prod) return;
+        sel.innerHTML = storeData.categories.map(cat => `
+          <option value="${escapeAttr(cat)}" ${prod.category === cat ? 'selected' : ''}>${escapeAttr(cat)}</option>
+        `).join("");
+      });
+    }
+
+    // --- Product Serial / Reordering & Multi-Image Helpers ---
+    function moveProductOrder(fromIdx, toIdx) {
+      if (toIdx < 0 || toIdx >= storeData.products.length || fromIdx === toIdx) return;
+      const [moved] = storeData.products.splice(fromIdx, 1);
+      storeData.products.splice(toIdx, 0, moved);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast(`Product moved to Serial #${toIdx + 1}`);
+    }
+
+    function setProductSerial(fromIdx, newSerialValue) {
+      const targetIdx = Math.max(0, Math.min(storeData.products.length - 1, (Number(newSerialValue) || 1) - 1));
+      moveProductOrder(fromIdx, targetIdx);
+    }
+
+    function addProductImageByUrl(prodIdx) {
+      const inputEl = document.getElementById(`prodNewImgUrl-${prodIdx}`);
+      if (!inputEl) return;
+      const url = inputEl.value.trim();
+      if (!url) return;
+      const p = storeData.products[prodIdx];
+      normalizeProductImages(p);
+      p.images.push(url);
+      p.image = p.images[0] || "";
+      inputEl.value = "";
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Image URL added to product!");
+    }
+
+    function removeProductImageAt(prodIdx, imgIdx) {
+      const p = storeData.products[prodIdx];
+      if (!p) return;
+      normalizeProductImages(p);
+      p.images.splice(imgIdx, 1);
+      p.image = p.images[0] || "";
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Photo removed from product.");
+    }
+
+    function setProductPrimaryImage(prodIdx, imgIdx) {
+      const p = storeData.products[prodIdx];
+      if (!p) return;
+      normalizeProductImages(p);
+      if (imgIdx <= 0 || imgIdx >= p.images.length) return;
+      const [chosen] = p.images.splice(imgIdx, 1);
+      p.images.unshift(chosen);
+      p.image = p.images[0] || "";
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Set as primary cover photo!");
+    }
+
+    // --- Testimonials CRUD Helpers ---
+    function addNewTestimonialRow() {
+      if (!Array.isArray(storeData.testimonials)) storeData.testimonials = [];
+      storeData.testimonials.unshift({
+        id: "rev-" + Date.now(),
+        customerName: "New Customer",
+        platform: "Instagram DM",
+        image: "",
+        productName: storeData.products[0]?.name || "Pastel Tulip Dream Bouquet",
+        fallbackQuote: "Loved the handcrafted fuzzy wire bouquet! Looked even prettier in person 🌷"
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New customer screenshot card added!");
+    }
+
+    function deleteTestimonialRow(idx) {
+      storeData.testimonials.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Customer review removed!");
+    }
+
+    function handleTestimonialImageUpload(event, idx) {
+      compressAndAssignImage(event, dataUrl => {
+        storeData.testimonials[idx].image = dataUrl;
+        persistAndRefreshLiveUI();
+        renderAdminInputs();
+        event.target.value = "";
+        showToast("Chat screenshot uploaded!");
+      }, 800);
+    }
+
+    function renderAdminInputs() {
+      document.getElementById("adminLogoImageInput").value = storeData.logoImage || "";
+      renderAdminLogoThumb();
+
+      document.getElementById("adminHeroImageInput").value = storeData.heroImage || "";
+      document.getElementById("adminHeroBadgeInput").value = storeData.heroBadgeText ?? DEFAULT_STORE_DATA.heroBadgeText;
+      document.getElementById("adminHeroTitle1Input").value = storeData.heroTitleLine1 ?? DEFAULT_STORE_DATA.heroTitleLine1;
+      document.getElementById("adminHeroTitle2Input").value = storeData.heroTitleLine2 ?? DEFAULT_STORE_DATA.heroTitleLine2;
+      document.getElementById("adminHeroSubtitleInput").value = storeData.heroSubtitle ?? DEFAULT_STORE_DATA.heroSubtitle;
+
+      document.getElementById("adminRibbonLabelInput").value = storeData.heroRibbonLabel ?? DEFAULT_STORE_DATA.heroRibbonLabel;
+      document.getElementById("adminRibbonText1Input").value = storeData.heroRibbonText1 ?? DEFAULT_STORE_DATA.heroRibbonText1;
+      document.getElementById("adminRibbonText2Input").value = storeData.heroRibbonText2 ?? DEFAULT_STORE_DATA.heroRibbonText2;
+      document.getElementById("adminRibbonText3Input").value = storeData.heroRibbonText3 ?? DEFAULT_STORE_DATA.heroRibbonText3;
+      renderAdminHeroThumb();
+
+      const catListEl = document.getElementById("adminCategoriesList");
+      catListEl.innerHTML = storeData.categories.map((cat, idx) => `
+        <div class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-brand-pink/30 shadow-2xs">
+          <span class="text-xs font-bold text-brand-terra px-1.5">#${idx + 1}</span>
+          <input
+            type="text"
+            value="${escapeAttr(cat)}"
+            oninput="renameCategoryInline(${idx}, this.value)"
+            class="flex-1 rounded-lg border border-brand-pink/25 px-2.5 py-1.5 text-xs font-bold text-brand-ink focus:outline-none focus:border-brand-pink"
+            placeholder="Category Name"
+          />
+          <button
+            type="button"
+            onclick="deleteCategory(${idx})"
+            class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200 transition"
+            title="Delete Category"
+          >🗑️</button>
+        </div>
+      `).join("");
+
+      const list = document.getElementById("adminProductsList");
+      list.innerHTML = storeData.products.map((p, idx) => {
+        normalizeProductImages(p);
+        const categoryOptionsHtml = storeData.categories.map(cat => `
+          <option value="${escapeAttr(cat)}" ${p.category === cat ? 'selected' : ''}>${escapeAttr(cat)}</option>
+        `).join("");
+
+        const thumbsHtml = p.images.length
+          ? p.images.map((imgSrc, imgIdx) => `
+              <div class="relative group w-14 h-14 rounded-xl overflow-hidden border ${imgIdx === 0 ? 'border-brand-pink ring-2 ring-brand-pink/40' : 'border-brand-pink/25'} bg-white shrink-0">
+                <img src="${escapeAttr(imgSrc)}" class="w-full h-full object-cover" />
+                ${imgIdx === 0
+                  ? `<span class="absolute bottom-0 inset-x-0 bg-brand-pink text-white text-[9px] font-bold text-center">Main</span>`
+                  : `<button type="button" onclick="setProductPrimaryImage(${idx}, ${imgIdx})" class="absolute bottom-0 inset-x-0 bg-brand-ink/80 text-white text-[9px] font-semibold text-center opacity-0 group-hover:opacity-100 transition">Set Main</button>`
+                }
+                <button type="button" onclick="removeProductImageAt(${idx}, ${imgIdx})" class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-red-600 text-white text-[10px] leading-none flex items-center justify-center shadow" title="Remove photo">✕</button>
+              </div>
+            `).join("")
+          : `<span class="text-[11px] text-brand-ink/50">No photos added yet</span>`;
+
+        return `
+          <div class="p-4 rounded-2xl bg-brand-paper border border-brand-pink/25 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-brand-pink/15">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg bg-brand-ink text-white text-xs font-bold">Serial #</span>
+                <input
+                  type="number"
+                  min="1"
+                  max="${storeData.products.length}"
+                  value="${idx + 1}"
+                  onchange="setProductSerial(${idx}, this.value)"
+                  class="w-16 rounded-lg border border-brand-pink/40 px-2 py-1 text-xs font-extrabold text-brand-pinkDark bg-white text-center"
+                />
+                <div class="flex items-center gap-1">
+                  <button type="button" onclick="moveProductOrder(${idx}, ${idx - 1})" ${idx === 0 ? 'disabled' : ''} class="px-2.5 py-1 rounded-lg bg-white border border-brand-pink/30 text-xs font-bold hover:bg-brand-pinkLight disabled:opacity-40">↑ Move Up</button>
+                  <button type="button" onclick="moveProductOrder(${idx}, ${idx + 1})" ${idx === storeData.products.length - 1 ? 'disabled' : ''} class="px-2.5 py-1 rounded-lg bg-white border border-brand-pink/30 text-xs font-bold hover:bg-brand-pinkLight disabled:opacity-40">↓ Move Down</button>
+                </div>
+              </div>
+              <button type="button" onclick="deleteProductRow(${idx})" class="px-3 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete Product</button>
+            </div>
+
+            <div class="grid sm:grid-cols-12 gap-4 items-start">
+              <div class="sm:col-span-4 space-y-2">
+                <label class="block text-[11px] font-bold text-brand-ink/70">Product Photos (${p.images.length})</label>
+                <div class="flex flex-wrap gap-2 p-2 rounded-xl bg-brand-pinkLight/50 border border-brand-pink/20 min-h-[68px] items-center">
+                  ${thumbsHtml}
+                </div>
+                <label class="inline-block w-full text-center px-3 py-1.5 rounded-full bg-brand-pink text-white text-[11px] font-bold cursor-pointer hover:bg-brand-pinkDark transition">
+                  📷 Upload Photo(s) (Multiple Allowed)
+                  <input type="file" accept="image/*" multiple class="hidden" onchange="handleProductImageUpload(event, ${idx})" />
+                </label>
+                <div class="flex gap-1.5">
+                  <input type="text" id="prodNewImgUrl-${idx}" placeholder="Paste image URL..." class="flex-1 rounded-lg border border-brand-pink/30 px-2 py-1 text-xs bg-white" />
+                  <button type="button" onclick="addProductImageByUrl(${idx})" class="px-2.5 py-1 rounded-lg bg-brand-ink text-white text-[11px] font-bold hover:bg-brand-pinkDark shrink-0">+ Add URL</button>
+                </div>
+              </div>
+
+              <div class="sm:col-span-8 grid sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Product Name</label>
+                  <input type="text" value="${escapeAttr(p.name)}" oninput="storeData.products[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Price in BDT (৳)</label>
+                  <input type="number" value="${Number(p.price)}" oninput="storeData.products[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Category</label>
+                  <select data-prod-idx="${idx}" onchange="storeData.products[${idx}].category = this.value; persistAndRefreshLiveUI()" class="admin-prod-cat-select w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white font-semibold">
+                    ${categoryOptionsHtml}
+                  </select>
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-brand-ink/70">Badge (e.g. Bestseller)</label>
+                  <input type="text" value="${escapeAttr(p.badge || '')}" oninput="storeData.products[${idx}].badge = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="text-[11px] font-bold text-brand-ink/70">Description</label>
+                  <input type="text" value="${escapeAttr(p.description || '')}" oninput="storeData.products[${idx}].description = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs bg-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Render Customer Screenshot Reviews in Admin Studio
+      const testiListEl = document.getElementById("adminTestimonialsList");
+      if (testiListEl) {
+        testiListEl.innerHTML = (storeData.testimonials || []).map((t, idx) => `
+          <div class="p-3.5 rounded-2xl bg-brand-paper border border-brand-pink/25 grid sm:grid-cols-12 gap-3 items-center">
+            <div class="sm:col-span-3 flex items-center gap-2.5">
+              <div class="w-14 h-14 rounded-xl bg-white border border-brand-pink/25 overflow-hidden shrink-0 flex items-center justify-center text-xs text-brand-ink/40">
+                ${t.image ? `<img src="${escapeAttr(t.image)}" class="w-full h-full object-contain" onerror="this.style.display='none'" />` : `💬`}
+              </div>
+              <div class="space-y-1">
+                <label class="inline-block px-3 py-1 rounded-full bg-brand-pink text-white text-[11px] font-bold cursor-pointer hover:bg-brand-pinkDark transition">
+                  📷 Upload
+                  <input type="file" accept="image/*" class="hidden" onchange="handleTestimonialImageUpload(event, ${idx})" />
+                </label>
+                ${t.image ? `<button type="button" onclick="storeData.testimonials[${idx}].image = ''; persistAndRefreshLiveUI(); renderAdminInputs()" class="block text-[10px] text-red-600 underline">Clear Image</button>` : ""}
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-bold text-brand-ink/70">Customer Name</label>
+              <input type="text" value="${escapeAttr(t.customerName || '')}" oninput="storeData.testimonials[${idx}].customerName = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2 py-1.5 text-xs font-bold bg-white" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-bold text-brand-ink/70">Platform Badge</label>
+              <select onchange="storeData.testimonials[${idx}].platform = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2 py-1.5 text-xs font-semibold bg-white">
+                <option value="Instagram DM" ${t.platform === 'Instagram DM' ? 'selected' : ''}>Instagram DM</option>
+                <option value="Messenger" ${t.platform === 'Messenger' ? 'selected' : ''}>Messenger</option>
+                <option value="WhatsApp" ${t.platform === 'WhatsApp' ? 'selected' : ''}>WhatsApp</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-bold text-brand-ink/70">Ordered Product</label>
+              <input type="text" value="${escapeAttr(t.productName || '')}" oninput="storeData.testimonials[${idx}].productName = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2 py-1.5 text-xs bg-white" placeholder="Bouquet Name" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-bold text-brand-ink/70">Screenshot URL / Path</label>
+              <input type="text" value="${escapeAttr(t.image || '')}" oninput="storeData.testimonials[${idx}].image = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2 py-1.5 text-xs bg-white" placeholder="./reviews/chat1.jpg" />
+            </div>
+            <div class="sm:col-span-1 flex justify-end">
+              <button type="button" onclick="deleteTestimonialRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️</button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const stemsEl = document.getElementById("adminStemsList");
+      stemsEl.innerHTML = storeData.stems.map((s, idx) => `
+        <div class="p-3.5 rounded-2xl border border-brand-pink/25 bg-brand-paper grid sm:grid-cols-12 gap-3 items-center">
+          <div class="sm:col-span-2 flex items-center gap-2">
+            ${s.image ? `<img src="${escapeAttr(s.image)}" class="w-10 h-10 rounded-xl object-cover border border-brand-pink/30 shrink-0" />` : `<span class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0" style="background:${escapeAttr(s.color || '#D470A2')}25">${escapeAttr(s.emoji || '🌸')}</span>`}
+            <div>
+              <label class="block text-[10px] font-bold text-brand-pinkDark cursor-pointer underline">
+                📷 Photo
+                <input type="file" accept="image/*" class="hidden" onchange="handleStemImageUpload(event, ${idx})" />
+              </label>
+              ${s.image ? `<button type="button" onclick="storeData.stems[${idx}].image = ''; persistAndRefreshLiveUI(); renderAdminInputs()" class="text-[10px] text-red-600 underline">Remove</button>` : ""}
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Flower / Stem Name</label>
+            <input type="text" value="${escapeAttr(s.name)}" oninput="storeData.stems[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold bg-white" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Price / Stem (৳)</label>
+            <input type="number" value="${Number(s.price)}" oninput="storeData.stems[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs font-bold text-brand-pinkDark bg-white" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Emoji Icon</label>
+            <input type="text" value="${escapeAttr(s.emoji || '🌸')}" oninput="storeData.stems[${idx}].emoji = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1.5 text-xs text-center bg-white" placeholder="🌷" />
+          </div>
+          <div class="sm:col-span-1">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Color</label>
+            <input type="color" value="${escapeAttr(s.color || '#D470A2')}" oninput="storeData.stems[${idx}].color = this.value; persistAndRefreshLiveUI()" class="w-full h-8 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5" />
+          </div>
+          <div class="sm:col-span-2 flex justify-end">
+            <button type="button" onclick="deleteStemRow(${idx})" class="px-3 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete</button>
+          </div>
+        </div>
+      `).join("");
+
+      const wrapsEl = document.getElementById("adminWrapsList");
+      wrapsEl.innerHTML = storeData.wraps.map((w, idx) => `
+        <div class="p-3.5 rounded-2xl border border-brand-sage/30 bg-brand-paper flex flex-col gap-2.5">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex-1">
+              <label class="block text-[10px] font-bold text-brand-ink/70">Wrapping Paper Name</label>
+              <input type="text" value="${escapeAttr(w.name)}" oninput="storeData.wraps[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-white" />
+            </div>
+            <button type="button" onclick="deleteWrapRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200 mt-3">🗑️ Delete</button>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] font-bold text-brand-ink/70">Wrap Price (৳)</label>
+              <input type="number" value="${Number(w.price)}" oninput="storeData.wraps[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold text-brand-pinkDark bg-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-brand-ink/70">Paper Accent Color</label>
+              <input type="color" value="${escapeAttr(w.color || '#F9DCE8')}" oninput="storeData.wraps[${idx}].color = this.value; persistAndRefreshLiveUI()" class="w-full h-7 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5" />
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      const palettesEl = document.getElementById("adminPalettesList");
+      palettesEl.innerHTML = storeData.palettes.map((pal, idx) => `
+        <div class="p-3 rounded-2xl border border-brand-pink/20 bg-brand-paper flex items-center justify-between gap-2.5">
+          <input type="color" value="${escapeAttr(pal.hex || '#D470A2')}" oninput="storeData.palettes[${idx}].hex = this.value; persistAndRefreshLiveUI()" class="w-9 h-9 rounded-lg border border-brand-pink/30 cursor-pointer bg-white p-0.5 shrink-0" />
+          <div class="flex-1">
+            <label class="block text-[10px] font-bold text-brand-ink/70">Palette Theme Name</label>
+            <input type="text" value="${escapeAttr(pal.name)}" oninput="storeData.palettes[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-white" />
+          </div>
+          <button type="button" onclick="deletePaletteRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200 mt-3">🗑️ Delete</button>
+        </div>
+      `).join("");
+
+      const addonsEl = document.getElementById("adminAddonsList");
+      addonsEl.innerHTML = storeData.addons.map((a, idx) => `
+        <div class="p-3.5 rounded-2xl border border-brand-pink/20 bg-brand-paper flex items-center justify-between gap-2.5">
+          <div class="flex-1 space-y-1.5">
+            <div>
+              <label class="block text-[10px] font-bold text-brand-ink/70">Add-on Title (with Emoji)</label>
+              <input type="text" value="${escapeAttr(a.name)}" oninput="storeData.addons[${idx}].name = this.value; persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold bg-white" />
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex-1">
+                <label class="block text-[10px] font-bold text-brand-ink/70">Add-on Price (৳)</label>
+                <input type="number" value="${Number(a.price)}" oninput="storeData.addons[${idx}].price = Number(this.value); persistAndRefreshLiveUI()" class="w-full rounded-lg border border-brand-pink/30 px-2.5 py-1 text-xs font-bold text-brand-pinkDark bg-white" />
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="deleteAddonRow(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-bold hover:bg-red-200">🗑️ Delete</button>
+        </div>
+      `).join("");
+
+      document.getElementById("adminWhatsapp").value = storeData.whatsappNumber || "";
+      document.getElementById("adminDeliveryInside").value = storeData.deliveryInsideDhaka ?? 70;
+      document.getElementById("adminDeliveryOutside").value = storeData.deliveryOutsideDhaka ?? 130;
+      document.getElementById("adminPinInput").value = storeData.adminPin || "2026";
+    }
+
+    // --- Product CRUD Helpers ---
+    function addNewProductRow() {
+      storeData.products.unshift({
+        id: "kp-" + Date.now(),
+        name: "New Handmade Bouquet",
+        category: storeData.categories[0] || "Bouquets",
+        price: 550,
+        badge: "New",
+        description: "Handcrafted 8mm fuzzy wire arrangement.",
+        image: "",
+        images: []
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New product added!");
+    }
+
+    function deleteProductRow(idx) {
+      storeData.products.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Product removed!");
+    }
+
+    function handleProductImageUpload(event, idx) {
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+      const p = storeData.products[idx];
+      normalizeProductImages(p);
+
+      let processed = 0;
+      files.forEach(file => {
+        compressFileToDataUrl(file, dataUrl => {
+          p.images.push(dataUrl);
+          p.image = p.images[0] || "";
+          processed++;
+          if (processed === files.length) {
+            persistAndRefreshLiveUI();
+            renderAdminInputs();
+            event.target.value = "";
+            showToast(`${files.length} photo(s) attached!`);
+          }
+        }, 650);
+      });
+    }
+
+    // --- Custom Builder Stems CRUD Helpers ---
+    function addNewStemRow() {
+      storeData.stems.unshift({
+        id: "stem-" + Date.now(),
+        name: "New Fuzzy Flower Stem",
+        price: 100,
+        emoji: "🌸",
+        color: "#D470A2",
+        image: ""
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New flower stem added at the top!");
+    }
+
+    function deleteStemRow(idx) {
+      const removed = storeData.stems[idx];
+      if (removed) delete customSelection.stems[removed.id];
+      storeData.stems.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Flower stem deleted!");
+    }
+
+    function handleStemImageUpload(event, idx) {
+      compressAndAssignImage(event, dataUrl => {
+        storeData.stems[idx].image = dataUrl;
+        persistAndRefreshLiveUI();
+        renderAdminInputs();
+        event.target.value = "";
+        showToast("Stem photo attached!");
+      }, 300);
+    }
+
+    // --- Custom Builder Wraps CRUD Helpers ---
+    function addNewWrapRow() {
+      storeData.wraps.push({
+        id: "wrap-" + Date.now(),
+        name: "New Wrapping Paper",
+        price: 60,
+        color: "#F9DCE8"
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New wrapping style added!");
+    }
+
+    function deleteWrapRow(idx) {
+      if (storeData.wraps.length <= 1) {
+        showToast("Keep at least 1 wrapping style.");
+        return;
+      }
+      storeData.wraps.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Wrapping style deleted!");
+    }
+
+    // --- Custom Builder Palettes CRUD Helpers ---
+    function addNewPaletteRow() {
+      storeData.palettes.push({
+        id: "pal-" + Date.now(),
+        name: "New Color Palette",
+        hex: "#D470A2"
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New color palette added!");
+    }
+
+    function deletePaletteRow(idx) {
+      if (storeData.palettes.length <= 1) {
+        showToast("Keep at least 1 color palette.");
+        return;
+      }
+      storeData.palettes.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Color palette deleted!");
+    }
+
+    // --- Custom Builder Add-ons CRUD Helpers ---
+    function addNewAddonRow() {
+      storeData.addons.push({
+        id: "addon-" + Date.now(),
+        name: "🦋 Golden Butterfly Clip",
+        price: 40,
+        isLights: false
+      });
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("New add-on added!");
+    }
+
+    function deleteAddonRow(idx) {
+      const removed = storeData.addons[idx];
+      if (removed) delete customSelection.addons[removed.id];
+      storeData.addons.splice(idx, 1);
+      persistAndRefreshLiveUI();
+      renderAdminInputs();
+      showToast("Add-on deleted!");
+    }
+
+    function compressFileToDataUrl(file, callback, maxDim = 650) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h *= maxDim / w; w = maxDim; }
+          else if (h > maxDim) { w *= maxDim / h; h = maxDim; }
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          callback(canvas.toDataURL("image/jpeg", 0.8));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function compressAndAssignImage(event, callback, maxDim = 650) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressFileToDataUrl(file, callback, maxDim);
+    }
+
+    function saveAdminChangesLocally(showMsg = true) {
+      syncStoreSettingsFromInputs();
+      if (showMsg) {
+        showToast("Saved! Go to Tab 3 and click 'Publish Live to GitHub Now' to push live.");
+      }
+    }
+
+    // Direct GitHub REST API Publisher
+    async function publishToGitHub() {
+      saveAdminChangesLocally(false);
+      const repoInputEl = document.getElementById("ghRepo");
+      const repo = cleanGitHubRepoSlug(repoInputEl.value);
+      repoInputEl.value = repo;
+
+      const branch = document.getElementById("ghBranch").value.trim() || "main";
+      const token = document.getElementById("ghToken").value.trim();
+      const statusEl = document.getElementById("ghStatusMsg");
+
+      if (!repo || !token) {
+        statusEl.textContent = "⚠️ Please enter both your GitHub Repository (username/repo) and Personal Access Token.";
+        return;
+      }
+
+      safeSetLocalStorage("kp_gh_config", JSON.stringify({ repo, branch, token }));
+      statusEl.textContent = "⏳ Connecting to GitHub and publishing store-data.json...";
+
+      const apiUrl = `https://api.github.com/repos/${repo}/contents/store-data.json`;
+      const headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": `Bearer ${token}`
+      };
+
+      try {
+        let existingSha = null;
+        const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, { headers });
+        if (getRes.ok) {
+          const fileMeta = await getRes.json();
+          existingSha = fileMeta.sha;
+        }
+
+        const jsonString = JSON.stringify(storeData, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+
+        const bodyPayload = {
+          message: "Update Kaarupushpo store data via Owner Studio v2.9",
+          content: base64Content,
+          branch: branch
+        };
+        if (existingSha) bodyPayload.sha = existingSha;
+
+        const putRes = await fetch(apiUrl, {
+          method: "PUT",
+          headers: { ...headers, "Content-Type": "application/json" },
+          body: JSON.stringify(bodyPayload)
+        });
+
+        if (putRes.ok) {
+          statusEl.textContent = "✅ Published live! store-data.json is now updated on GitHub.";
+          showToast("Published live to GitHub!");
+        } else {
+          const errData = await putRes.json();
+          statusEl.textContent = `❌ GitHub Error: ${errData.message || putRes.statusText}`;
+        }
+      } catch (error) {
+        statusEl.textContent = `❌ Network Error: ${error.message}`;
+      }
+    }
+
+    function downloadStoreJson() {
+      saveAdminChangesLocally(false);
+      const blob = new Blob([JSON.stringify(storeData, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "store-data.json";
+      a.click();
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById("toastBox");
+      box.textContent = msg;
+      box.classList.remove("hidden");
+      setTimeout(() => box.classList.add("hidden"), 3000);
+    }
+
+    window.addEventListener("DOMContentLoaded", initStore);
+  </script>
+</body>
+</html>
